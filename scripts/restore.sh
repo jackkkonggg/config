@@ -42,6 +42,7 @@ echo "==> Restoring configs from $REPO_DIR"
 
 # Claude Code
 safe_copy "$REPO_DIR/claude-code/settings.json" "$HOME/.claude/settings.json"
+safe_copy "$REPO_DIR/claude-code/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 safe_copy "$REPO_DIR/claude-code/notify.sh" "$HOME/.claude/notify.sh"
 safe_copy "$REPO_DIR/claude-code/statusline.sh" "$HOME/.claude/statusline.sh"
 chmod +x "$HOME/.claude/notify.sh" "$HOME/.claude/statusline.sh" 2>/dev/null || true

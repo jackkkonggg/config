@@ -8,6 +8,7 @@ echo "==> Backing up configs into $REPO_DIR"
 # Claude Code
 mkdir -p "$REPO_DIR/claude-code"
 cp "$HOME/.claude/settings.json" "$REPO_DIR/claude-code/settings.json" 2>/dev/null && echo "  claude-code/settings.json" || echo "  claude-code/settings.json (not found)"
+cp "$HOME/.claude/CLAUDE.md" "$REPO_DIR/claude-code/CLAUDE.md" 2>/dev/null && echo "  claude-code/CLAUDE.md" || echo "  claude-code/CLAUDE.md (not found)"
 cp "$HOME/.claude/notify.sh" "$REPO_DIR/claude-code/notify.sh" 2>/dev/null && echo "  claude-code/notify.sh" || echo "  claude-code/notify.sh (not found)"
 cp "$HOME/.claude/statusline.sh" "$REPO_DIR/claude-code/statusline.sh" 2>/dev/null && echo "  claude-code/statusline.sh" || echo "  claude-code/statusline.sh (not found)"
 

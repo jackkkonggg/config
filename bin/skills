@@ -24,6 +24,7 @@ Usage: skills <command> [args]
 Commands:
   install [--all|skill...]              Link repo skills globally
   add <source> [--skill name] [--list]  Clone/import skills into this repo
+  apply                                 Apply repo configs and install all skills
   sync-settings [branch-name]            Branch, fetch app settings, and show review diff
   update-repo                           Pull this repo, update vendor skills, reinstall all skills
   sync-vendor                           Sync vendored skills into skills/
@@ -199,6 +200,10 @@ case "$cmd" in
   add)
     shift
     add_repo_skill "$@"
+    ;;
+  apply)
+    shift
+    "$REPO_DIR/scripts/apply.sh" "$@"
     ;;
   update-repo)
     shift

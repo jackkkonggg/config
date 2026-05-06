@@ -16,6 +16,8 @@ scripts/         Automation (backup, restore, install, update)
 bin/             Global command entrypoints
 ```
 
+Claude Code's global instruction file is backed up as `claude-code/CLAUDE.md` and applied to `~/.claude/CLAUDE.md`.
+
 ## Skills CLI
 
 This repo owns an installable machine-level `skills` wrapper.
@@ -33,6 +35,14 @@ The command is symlinked to `~/.local/bin/skills`, which should be on `PATH`.
 ```bash
 skills install --all
 ```
+
+### Apply repo settings and skills
+
+```bash
+skills apply
+```
+
+This copies the current repo backups for Claude Code, Claude Desktop, Codex, and Zed into their live settings directories, then reinstalls all repo skills as global symlinks.
 
 ### Reinstall a single skill
 

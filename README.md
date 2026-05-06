@@ -38,6 +38,7 @@ bin/             Global command entrypoints
 | `skills install --all` | Link all repo skills into global agent skill directories |
 | `skills install <skill>` | Link one or more repo skills into global agent skill directories |
 | `skills add <source> ...` | Clone/import skills into this repo, then link from `skills/` |
+| `skills apply` | Copy repo Claude Code, Claude Desktop, Codex, and Zed configs into live settings directories, then install all repo skills |
 | `skills sync-settings [branch-name]` | Create/switch to a sync branch, fetch Claude/Codex/Claude Desktop/Zed settings, refresh skill links, and show changes for review |
 | `skills update-repo` | Pull this repo, update vendor submodules, sync vendor mirrors, reinstall skills |
 | `skills sync-vendor` | Sync vendor skill mirrors and regenerate patch files |
@@ -107,6 +108,7 @@ External skill repos are tracked as shallow git submodules in `vendor/`. Patched
 | Repo Path | Source | Notes |
 |---|---|---|
 | `claude-code/settings.json` | `~/.claude/settings.json` | Permissions, hooks, plugins |
+| `claude-code/CLAUDE.md` | `~/.claude/CLAUDE.md` | Global Claude Code instructions |
 | `claude-code/notify.sh` | `~/.claude/notify.sh` | Notification hook |
 | `claude-code/statusline.sh` | `~/.claude/statusline.sh` | Status line display |
 | `codex/config.toml.template` | `~/.codex/config.toml` | API key redacted |
@@ -139,6 +141,11 @@ git diff
 **Restore config only:**
 ```bash
 ./scripts/restore.sh
+```
+
+**Apply repo state to this machine:**
+```bash
+skills apply
 ```
 
 **Add a new vendor skill:**
