@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
+VENDOR_STATE_DIR="$REPO_DIR/.vendor-state"
+PRISTINE_ROOT="$VENDOR_STATE_DIR/pristine"
 source "$(dirname "$0")/lib.sh"
 
 usage() {
@@ -49,7 +51,7 @@ fi
 
 VENDOR_FULL="$REPO_DIR/$VENDOR_PATH"
 SKILL_DIR="$REPO_DIR/skills/$SKILL_NAME"
-PRISTINE_DIR="$SKILL_DIR/.pristine"
+PRISTINE_DIR="$PRISTINE_ROOT/$SKILL_NAME"
 
 if [ ! -d "$VENDOR_FULL" ] && [ ! -f "$VENDOR_FULL" ]; then
   echo "Error: vendor path not found: $VENDOR_FULL"
@@ -57,7 +59,7 @@ if [ ! -d "$VENDOR_FULL" ] && [ ! -f "$VENDOR_FULL" ]; then
 fi
 
 if [ -d "$PRISTINE_DIR" ]; then
-  echo "Error: $SKILL_NAME already has .pristine/ — use vendor-sync.sh to update"
+  echo "Error: $SKILL_NAME already has pristine vendor state — use vendor-sync.sh to update"
   exit 1
 fi
 
@@ -69,7 +71,9 @@ else
   echo "Importing $SKILL_NAME from $VENDOR_PATH"
 fi
 
-# Create .pristine/ from vendor
+mkdir -p "$PRISTINE_ROOT"
+
+# Create pristine state from vendor
 copy_vendor "$VENDOR_FULL" "$PRISTINE_DIR" "$FILE_MAP"
 
 # Copy to skill dir only if fresh import
@@ -84,10 +88,10 @@ HASH=$(compute_hash "$VENDOR_FULL")
 manifest_add "$MANIFEST" "$SKILL_NAME" "$VENDOR_PATH" "$HASH" "$FILE_MAP"
 
 if [ "$RETROACTIVE" = true ]; then
-  echo "  Created .pristine/ from vendor source"
-  echo "  Run vendor-sync.sh to generate vendor.patch"
+  echo "  Created pristine vendor state from source"
+  echo "  Run vendor-sync.sh to generate .vendor-state/patches/$SKILL_NAME.patch"
 else
   echo "  Copied to skills/$SKILL_NAME/"
-  echo "  Created .pristine/"
+  echo "  Created pristine vendor state"
 fi
 echo "  Hash: $HASH"

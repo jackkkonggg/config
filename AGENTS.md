@@ -3,48 +3,87 @@
 ## Repository Layout
 
 ```
-skills/          User-authored skills + extracted plugin commands
+skills/          Installable user-authored skills + patched vendor skills
+skills-cli/      Repo-owned skills add CLI derived from vercel-labs/skills
 vendor/          External skill repos (shallow git submodules)
-config/          IDE/tool config backups (Claude Code, Codex, Claude Desktop, Cursor)
+.vendor-state/   Vendor pristine copies and generated patches
+claude-code/     Claude Code config backups
+claude-desktop/  Claude Desktop config backups
+codex/           Codex config backups
+cursor/          Cursor config backups
+zed/             Zed config backups
 scripts/         Automation (backup, restore, install, update)
+bin/             Global command entrypoints
 ```
 
-## Reinstalling Skills
+## Skills CLI
 
-Skills install globally into `~/.agents/skills/` with symlinks from `~/.claude/skills/`.
+This repo owns an installable machine-level `skills` wrapper.
 
-**Always use `-g` (global).** Omitting it installs into the current project directory, which can replace repo source files with symlinks.
-
-### Reinstall all user-authored skills
+Install it once:
 
 ```bash
-pnpm dlx skills add jackkkonggg/skills --skill '*' -g --agent universal antigravity claude-code -y
+./scripts/install-cli.sh
+```
+
+The command is symlinked to `~/.local/bin/skills`, which should be on `PATH`.
+
+### Reinstall all repo skills
+
+```bash
+skills install --all
 ```
 
 ### Reinstall a single skill
 
 ```bash
-pnpm dlx skills add jackkkonggg/skills --skill <skill-name> -g --agent universal antigravity claude-code -y
+skills install <skill-name>
 ```
 
-### Reinstall all vendor skills
+### Create a custom skill
+
+Create custom skills directly in `skills/<skill-name>/SKILL.md`:
+
+```markdown
+---
+name: my-skill
+description: Use when the user asks for X, Y, or Z.
+---
+
+# My Skill
+
+Instructions the agent should follow when this skill is active.
+```
+
+Then link it into global agent skill directories:
 
 ```bash
-./scripts/install-skills.sh
+skills install my-skill
 ```
 
-### Check for updates
+### Add an external skill
 
 ```bash
-pnpm dlx skills check
-pnpm dlx skills update
+skills add <source> --skill <skill-name>
 ```
 
-### Update vendor submodules
+`skills add` is backed by this repo's local `skills-cli/` copy, derived from `vercel-labs/skills`. It keeps upstream-style source parsing and skill discovery, but it always imports into `skills/` and then links from this repo. It does not support project/global scope or agent-selection flags.
+
+### Update repo and skills
 
 ```bash
-./scripts/update.sh
+skills update-repo
 ```
+
+This pulls the repo, updates shallow vendor submodules, syncs patched vendor skill mirrors, and reinstalls all repo skills.
+
+### Sync app settings for review
+
+```bash
+skills sync-settings
+```
+
+This creates a new `sync/settings-YYYYMMDD-HHMMSS` branch, fetches Claude Code, Codex, Claude Desktop, and Zed settings into the repo, refreshes repo skill links, then prints `git status` so changes can be reviewed with `git diff`.
 
 ## Available User-Authored Skills
 
@@ -75,9 +114,19 @@ pnpm dlx skills update
 | `figma/mcp-server-guide` | create-design-system-rules, implement-design |
 | `garrytan/gstack` | browse, qa, review, ship, retro, plan-ceo-review, plan-eng-review, setup-browser-cookies |
 
+## Vendor Patch Workflow
+
+Patched vendor copies live under `skills/`. Pristine vendor state lives under `.vendor-state/pristine/`, and generated patch files live under `.vendor-state/patches/`.
+
+```bash
+skills sync-vendor
+```
+
+Do not put `.pristine` or `vendor.patch` files back inside installable skill directories.
+
 ## Config Backup & Restore
 
 ```bash
-./scripts/backup.sh    # system → repo (redacts secrets)
-./scripts/restore.sh   # repo → system (substitutes secrets from .env)
+./scripts/backup.sh    # system -> repo (redacts secrets)
+./scripts/restore.sh   # repo -> system (substitutes secrets from .env)
 ```

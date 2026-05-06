@@ -2,7 +2,6 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-CONFIG_DIR="$REPO_DIR/config"
 FORCE=false
 
 while getopts "f" opt; do
@@ -39,17 +38,17 @@ safe_copy() {
   echo "  copied: $dst"
 }
 
-echo "==> Restoring configs from $CONFIG_DIR"
+echo "==> Restoring configs from $REPO_DIR"
 
 # Claude Code
-safe_copy "$CONFIG_DIR/claude-code/settings.json" "$HOME/.claude/settings.json"
-safe_copy "$CONFIG_DIR/claude-code/notify.sh" "$HOME/.claude/notify.sh"
-safe_copy "$CONFIG_DIR/claude-code/statusline.sh" "$HOME/.claude/statusline.sh"
+safe_copy "$REPO_DIR/claude-code/settings.json" "$HOME/.claude/settings.json"
+safe_copy "$REPO_DIR/claude-code/notify.sh" "$HOME/.claude/notify.sh"
+safe_copy "$REPO_DIR/claude-code/statusline.sh" "$HOME/.claude/statusline.sh"
 chmod +x "$HOME/.claude/notify.sh" "$HOME/.claude/statusline.sh" 2>/dev/null || true
 
 # Codex
-safe_copy "$CONFIG_DIR/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
-if [ -f "$CONFIG_DIR/codex/config.toml.template" ]; then
+safe_copy "$REPO_DIR/codex/AGENTS.md" "$HOME/.codex/AGENTS.md"
+if [ -f "$REPO_DIR/codex/config.toml.template" ]; then
   # Load API key from .env or environment
   if [ -z "${CONTEXT7_API_KEY:-}" ] && [ -f "$REPO_DIR/.env" ]; then
     CONTEXT7_API_KEY=$(grep -E '^CONTEXT7_API_KEY=' "$REPO_DIR/.env" | cut -d= -f2- | tr -d '"' | tr -d "'")
@@ -59,7 +58,7 @@ if [ -f "$CONFIG_DIR/codex/config.toml.template" ]; then
   fi
   if [ -n "$CONTEXT7_API_KEY" ]; then
     sed "s|\${CONTEXT7_API_KEY}|$CONTEXT7_API_KEY|g" \
-      "$CONFIG_DIR/codex/config.toml.template" > /tmp/codex-config.toml
+      "$REPO_DIR/codex/config.toml.template" > /tmp/codex-config.toml
     safe_copy /tmp/codex-config.toml "$HOME/.codex/config.toml"
     rm -f /tmp/codex-config.toml
   else
@@ -69,16 +68,16 @@ fi
 
 # Claude Desktop
 CLAUDE_DESKTOP="$HOME/Library/Application Support/Claude"
-safe_copy "$CONFIG_DIR/claude-desktop/claude_desktop_config.json" "$CLAUDE_DESKTOP/claude_desktop_config.json"
+safe_copy "$REPO_DIR/claude-desktop/claude_desktop_config.json" "$CLAUDE_DESKTOP/claude_desktop_config.json"
 
 # Cursor
-safe_copy "$CONFIG_DIR/cursor/mcp.json" "$HOME/.cursor/mcp.json"
+safe_copy "$REPO_DIR/cursor/mcp.json" "$HOME/.cursor/mcp.json"
 
 # Zed
 mkdir -p "$HOME/.config/zed/themes"
-safe_copy "$CONFIG_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
-safe_copy "$CONFIG_DIR/zed/keymap.json" "$HOME/.config/zed/keymap.json"
-safe_copy "$CONFIG_DIR/zed/themes/dark-modern.json" "$HOME/.config/zed/themes/dark-modern.json"
+safe_copy "$REPO_DIR/zed/settings.json" "$HOME/.config/zed/settings.json"
+safe_copy "$REPO_DIR/zed/keymap.json" "$HOME/.config/zed/keymap.json"
+safe_copy "$REPO_DIR/zed/themes/dark-modern.json" "$HOME/.config/zed/themes/dark-modern.json"
 
 echo ""
 echo "==> Restore complete."

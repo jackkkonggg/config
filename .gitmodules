@@ -10,6 +10,7 @@
 	path = vendor/vercel-skills
 	url = https://github.com/vercel-labs/skills.git
 	shallow = true
+	branch = main
 [submodule "vendor/vercel-next-skills"]
 	path = vendor/vercel-next-skills
 	url = https://github.com/vercel-labs/next-skills.git
@@ -46,3 +47,9 @@
 	path = vendor/claude-plugins-official
 	url = https://github.com/anthropics/claude-plugins-official.git
 	shallow = true
+[submodule "vendor/emilkowalski-skill"]
+	path = vendor/emilkowalski-skill
+	url = https://github.com/emilkowalski/skill.git
+[submodule "vendor/mattpocock-skills"]
+	path = vendor/mattpocock-skills
+	url = https://github.com/mattpocock/skills.git

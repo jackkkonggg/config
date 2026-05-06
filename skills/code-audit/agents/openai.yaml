@@ -1,4 +1,0 @@
-interface:
-  display_name: "Code Audit"
-  short_description: "Structured codebase audit against best practices with auto-detection and Context7 doc loading."
-  default_prompt: "Use $code-audit to audit this repository against best practices."

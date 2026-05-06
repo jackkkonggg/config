@@ -1,4 +1,0 @@
-interface:
-  display_name: "grammY Best Practices"
-  short_description: "Production-safe patterns for grammY bots."
-  default_prompt: "Use $grammy-best-practices to review and improve this grammY bot change."

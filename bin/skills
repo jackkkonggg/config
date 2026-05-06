@@ -1,0 +1,227 @@
+#!/bin/bash
+set -euo pipefail
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  case "$SOURCE" in
+    /*) ;;
+    *) SOURCE="$DIR/$SOURCE" ;;
+  esac
+done
+REPO_DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
+MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
+LINK_TARGETS=(
+  "$HOME/.agents/skills"
+  "$HOME/.claude/skills"
+)
+
+usage() {
+  cat <<'EOF'
+Usage: skills <command> [args]
+
+Commands:
+  install [--all|skill...]              Link repo skills globally
+  add <source> [--skill name] [--list]  Clone/import skills into this repo
+  sync-settings [branch-name]            Branch, fetch app settings, and show review diff
+  update-repo                           Pull this repo, update vendor skills, reinstall all skills
+  sync-vendor                           Sync vendored skills into skills/
+  doctor                                Check local setup
+  help                                  Show this help
+
+The add command is backed by this repo's local skills-cli copy. It keeps
+upstream source parsing and skill discovery, but always imports into this
+repo's skills/ directory and links from there.
+EOF
+}
+
+skill_names() {
+  find "$REPO_DIR/skills" -mindepth 2 -maxdepth 2 -name SKILL.md -print |
+    sed "s#^$REPO_DIR/skills/##; s#/SKILL.md\$##" |
+    sort
+}
+
+link_skill() {
+  local skill="$1"
+  local src="$REPO_DIR/skills/$skill"
+
+  if [ ! -f "$src/SKILL.md" ]; then
+    echo "ERROR: unknown skill: $skill" >&2
+    return 1
+  fi
+
+  for target_root in "${LINK_TARGETS[@]}"; do
+    mkdir -p "$target_root"
+    if [ -e "$target_root/$skill" ] || [ -L "$target_root/$skill" ]; then
+      rm -rf "$target_root/$skill"
+    fi
+    ln -s "$src" "$target_root/$skill"
+  done
+}
+
+install_repo_skills() {
+  local skills=()
+
+  if [ "$#" -eq 0 ]; then
+    echo "Usage: skills install [--all|skill...]" >&2
+    return 1
+  fi
+
+  if [ "$1" = "--all" ]; then
+    while IFS= read -r skill; do
+      skills+=("$skill")
+    done < <(skill_names)
+  else
+    skills=("$@")
+  fi
+
+  if [ "${#skills[@]}" -eq 0 ]; then
+    echo "No skills found." >&2
+    return 1
+  fi
+
+  echo "==> Linking repo checkout into global agent skill directories"
+  for skill in "${skills[@]}"; do
+    link_skill "$skill"
+    echo "  $skill"
+  done
+
+  echo ""
+  echo "Installed ${#skills[@]} skill(s). Pull this repo to update linked skill content."
+}
+
+add_repo_skill() {
+  local cli_dir="$REPO_DIR/skills-cli"
+
+  if [ ! -f "$cli_dir/dist/cli.mjs" ]; then
+    echo "==> Building repo-owned skills CLI"
+    pnpm --dir "$cli_dir" install
+    pnpm --dir "$cli_dir" run build
+  fi
+
+  SKILLS_CONFIG_REPO_DIR="$REPO_DIR" node "$cli_dir/bin/cli.mjs" add "$@"
+}
+
+update_repo() {
+  cd "$REPO_DIR"
+  git pull --ff-only
+  git submodule update --init --remote --depth 1
+  "$REPO_DIR/scripts/vendor-sync.sh"
+  "$0" install --all
+}
+
+doctor() {
+  local status=0
+
+  echo "==> skills wrapper"
+  echo "  repo: $REPO_DIR"
+  echo "  command: ${0}"
+  if command -v skills >/dev/null 2>&1; then
+    echo "  PATH skills: $(command -v skills)"
+  else
+    echo "  PATH skills: not found"
+    status=1
+  fi
+
+  echo ""
+  echo "==> dependencies"
+  for dep in git node pnpm rsync; do
+    if command -v "$dep" >/dev/null 2>&1; then
+      echo "  $dep: $(command -v "$dep")"
+    else
+      echo "  $dep: missing"
+      status=1
+    fi
+  done
+
+  echo ""
+  echo "==> repo-owned skills cli"
+  if [ -f "$REPO_DIR/skills-cli/dist/cli.mjs" ]; then
+    echo "  ok: skills-cli/dist/cli.mjs"
+  else
+    echo "  missing: skills-cli/dist/cli.mjs (will be built on first skills add)"
+  fi
+
+  echo ""
+  echo "==> target directories"
+  for target_root in "${LINK_TARGETS[@]}"; do
+    if [ -d "$target_root" ]; then
+      echo "  ok: $target_root"
+    else
+      echo "  missing: $target_root"
+    fi
+  done
+
+  echo ""
+  echo "==> symlink health"
+  local target_root link_path target_path
+  for target_root in "${LINK_TARGETS[@]}"; do
+    [ -d "$target_root" ] || continue
+    while IFS= read -r link_path; do
+      target_path="$(readlink "$link_path")"
+      if [ -e "$target_path" ]; then
+        echo "  ok: $link_path -> $target_path"
+      else
+        echo "  broken: $link_path -> $target_path"
+        status=1
+      fi
+    done < <(find "$target_root" -maxdepth 1 -type l -print | sort)
+  done
+
+  echo ""
+  echo "==> vendor manifest"
+  if [ -f "$MANIFEST" ]; then
+    if python3 -m json.tool "$MANIFEST" >/dev/null; then
+      echo "  ok: $MANIFEST"
+    else
+      echo "  invalid json: $MANIFEST"
+      status=1
+    fi
+  else
+    echo "  missing: $MANIFEST"
+    status=1
+  fi
+
+  echo ""
+  echo "==> repo skills"
+  skill_names | sed 's/^/  /'
+
+  return "$status"
+}
+
+cmd="${1:-help}"
+case "$cmd" in
+  install)
+    shift
+    install_repo_skills "$@"
+    ;;
+  add)
+    shift
+    add_repo_skill "$@"
+    ;;
+  update-repo)
+    shift
+    update_repo "$@"
+    ;;
+  sync-vendor)
+    shift
+    "$REPO_DIR/scripts/vendor-sync.sh" "$@"
+    ;;
+  sync-settings)
+    shift
+    "$REPO_DIR/scripts/sync-settings.sh" "$@"
+    ;;
+  doctor)
+    shift
+    doctor "$@"
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  *)
+    echo "Unknown command: $cmd" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

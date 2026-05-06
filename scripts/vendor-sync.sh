@@ -3,6 +3,9 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
+VENDOR_STATE_DIR="$REPO_DIR/.vendor-state"
+PRISTINE_ROOT="$VENDOR_STATE_DIR/pristine"
+PATCH_ROOT="$VENDOR_STATE_DIR/patches"
 source "$(dirname "$0")/lib.sh"
 
 if [ ! -f "$MANIFEST" ]; then
@@ -20,6 +23,7 @@ cleanup() { [ -n "${TEMP_DIR:-}" ] && rm -rf "$TEMP_DIR" || true; }
 trap cleanup EXIT
 
 echo "==> Syncing vendor skills"
+mkdir -p "$PRISTINE_ROOT" "$PATCH_ROOT"
 
 while IFS= read -r skill; do
   VENDOR_PATH=$(manifest_get "$MANIFEST" "$skill" "vendor_path")
@@ -28,21 +32,21 @@ while IFS= read -r skill; do
 
   VENDOR_FULL="$REPO_DIR/$VENDOR_PATH"
   SKILL_DIR="$REPO_DIR/skills/$skill"
-  PRISTINE_DIR="$SKILL_DIR/.pristine"
+  PRISTINE_DIR="$PRISTINE_ROOT/$skill"
 
   if [ ! -d "$VENDOR_FULL" ] && [ ! -f "$VENDOR_FULL" ]; then
     echo "  WARN: vendor path missing for $skill: $VENDOR_PATH"
     continue
   fi
   if [ ! -d "$PRISTINE_DIR" ]; then
-    echo "  WARN: no .pristine/ for $skill, skipping"
+    echo "  WARN: no pristine vendor state for $skill, skipping"
     continue
   fi
 
   # Step 1: Generate vendor.patch for documentation
-  PATCH_FILE="$SKILL_DIR/vendor.patch"
+  PATCH_FILE="$PATCH_ROOT/$skill.patch"
   TEMP_DIR=$(mktemp -d)
-  rsync -a --exclude='.pristine' --exclude='vendor.patch' "$SKILL_DIR/" "$TEMP_DIR/current/"
+  rsync -a "$SKILL_DIR/" "$TEMP_DIR/current/"
   cp -R "$PRISTINE_DIR/" "$TEMP_DIR/pristine/"
   DIFF_OUTPUT=$(cd "$TEMP_DIR" && git diff --no-index pristine/ current/ 2>/dev/null || true)
 
@@ -72,7 +76,7 @@ while IFS= read -r skill; do
   OLD_PRISTINE="$TEMP_DIR/old_pristine"
   cp -R "$PRISTINE_DIR/" "$OLD_PRISTINE/"
 
-  # Prepare new pristine in temp (don't update .pristine until merge succeeds)
+    # Prepare new pristine in temp (don't update vendor state until merge succeeds)
   NEW_PRISTINE="$TEMP_DIR/new_pristine"
   copy_vendor "$VENDOR_FULL" "$NEW_PRISTINE" "$FILE_MAP"
 
@@ -136,7 +140,7 @@ while IFS= read -r skill; do
       fi
     done < <(find "$OLD_PRISTINE" -type f -print0)
 
-    # Update .pristine only after successful merge
+    # Update pristine vendor state only after successful merge
     rm -rf "$PRISTINE_DIR"
     mv "$NEW_PRISTINE" "$PRISTINE_DIR"
 

@@ -1,4 +1,0 @@
-interface:
-  display_name: "TypeScript Clean Code"
-  short_description: "Clean Code principles adapted for idiomatic TypeScript."
-  default_prompt: "Use $typescript-clean-code to review and improve this TypeScript code."

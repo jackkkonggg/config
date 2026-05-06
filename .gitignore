@@ -20,7 +20,8 @@ build/
 # Env / Secrets
 .env
 .env.*
-config/codex/config.toml
+!.env.example
+codex/config.toml
 
 # Logs
 *.log
