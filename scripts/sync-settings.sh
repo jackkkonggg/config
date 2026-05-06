@@ -33,7 +33,9 @@ cp "$HOME/.claude/statusline.sh" "$REPO_DIR/claude-code/statusline.sh" 2>/dev/nu
 # Codex
 mkdir -p "$REPO_DIR/codex"
 if [ -f "$HOME/.codex/config.toml" ]; then
-  sed 's/CONTEXT7_API_KEY = "ctx7sk-[^"]*"/CONTEXT7_API_KEY = "${CONTEXT7_API_KEY}"/' \
+  sed \
+    -e 's/CONTEXT7_API_KEY = "ctx7sk-[^"]*"/CONTEXT7_API_KEY = "${CONTEXT7_API_KEY}"/' \
+    -e 's/"--api-key", "ctx7sk-[^"]*"/"--api-key", "${CONTEXT7_API_KEY}"/' \
     "$HOME/.codex/config.toml" > "$REPO_DIR/codex/config.toml.template"
   echo "  codex/config.toml.template (redacted)"
 else

@@ -15,6 +15,7 @@
     }
   },
   "theme": "dark",
+  "skillListingBudgetFraction": 0.04,
   "skipAutoPermissionPrompt": true,
   "skipDangerousModePermissionPrompt": true,
   "statusLine": {

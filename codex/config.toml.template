@@ -86,7 +86,7 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [tui.model_availability_nux]
-"gpt-5.5" = 1
+"gpt-5.5" = 2
 
 [features]
 memories = false
@@ -98,3 +98,7 @@ use_memories = false
 
 [mcp_servers.figma-local]
 url = "http://127.0.0.1:3845/mcp"
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp", "--api-key", "${CONTEXT7_API_KEY}"]
