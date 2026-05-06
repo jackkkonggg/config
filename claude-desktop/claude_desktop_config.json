@@ -1,21 +1,10 @@
 {
   "preferences": {
-    "ccBranchPrefix": "agent",
+    "coworkWebSearchEnabled": true,
+    "sidebarMode": "chat",
     "coworkScheduledTasksEnabled": true,
     "ccdScheduledTasksEnabled": true,
-    "sidebarMode": "chat",
-    "bypassPermissionsModeEnabled": true,
-    "coworkWebSearchEnabled": true
-  },
-  "mcpServers": {
-    "pencil": {
-      "command": "/Applications/Pencil.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64",
-      "args": [
-        "--app",
-        "desktop"
-      ],
-      "env": {},
-      "type": "stdio"
-    }
+    "quickEntryShortcut": "off",
+    "menuBarEnabled": false
   }
 }

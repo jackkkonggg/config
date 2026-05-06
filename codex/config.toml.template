@@ -1,25 +1,100 @@
-sandbox_mode = "danger-full-access"
-approval_policy = "untrusted"
-model = "gpt-5.4"
-model_reasoning_effort = "high"
+model = "gpt-5.5"
+model_reasoning_effort = "low"
 
-[mcp_servers.figma]
-url = "https://mcp.figma.com/mcp"
+notify = ["/Users/jq/.codex/plugins/cache/openai-bundled/computer-use/1.0.770/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
 
-[mcp_servers.context7]
+[marketplaces.openai-bundled]
+last_updated = "2026-05-06T15:25:31Z"
+source_type = "local"
+source = "/Users/jq/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-05-06T02:45:18Z"
+source_type = "local"
+source = "/Users/jq/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."documents@openai-primary-runtime"]
 enabled = true
-url = "https://mcp.context7.com/mcp"
 
-[mcp_servers.context7.http_headers]
-CONTEXT7_API_KEY = "${CONTEXT7_API_KEY}"
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
 
-[mcp_servers.playwright]
-args = [ "@playwright/mcp@latest" ]
-command = "npx"
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
 
-[mcp_servers.pencil]
-command = "/Applications/Pencil.app/Contents/Resources/app.asar.unpacked/out/mcp-server-darwin-arm64"
-args = [ "--app", "desktop" ]
+[plugins."computer-use@openai-bundled"]
+enabled = true
 
-[sandbox_workspace_write]
-network_access = true
+[plugins."build-macos-apps@openai-curated"]
+enabled = true
+
+[plugins."codex-security@openai-curated"]
+enabled = true
+
+[plugins."hyperframes@openai-curated"]
+enabled = true
+
+[plugins."build-web-apps@openai-curated"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."browser-use@openai-bundled"]
+enabled = true
+
+[projects."/Users/jq"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-02/https-docs-github-com-en-authentication"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-02/i-ve-an-interview-with-antarctica"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-03/https-github-com-jackkkonggg-skills-tree"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-03/asus-routers-are-able-to-setup"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/nota/nota-landing-page"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/TelegramSwift"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-04/where-are-the-skills-installed-for"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-04/for-notion-mail-can-i-connect"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/dwf-monorepo"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-05/could-you-create-2-aliases-in"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/config"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/falcon/falcon-website"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-07/what-are-my-skill-and-yes"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 1
+
+[features]
+memories = false
+chronicle = false
+
+[memories]
+generate_memories = false
+use_memories = false
+
+[mcp_servers.figma-local]
+url = "http://127.0.0.1:3845/mcp"
