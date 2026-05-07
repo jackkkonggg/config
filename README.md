@@ -40,7 +40,7 @@ bin/             Global command entrypoints
 | `skills add <source> ...` | Clone/import skills into this repo, then link from `skills/` |
 | `skills apply` | Copy repo Claude Code, Claude Desktop, Codex, and Zed configs into live settings directories, then install all repo skills |
 | `skills sync-settings [branch-name]` | Create/switch to a sync branch, fetch Claude/Codex/Claude Desktop/Zed settings, refresh skill links, and show changes for review |
-| `skills update-repo` | Pull this repo, update vendor submodules, sync vendor mirrors, reinstall skills |
+| `skills update-repo` | Pull this repo, check vendor skill sources for updates, sync vendor mirrors, reinstall skills |
 | `skills sync-vendor` | Sync vendor skill mirrors and regenerate patch files |
 | `skills doctor` | Check local dependencies, command installation, target dirs, repo skills, and symlinks |
 
@@ -88,6 +88,14 @@ skills install --all
 
 External skill repos are tracked as shallow git submodules in `vendor/`. Patched installable copies live in `skills/`; pristine vendor copies and generated patches live in `.vendor-state/`.
 
+To check for updates from the original vendor git sources and refresh installed skills, run:
+
+```bash
+skills update-repo
+```
+
+This pulls the config repo, updates the shallow vendor submodules, syncs patched vendor mirrors, and reinstalls all repo skills.
+
 | Submodule | Source | Skills |
 |---|---|---|
 | `vercel-agent-skills` | vercel-labs/agent-skills | react-best-practices, web-design-guidelines, composition-patterns |
@@ -111,7 +119,7 @@ External skill repos are tracked as shallow git submodules in `vendor/`. Patched
 | `claude-code/CLAUDE.md` | `~/.claude/CLAUDE.md` | Global Claude Code instructions |
 | `claude-code/notify.sh` | `~/.claude/notify.sh` | Notification hook |
 | `claude-code/statusline.sh` | `~/.claude/statusline.sh` | Status line display |
-| `codex/config.toml.template` | `~/.codex/config.toml` | API key redacted |
+| `codex/config.toml.template` | `~/.codex/config.toml` | Context7 API key redacted as `${CONTEXT7_API_KEY}` |
 | `codex/AGENTS.md` | `~/.codex/AGENTS.md` | Agent guidelines |
 | `claude-desktop/claude_desktop_config.json` | Claude Desktop app | MCP server config |
 | `cursor/mcp.json` | `~/.cursor/mcp.json` | MCP server config |
@@ -126,6 +134,8 @@ External skill repos are tracked as shallow git submodules in `vendor/`. Patched
 skills sync-settings
 git add -A && git commit -m "chore: sync agent settings"
 ```
+
+`skills sync-settings` and `./scripts/backup.sh` redact Context7 keys from both `CONTEXT7_API_KEY = "ctx7sk-..."` assignments and `--api-key "ctx7sk-..."` MCP arguments before writing `codex/config.toml.template`.
 
 **Sync settings for review:**
 ```bash

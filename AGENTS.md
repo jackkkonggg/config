@@ -85,7 +85,7 @@ skills add <source> --skill <skill-name>
 skills update-repo
 ```
 
-This pulls the repo, updates shallow vendor submodules, syncs patched vendor skill mirrors, and reinstalls all repo skills.
+Use this to check for updates from the original vendor git sources. It pulls the repo, updates shallow vendor submodules, syncs patched vendor skill mirrors, and reinstalls all repo skills.
 
 ### Sync app settings for review
 
@@ -140,3 +140,5 @@ Do not put `.pristine` or `vendor.patch` files back inside installable skill dir
 ./scripts/backup.sh    # system -> repo (redacts secrets)
 ./scripts/restore.sh   # repo -> system (substitutes secrets from .env)
 ```
+
+Codex config is stored as `codex/config.toml.template`. Backup and sync scripts redact Context7 keys as `${CONTEXT7_API_KEY}` from both `CONTEXT7_API_KEY = "ctx7sk-..."` assignments and `--api-key "ctx7sk-..."` MCP arguments.
