@@ -217,7 +217,21 @@ async function prepareRemoteSource(
 ): Promise<string> {
   const existingSubmodule = findExistingSubmodule(configRepoDir, url);
   if (existingSubmodule && existsSync(existingSubmodule)) {
-    p.log.info(`Reusing vendor source: ${toRepoRelative(configRepoDir, existingSubmodule)}`);
+    const submodulePath = toRepoRelative(configRepoDir, existingSubmodule);
+    p.log.info(`Updating vendor source: ${submodulePath}`);
+    try {
+      const updateArgs = ['submodule', 'update', '--init', '--remote', '--depth', '1'];
+      if (ref) updateArgs.push('--checkout');
+      updateArgs.push(submodulePath);
+      run('git', updateArgs, configRepoDir);
+
+      if (ref) {
+        run('git', ['fetch', '--depth', '1', 'origin', ref], existingSubmodule);
+        run('git', ['checkout', 'FETCH_HEAD'], existingSubmodule);
+      }
+    } catch {
+      p.log.warn(`Could not update ${submodulePath}; reusing current checkout`);
+    }
     return existingSubmodule;
   }
 
@@ -406,7 +420,7 @@ export async function runRepoAdd(args: string[], options: AddOptions): Promise<v
   const includeInternal = !!(options.skill && options.skill.length > 0);
   const skills = await discoverSkills(sourceRoot, searchSubpath, {
     includeInternal,
-    fullDepth: options.fullDepth,
+    fullDepth: options.fullDepth || includeInternal,
   });
 
   if (skills.length === 0) {
