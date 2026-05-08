@@ -59,6 +59,10 @@
     "vendor_path": "vendor/mattpocock-skills/skills/engineering/grill-with-docs",
     "hash": "b8aa6019536607a59ed665e75108a0b04a295365997036a3f5ebc55ed9b07e06"
   },
+  "handoff": {
+    "vendor_path": "vendor/mattpocock-skills/skills/in-progress/handoff",
+    "hash": "dd07215fc3994f8c4ca06fd7e47d5f0ff50f6e624e6b45458745aec93f722c1c"
+  },
   "improve-codebase-architecture": {
     "vendor_path": "vendor/mattpocock-skills/skills/engineering/improve-codebase-architecture",
     "hash": "849153657250a0ec92717b7b07180d088b623a135687d0c02654c670f42f4e52"
