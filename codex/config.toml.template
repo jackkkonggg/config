@@ -102,3 +102,10 @@ url = "http://127.0.0.1:3845/mcp"
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "@upstash/context7-mcp", "--api-key", "${CONTEXT7_API_KEY}"]
+
+[mcp_servers.motion]
+command = "npx"
+args = ["-y", "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=6.2.0"]
+
+[mcp_servers.motion.env]
+TOKEN = "${MOTION_TOKEN}"

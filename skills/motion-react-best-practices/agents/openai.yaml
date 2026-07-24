@@ -1,4 +1,0 @@
-interface:
-  display_name: "Motion React Best Practices"
-  short_description: "Reliable patterns for Motion integration in React."
-  default_prompt: "Use $motion-react-best-practices to review and improve this React + Motion change."

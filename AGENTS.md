@@ -11,6 +11,7 @@ claude-code/     Claude Code config backups
 claude-desktop/  Claude Desktop config backups
 codex/           Codex config backups
 cursor/          Cursor config backups
+opencode/        OpenCode config backups
 zed/             Zed config backups
 scripts/         Automation (backup, restore, install, update)
 bin/             Global command entrypoints
@@ -103,7 +104,7 @@ This creates a new `sync/settings-YYYYMMDD-HHMMSS` branch, fetches Claude Code, 
 | `convex-best-practices` | Convex backend rules (functions, schema, database, auth, scheduling) |
 | `grammy-best-practices` | grammY Telegram bot framework patterns |
 | `gsap-best-practices` | GSAP animation rules (core, timelines, ScrollTrigger, plugins, utils) |
-| `motion-react-best-practices` | Motion React setup, variants, presence, layout, gestures, scroll |
+| `motion` | Official Motion AI Kit skill for animation guidance, docs, examples, springs, previews, and performance audits |
 | `react-gsap-best-practices` | React + GSAP lifecycle-safe patterns (useGSAP, contextSafe, SSR) |
 | `typescript-clean-code` | Clean Code principles adapted for TypeScript |
 | `react-doctor` | Scan React code for security, performance, correctness issues |
@@ -141,4 +142,4 @@ Do not put `.pristine` or `vendor.patch` files back inside installable skill dir
 ./scripts/restore.sh   # repo -> system (substitutes secrets from .env)
 ```
 
-Codex config is stored as `codex/config.toml.template`. Backup and sync scripts redact Context7 keys as `${CONTEXT7_API_KEY}` from both `CONTEXT7_API_KEY = "ctx7sk-..."` assignments and `--api-key "ctx7sk-..."` MCP arguments.
+Codex config is stored as `codex/config.toml.template`. Claude Code's Motion MCP entry is stored as `claude-code/mcp.json.template`. OpenCode config is stored as `opencode/opencode.jsonc.template`. Backup and sync scripts redact Context7 and Motion keys; restore substitutes them from the environment or `.env`.

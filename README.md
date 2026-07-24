@@ -26,6 +26,7 @@ claude-code/     Claude Code config backups
 claude-desktop/  Claude Desktop config backups
 codex/           Codex config backups
 cursor/          Cursor config backups
+opencode/        OpenCode config backups
 zed/             Zed config backups
 scripts/         Automation (backup, restore, install, update)
 bin/             Global command entrypoints
@@ -79,7 +80,7 @@ skills install --all
 | `convex-best-practices` | Convex backend rules (functions, schema, database, auth) |
 | `grammy-best-practices` | grammY Telegram bot framework patterns |
 | `gsap-best-practices` | GSAP animation rules (core, timelines, ScrollTrigger, plugins) |
-| `motion-react-best-practices` | Motion React setup, variants, presence, gestures, scroll |
+| `motion` | Official Motion AI Kit skill for animation guidance, docs, examples, springs, previews, and performance audits |
 | `react-gsap-best-practices` | React + GSAP lifecycle-safe patterns |
 | `typescript-clean-code` | Clean Code principles for TypeScript |
 | `react-doctor` | Scan React code for security, performance, and correctness |
@@ -119,10 +120,12 @@ This pulls the config repo, updates the shallow vendor submodules, syncs patched
 | `claude-code/CLAUDE.md` | `~/.claude/CLAUDE.md` | Global Claude Code instructions |
 | `claude-code/notify.sh` | `~/.claude/notify.sh` | Notification hook |
 | `claude-code/statusline.sh` | `~/.claude/statusline.sh` | Status line display |
-| `codex/config.toml.template` | `~/.codex/config.toml` | Context7 API key redacted as `${CONTEXT7_API_KEY}` |
+| `claude-code/mcp.json.template` | `~/.claude.json` | Motion MCP entry with `${MOTION_TOKEN}` substituted on restore |
+| `codex/config.toml.template` | `~/.codex/config.toml` | Context7 and Motion API keys substituted on restore |
 | `codex/AGENTS.md` | `~/.codex/AGENTS.md` | Agent guidelines |
 | `claude-desktop/claude_desktop_config.json` | Claude Desktop app | MCP server config |
 | `cursor/mcp.json` | `~/.cursor/mcp.json` | MCP server config |
+| `opencode/opencode.jsonc.template` | `~/.config/opencode/opencode.jsonc` | Motion MCP entry with `${MOTION_TOKEN}` substituted on restore |
 | `zed/settings.json` | `~/.config/zed/settings.json` | Editor settings |
 | `zed/keymap.json` | `~/.config/zed/keymap.json` | Key bindings |
 | `zed/themes/dark-modern.json` | `~/.config/zed/themes/dark-modern.json` | Custom Dark Modern theme |
@@ -135,7 +138,7 @@ skills sync-settings
 git add -A && git commit -m "chore: sync agent settings"
 ```
 
-`skills sync-settings` and `./scripts/backup.sh` redact Context7 keys from both `CONTEXT7_API_KEY = "ctx7sk-..."` assignments and `--api-key "ctx7sk-..."` MCP arguments before writing `codex/config.toml.template`.
+`skills sync-settings` and `./scripts/backup.sh` redact Context7 and Motion keys before writing their templates. `./scripts/restore.sh` reads `CONTEXT7_API_KEY` and `MOTION_TOKEN` from the environment or `.env`.
 
 **Sync settings for review:**
 ```bash
