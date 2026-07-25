@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "expected_repo_selectors": 26,
+  "max_description_characters": 4000,
+  "max_skill_description_characters": 140,
+  "max_router_words": 250,
+  "router_skills": [
+    "visual-design",
+    "motion-design",
+    "react-engineering",
+    "explain-codebase",
+    "gsap-best-practices",
+    "figma-project-rules"
+  ],
+  "groups": [
+    {
+      "id": "figma",
+      "label": "Figma",
+      "skills": ["figma-project-rules"],
+      "external_providers": [
+        {
+          "id": "figma@openai-curated",
+          "config": "codex/config.toml.template"
+        },
+        {
+          "id": "figma@claude-plugins-official",
+          "config": "claude-code/settings.json",
+          "format": "claude_enabled_plugins"
+        }
+      ]
+    },
+    {
+      "id": "ui-craft",
+      "label": "UI craft",
+      "skills": [
+        "visual-design",
+        "motion-design",
+        "frontend-design",
+        "web-design-guidelines"
+      ]
+    },
+    {
+      "id": "animation-implementation",
+      "label": "Animation implementation",
+      "skills": ["motion", "gsap-best-practices"]
+    },
+    {
+      "id": "react-engineering",
+      "label": "React engineering",
+      "skills": ["react-engineering", "next-best-practices", "shadcn"]
+    },
+    {
+      "id": "language-backend",
+      "label": "Language and backend",
+      "skills": ["typescript-best-practices", "convex-best-practices"]
+    },
+    {
+      "id": "agent-workflows",
+      "label": "Agent workflows",
+      "skills": [
+        "poteto-mode",
+        "architect",
+        "arena",
+        "explain-codebase",
+        "figure-it-out",
+        "interrogate",
+        "recall",
+        "reflect",
+        "show-me-your-work"
+      ]
+    },
+    {
+      "id": "engineering-assurance",
+      "label": "Engineering assurance",
+      "skills": ["blast-radius", "improve-codebase-architecture", "tdd"]
+    },
+    {
+      "id": "utilities",
+      "label": "Utilities",
+      "skills": ["agent-browser", "commit"]
+    }
+  ],
+  "retired_skills": [
+    "animation-vocabulary",
+    "apple-design",
+    "better-colors",
+    "better-typography",
+    "better-ui",
+    "figma-code-connect",
+    "figma-create-design-system-rules",
+    "figma-create-new-file",
+    "figma-generate-design",
+    "figma-generate-diagram",
+    "figma-generate-library",
+    "figma-implement-design",
+    "figma-use",
+    "figma-use-figjam",
+    "find-animation-opportunities",
+    "how",
+    "improve-animations",
+    "react-gsap-best-practices",
+    "review-animations",
+    "vercel-composition-patterns",
+    "vercel-react-best-practices",
+    "why"
+  ]
+}

@@ -3,14 +3,6 @@
     "hash": "c19a532a3777698b80b35270939a1dc559da451381971b3e1e78174d1ab54863",
     "vendor_path": "vendor/vercel-labs-agent-browser/skills/agent-browser"
   },
-  "animation-vocabulary": {
-    "hash": "16bfb5a10b42c4c2dfeb15c3705f9a2de774b33bf4ae055305130d4abff4b16b",
-    "vendor_path": "vendor/emilkowalski-skills/skills/animation-vocabulary"
-  },
-  "apple-design": {
-    "hash": "8d5d6949abe176aed835dc259e91470b6ee219f2bc2af92784a7f072a2e50ed0",
-    "vendor_path": "vendor/emilkowalski-skills/skills/apple-design"
-  },
   "architect": {
     "hash": "884d6e77797c5b6d173286e216e3e7e62640751455617ab016567996210fbc12",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/architect"
@@ -19,77 +11,17 @@
     "hash": "acec86f25fa08a96bc260b47cf3c83a82e6055233af9a2ea0cc54e1a5734a69c",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/arena"
   },
-  "better-colors": {
-    "hash": "993ea9cb2662cfa529b3a231beb13fa5677b8e4ced21c4b0ef84a6f5da7d5543",
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-colors"
-  },
-  "better-typography": {
-    "hash": "a6a81a488dfa8efb27260de465de202f3e875470ccf38b52db7a51743c564acb",
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-typography"
-  },
-  "better-ui": {
-    "hash": "66f4f4517e12af98f9c84a001bf808ed50060d2fbfb4a87969285d73d501417c",
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-ui"
-  },
   "blast-radius": {
     "hash": "e80b1eccf103a6b26d8d8eea894ea6026f7f47302a1c97c169c9d9f819f7a5b4",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/blast-radius"
-  },
-  "figma-code-connect": {
-    "hash": "126591784e864f3896c05cdec88e68b266cad80589dbc06a8319423ee0d75dee",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-code-connect"
-  },
-  "figma-create-design-system-rules": {
-    "hash": "6221097642d9bee32d5a21002a907529f33cd8832a31be54804f4a38d3405d8d",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-design-system-rules"
-  },
-  "figma-create-new-file": {
-    "hash": "dab98e9b2d252695870629caeb4aa66e664080add1d4a1ad73ddadcd08ee14d4",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-new-file"
-  },
-  "figma-generate-design": {
-    "hash": "2f2e1b8f174c5a3e714aa4d3861c2c2cf0456ee65148084acd79c8d0b1124560",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-design"
-  },
-  "figma-generate-diagram": {
-    "hash": "8ea568b0485da21b6ee4f3a47d46a59b4545b2c5f76a152b04c48914a16e4c95",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-diagram"
-  },
-  "figma-generate-library": {
-    "hash": "7be1bb70dd2e4a5b5d65a486390f1437ea67bdd83847335f47b53475bf144c9a",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-library"
-  },
-  "figma-implement-design": {
-    "hash": "de43b2df73d541a1f44ca2799fa93ab465311255637e8fb6232dad408d04f9d9",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-implement-design"
-  },
-  "figma-use": {
-    "hash": "2638718570a194215bd82782720639635b488c6b7f502d0df2f6f789ebec47e7",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use"
-  },
-  "figma-use-figjam": {
-    "hash": "df2fd98b03120c8c0637f9ca456d0f7a66f2a1fadd1b97a1ed6bd2153558667d",
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use-figjam"
   },
   "figure-it-out": {
     "hash": "cc198f6fdf28cc072865dc71e3cf21030e6d3ae4136de5ef12ac80d2da0a1e06",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/figure-it-out"
   },
-  "find-animation-opportunities": {
-    "hash": "83a8d4767cad74886eca6f621793a777ae8079018482e25aea1be9254650a961",
-    "vendor_path": "vendor/emilkowalski-skills/skills/find-animation-opportunities"
-  },
   "frontend-design": {
     "hash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b",
     "vendor_path": "vendor/anthropics-skills/skills/frontend-design"
-  },
-  "how": {
-    "hash": "fe4c55e99cda04de565f6d9cab561dea9b1d3ca40bfdbbfa80ea4a8693563310",
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/how"
-  },
-  "improve-animations": {
-    "hash": "2a371396644801d45c708e95cbff02cf1b0f2dca238abbdbb0abb09d5a42974e",
-    "vendor_path": "vendor/emilkowalski-skills/skills/improve-animations"
   },
   "improve-codebase-architecture": {
     "hash": "849153657250a0ec92717b7b07180d088b623a135687d0c02654c670f42f4e52",
@@ -115,10 +47,6 @@
     "hash": "c151203d4225fb71b967b132d6cb4e32463d79a2a0b3cf470cd5a4800ee5d8b4",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/reflect"
   },
-  "review-animations": {
-    "hash": "abe6b4b12653e48de5669c73b46b007855e872458d0ae232e24753c2eca909f2",
-    "vendor_path": "vendor/emilkowalski-skills/skills/review-animations"
-  },
   "shadcn": {
     "hash": "b87be74fe12b6def2cd5e7ba8014431b9815c72cc1988d574e762d15914158cd",
     "vendor_path": "vendor/shadcn-ui/skills/shadcn"
@@ -135,20 +63,8 @@
     "hash": "2847d9dd3a8432dba1f20ba2427d3866aa78c8151c715821afb63d46594d6185",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/typescript-best-practices"
   },
-  "vercel-composition-patterns": {
-    "hash": "646f870906914c3787efa7403ec4716dfddf78fc17a12ec1f0556caf2143ac66",
-    "vendor_path": "vendor/vercel-labs-agent-skills/skills/composition-patterns"
-  },
-  "vercel-react-best-practices": {
-    "hash": "e3f2294574b469c7c198373a443a86571012769d0bbeed68854bd55642ec0d7b",
-    "vendor_path": "vendor/vercel-labs-agent-skills/skills/react-best-practices"
-  },
   "web-design-guidelines": {
     "hash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474",
     "vendor_path": "vendor/vercel-labs-agent-skills/skills/web-design-guidelines"
-  },
-  "why": {
-    "hash": "cf28a3998c04862ba5b9dc9b20f69bca1e3e9d4e1fdd0e6d01b41f56fad14a60",
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/why"
   }
 }

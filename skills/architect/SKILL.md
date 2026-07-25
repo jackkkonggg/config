@@ -1,6 +1,6 @@
 ---
 name: architect
-description: "Sketch types, signatures, and module structure before code, then stay in the loop while implementation fills in. Use for /architect, 'architect this', 'design this', or non-trivial work where jumping to code would lock in the wrong shape."
+description: Use to sketch types, signatures, and module boundaries before implementing a nontrivial design.
 disable-model-invocation: true
 ---
 
@@ -20,9 +20,15 @@ Open a todolist with one entry per phase before starting. Autonomous mode withou
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run the **how** skill over the relevant subsystems. Critique mode if existing structure is the constraint or the design must push back on it.
+Build a real mental model of every system the new code touches. Run
+**explain-codebase** in How mode over the relevant subsystems. Critique the
+result if existing structure is the constraint or the design must push back on
+it.
 
-Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
+Naming a file isn't grounding. Produce the traced model that How mode
+prescribes. If the design redefines ownership or layering, also run
+**explain-codebase** in Rationale mode on the existing shape so the rationale
+becomes a constraint, not a guess.
 
 Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
 
@@ -69,7 +75,7 @@ Use judgment. A few edge cases don't condemn an architecture. Some problems are 
 
 When you scrap:
 
-1. Re-run the **how** skill over what's been built. The implementation lessons enter the new design as inputs, not vibes.
+1. Re-run **explain-codebase** in How mode over what's been built. The implementation lessons enter the new design as inputs, not vibes.
 2. Redesign as if the new constraints had been day-one assumptions, per [Redesign from First Principles](../poteto-mode/references/principles/redesign-from-first-principles.md).
 3. Subtract before adding, per the [Subtract Before You Add](../poteto-mode/references/principles/subtract-before-you-add.md) principle reference. The new sketch should be smaller than the old one before it grows.
 4. Return to Phase B and re-run arena.

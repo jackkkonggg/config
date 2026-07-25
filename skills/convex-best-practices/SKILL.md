@@ -1,6 +1,6 @@
 ---
 name: convex-best-practices
-description: Use when writing, reviewing, or refactoring Convex backend code (queries, mutations, actions, HTTP actions, schema, indexes, scheduling, file storage, and search) to enforce production-safe patterns.
+description: Use for production-safe Convex queries, mutations, actions, schemas, indexes, scheduling, storage, and search.
 ---
 
 # Convex Best Practices

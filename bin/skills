@@ -12,9 +12,12 @@ while [ -L "$SOURCE" ]; do
 done
 REPO_DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
 MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
+GROUPS_FILE="$REPO_DIR/skills/.groups.json"
+PROVENANCE="$REPO_DIR/skills/.provenance.json"
 LINK_TARGETS=(
   "$HOME/.agents/skills"
   "$HOME/.claude/skills"
+  "$HOME/.codex/skills"
 )
 
 usage() {
@@ -22,6 +25,7 @@ usage() {
 Usage: skills <command> [args]
 
 Commands:
+  list                                  Print the grouped repo skill catalog
   install [--all|skill...]              Link repo skills globally
   add <source> [--skill name] [--list]  Clone/import skills into this repo
   apply                                 Apply repo configs and install all skills
@@ -35,6 +39,30 @@ The add command is backed by this repo's local skills-cli copy. It keeps
 upstream source parsing and skill discovery, but always imports into this
 repo's skills/ directory and links from there.
 EOF
+}
+
+list_grouped_skills() {
+  node - "$GROUPS_FILE" "$REPO_DIR/skills" <<'NODE'
+const fs = require("fs");
+const path = require("path");
+const groups = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const skillsRoot = process.argv[3];
+
+function description(name) {
+  const raw = fs.readFileSync(path.join(skillsRoot, name, "SKILL.md"), "utf8");
+  const match = raw.match(/^---\r?\n[\s\S]*?\r?\ndescription:\s*(?:"([^"]*)"|'([^']*)'|([^\r\n]*))/);
+  return (match?.[1] ?? match?.[2] ?? match?.[3] ?? "").trim();
+}
+
+for (const group of groups.groups) {
+  console.log(group.label);
+  for (const name of group.skills) console.log(`  ${name}  ${description(name)}`);
+  for (const provider of group.external_providers ?? []) {
+    console.log(`  [plugin] ${provider.id}`);
+  }
+  console.log();
+}
+NODE
 }
 
 skill_names() {
@@ -61,6 +89,21 @@ link_skill() {
   done
 }
 
+remove_retired_links() {
+  [ -f "$GROUPS_FILE" ] || return 0
+
+  local target_root retired link_path
+  while IFS= read -r retired; do
+    for target_root in "${LINK_TARGETS[@]}"; do
+      link_path="$target_root/$retired"
+      if [ -L "$link_path" ]; then
+        unlink "$link_path"
+        echo "  removed retired link: $link_path"
+      fi
+    done
+  done < <(node -e 'for (const name of require(process.argv[1]).retired_skills) console.log(name)' "$GROUPS_FILE")
+}
+
 install_repo_skills() {
   local skills=()
 
@@ -70,6 +113,7 @@ install_repo_skills() {
   fi
 
   if [ "$1" = "--all" ]; then
+    remove_retired_links
     while IFS= read -r skill; do
       skills+=("$skill")
     done < <(skill_names)
@@ -110,6 +154,7 @@ update_repo() {
   git submodule update --init --remote --depth 1
   "$REPO_DIR/scripts/vendor-sync.sh"
   "$0" install --all
+  "$0" doctor
 }
 
 doctor() {
@@ -175,6 +220,31 @@ doctor() {
   if [ -f "$MANIFEST" ]; then
     if python3 -m json.tool "$MANIFEST" >/dev/null; then
       echo "  ok: $MANIFEST"
+      if node - "$MANIFEST" "$REPO_DIR" <<'NODE'
+const fs = require("fs");
+const path = require("path");
+const manifest = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
+const root = process.argv[3];
+const missing = [];
+for (const [name, record] of Object.entries(manifest)) {
+  if (!fs.existsSync(path.resolve(root, record.vendor_path))) {
+    missing.push(`${name}: ${record.vendor_path}`);
+  }
+  if (!fs.existsSync(path.resolve(root, "skills", name, "SKILL.md"))) {
+    missing.push(`${name}: skills/${name}/SKILL.md`);
+  }
+}
+if (missing.length) {
+  for (const item of missing) console.error(`  missing: ${item}`);
+  process.exit(1);
+}
+console.log(`  resolved: ${Object.keys(manifest).length} vendor entries`);
+NODE
+      then
+        :
+      else
+        status=1
+      fi
     else
       echo "  invalid json: $MANIFEST"
       status=1
@@ -188,11 +258,25 @@ doctor() {
   echo "==> repo skills"
   skill_names | sed 's/^/  /'
 
+  echo ""
+  echo "==> grouped catalog"
+  if node "$REPO_DIR/scripts/validate-skill-catalog.mjs" \
+    --groups "$GROUPS_FILE" \
+    --provenance "$PROVENANCE"; then
+    echo "  catalog valid"
+  else
+    status=1
+  fi
+
   return "$status"
 }
 
 cmd="${1:-help}"
 case "$cmd" in
+  list)
+    shift
+    list_grouped_skills "$@"
+    ;;
   install)
     shift
     install_repo_skills "$@"

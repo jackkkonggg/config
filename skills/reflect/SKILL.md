@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Spawn three parallel review subagents over the active transcript, surface learnings, and route each to a concrete edit on an existing skill. Use when the user says reflect.
+description: Use to review the active transcript, extract lessons, and route them into concrete skill improvements.
 disable-model-invocation: true
 ---
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain Codebase"
+  short_description: "Explain runtime behavior and design rationale"
+  default_prompt: "Use $explain-codebase to explain how and why this code works."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual Design"
+  short_description: "Color, typography, and interface polish"
+  default_prompt: "Use $visual-design to improve the visual design of this interface."

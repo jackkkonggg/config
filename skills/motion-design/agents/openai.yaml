@@ -1,0 +1,4 @@
+interface:
+  display_name: "Motion Design"
+  short_description: "Motion vocabulary, critique, and planning"
+  default_prompt: "Use $motion-design to review and improve this interface motion."

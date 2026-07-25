@@ -1,19 +1,13 @@
 ---
 name: gsap-best-practices
-description: Use when writing, reviewing, or refactoring GSAP animation code in JavaScript/TypeScript (tweens, timelines, ScrollTrigger, matchMedia, plugin usage, and performance tuning) to enforce production-safe animation patterns.
+description: Use for GSAP or React GSAP setup, lifecycle, tweens, timelines, ScrollTrigger, plugins, and performance.
 ---
 
 # GSAP Best Practices
 
-Apply these rules when working on GSAP-powered animation codebases.
-
-## Current platform note
-
-- As of March 6, 2026, official GSAP docs state that all plugins, including former Club GSAP bonus plugins, are freely available in the public package. Use the standard `gsap` package and do not recommend legacy private-registry or paid-only installation flows. Prefer GSAP `3.13+` when this matters.
-
 ## Rule routing
 
-Do not read every rule file by default. Start with the smallest relevant set:
+Load the smallest relevant set:
 
 - Read `AGENTS.md` for broad GSAP reviews, unclear tasks, or when you need the compact checklist.
 - Read `rules/gsap-core.md` for tweens, eases, staggers, transform aliases, `matchMedia`, defaults, or `immediateRender`.
@@ -23,10 +17,15 @@ Do not read every rule file by default. Start with the smallest relevant set:
 - Read `rules/gsap-utils.md` for `gsap.utils`, value mapping, `clamp`, `mapRange`, `normalize`, `random`, `snap`, `distribute`, `toArray`, `selector`, `pipe`, `wrap`, or units.
 - Read `rules/gsap-performance.md` for jank, FPS, layout thrashing, many elements, `quickTo`, `quickSetter`, `will-change`, reduced motion, or animation cleanup/performance.
 
-If React or Next.js is involved, also use `react-gsap-best-practices` when available for `useGSAP`, `contextSafe`, SSR, StrictMode, and dependency-driven lifecycle behavior.
+For React or Next.js, load the smallest matching React rules:
 
-## Enforcement policy
+- `rules/react-gsap-setup.md` for package setup and `useGSAP`.
+- `rules/react-gsap-lifecycle.md` for cleanup and `contextSafe`.
+- `rules/react-gsap-dependency-bugs.md` for dependency-driven updates.
+- `rules/react-gsap-scrolltrigger.md` for React ScrollTrigger integration.
+- `rules/react-gsap-ssr-strictmode.md` for SSR and Strict Mode.
 
-- Use recommendation-first language for style and performance guidance.
-- Use strict language (`must` / `must not`) only for correctness, stability, and accessibility constraints.
-- Prefer official GSAP docs when resolving conflicts; update these rules when docs change.
+Read `REACT.md` only for a broad React GSAP review.
+
+Use strict language only for correctness, stability, and accessibility. Prefer
+official GSAP docs when resolving conflicts.

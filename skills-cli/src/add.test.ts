@@ -84,7 +84,16 @@ Instructions here.
     const targetDir = join(testDir, 'project');
     mkdirSync(targetDir, { recursive: true });
 
-    const result = runCli(['add', testDir, '-y', '-g', '--agent', 'claude-code'], targetDir);
+    const testHome = join(testDir, 'home');
+    const result = runCli(
+      ['add', testDir, '-y', '-g', '--agent', 'claude-code'],
+      targetDir,
+      {
+        HOME: testHome,
+        CLAUDE_CONFIG_DIR: join(testHome, '.claude'),
+        CODEX_HOME: join(testHome, '.codex'),
+      }
+    );
     expect(result.stdout).toContain('my-skill');
     expect(result.stdout).toContain('Done!');
     expect(result.exitCode).toBe(0);
@@ -478,7 +487,16 @@ This is a test skill for -y flag mode testing.
     );
 
     // Run with -y flag - should complete without hanging
-    const result = runCli(['add', testDir, '-g', '-y', '--skill', 'yes-flag-test-skill'], testDir);
+    const testHome = join(testDir, 'home');
+    const result = runCli(
+      ['add', testDir, '-g', '-y', '--skill', 'yes-flag-test-skill'],
+      testDir,
+      {
+        HOME: testHome,
+        CLAUDE_CONFIG_DIR: join(testHome, '.claude'),
+        CODEX_HOME: join(testHome, '.codex'),
+      }
+    );
 
     // Should not contain the find-skills prompt
     expect(result.stdout).not.toContain('Install the find-skills skill');

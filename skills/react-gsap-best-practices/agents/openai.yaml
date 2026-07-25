@@ -1,4 +1,0 @@
-interface:
-  display_name: "React GSAP Best Practices"
-  short_description: "Reliable patterns for GSAP integration in React."
-  default_prompt: "Use $react-gsap-best-practices to review and improve this React + GSAP change."

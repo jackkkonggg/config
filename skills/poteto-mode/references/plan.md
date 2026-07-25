@@ -94,7 +94,7 @@ For bug fixes, the loop is reproduce on the surface, fix, verify on the same sur
 
 In the overview, name which poteto-mode non-negotiables the implementer must apply, by name:
 
-- the **how** skill over each unfamiliar subsystem before changing it.
+- **explain-codebase** in How mode over each unfamiliar subsystem before changing it.
 - the **interrogate** skill for adversarial review on contested designs before shipping.
 - Poteto-mode's plain-prose cleanup over any prose surface before commit.
 - the **show-me-your-work** skill to keep a decision trail when the plan is large enough to need an auditable record.

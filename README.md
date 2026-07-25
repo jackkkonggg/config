@@ -36,6 +36,7 @@ bin/             Global command entrypoints
 
 | Command | Description |
 |---|---|
+| `skills list` | Print the repo skill catalog grouped by capability |
 | `skills install --all` | Link all repo skills into global agent skill directories |
 | `skills install <skill>` | Link one or more repo skills into global agent skill directories |
 | `skills add <source> ...` | Clone/import skills into this repo, then link from `skills/` |
@@ -74,16 +75,19 @@ Install all repo skills:
 skills install --all
 ```
 
-| Skill | Description |
-|---|---|
-| `code-audit` | Structured codebase audit with auto-detection and findings report |
-| `convex-best-practices` | Convex backend rules (functions, schema, database, auth) |
-| `grammy-best-practices` | grammY Telegram bot framework patterns |
-| `gsap-best-practices` | GSAP animation rules (core, timelines, ScrollTrigger, plugins) |
-| `motion` | Official Motion AI Kit skill for animation guidance, docs, examples, springs, previews, and performance audits |
-| `react-gsap-best-practices` | React + GSAP lifecycle-safe patterns |
-| `typescript-clean-code` | Clean Code principles for TypeScript |
-| `react-doctor` | Scan React code for security, performance, and correctness |
+The canonical taxonomy lives in `skills/.groups.json`. Run `skills list` for
+the current grouped catalog. Group membership is discovery metadata only; it
+does not cause related skills to load together.
+
+The composite selectors are:
+
+- `visual-design` for color, typography, and interface polish.
+- `motion-design` for motion vocabulary, opportunity discovery, audits, plans,
+  and reviews.
+- `react-engineering` for component composition and React performance.
+- `explain-codebase` for runtime walkthroughs and historical rationale.
+- `gsap-best-practices` for plain and React GSAP implementation.
+- `figma-project-rules` for project-specific Figma-to-code conventions.
 
 ## Vendor Skills
 
@@ -99,7 +103,7 @@ This pulls the config repo, updates the shallow vendor submodules, syncs patched
 
 | Submodule | Source | Skills |
 |---|---|---|
-| `vercel-agent-skills` | vercel-labs/agent-skills | react-best-practices, web-design-guidelines, composition-patterns |
+| `vercel-agent-skills` | vercel-labs/agent-skills | sources for `react-engineering`, plus `web-design-guidelines` |
 | `vercel-agent-browser` | vercel-labs/agent-browser | agent-browser |
 | `vercel-next-skills` | vercel-labs/next-skills | next-best-practices |
 | `anthropic-skills` | anthropics/skills | frontend-design |
@@ -107,7 +111,7 @@ This pulls the config repo, updates the shallow vendor submodules, syncs patched
 | `shadcn-ui` | shadcn/ui | shadcn |
 | `swiftui-agent-skill` | avdlee/swiftui-agent-skill | swiftui-expert-skill |
 | `swift-concurrency` | avdlee/swift-concurrency-agent-skill | swift-concurrency |
-| `figma-mcp-server-guide` | figma/mcp-server-guide | create-design-system-rules, implement-design |
+| `figma-mcp-server-guide` | figma/mcp-server-guide | source for `figma-project-rules`; other workflows use the curated Figma plugin |
 | `gstack` | garrytan/gstack | browse, qa, review, ship, retro, plan-ceo-review, plan-eng-review, setup-browser-cookies |
 | `claude-plugins-official` | anthropics/claude-plugins-official | commit-commands, frontend-design, typescript-lsp, swift-lsp |
 

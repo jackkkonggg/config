@@ -1,6 +1,6 @@
 ---
 name: poteto-mode
-description: poteto's agent style for concise, detailed responses, deliberate subagents, plain prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style.
+description: Use for Poteto-style scoped autonomy, simple code, concise prose, deliberate delegation, and verified work.
 disable-model-invocation: true
 ---
 
@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 Remaining triggers:
 
-- Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
+- Nontrivial change, architecture decision, or "are we sure?" → **explain-codebase** in How mode.
 - About to `AskQuestion` on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the Prototype playbook (`playbooks/prototype.md`) and let the result decide. If the task is a read-only Investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. The ask is the slow path. A throwaway probe usually answers faster, and it hands the human a result to react to instead of a decision to make.
 - Any code → name the data shape first.
 - Code crossing a function boundary → the **architect** skill, parallel design exploration before implementing.
@@ -77,7 +77,7 @@ Read the full reference file for any principle you apply. Each entry names when 
 
 ## Subagents
 
-**Use `subagent_type: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/poteto-mode` and `poteto-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `interrogate`, `reflect`) set their own `subagent_type` for diverse-model review; respect what the skill prescribes, don't override to `poteto-agent`.
+**Use `subagent_type: "poteto-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). `/poteto-mode` and `poteto-agent` route through the same wrapper. Routed workflow skills (`explain-codebase`, `interrogate`, `reflect`) set their own workflow; respect what the skill prescribes, don't override to `poteto-agent`.
 
 **Defaults for every `Task` call.** `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context, explicit model per role if a local rule configures one; defaults `composer-2.5-fast` for code, `claude-opus-4-8-thinking-xhigh` for prose and judgment.
 

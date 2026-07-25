@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "composites": {
+    "visual-design": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "path": "vendor/jakubkrehel-skills/skills/better-colors",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "license": "vendor/jakubkrehel-skills/LICENSE"
+        },
+        {
+          "path": "vendor/jakubkrehel-skills/skills/better-typography",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "license": "vendor/jakubkrehel-skills/LICENSE"
+        },
+        {
+          "path": "vendor/jakubkrehel-skills/skills/better-ui",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "license": "vendor/jakubkrehel-skills/LICENSE"
+        }
+      ]
+    },
+    "motion-design": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "path": "vendor/emilkowalski-skills/skills",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "license": "vendor/emilkowalski-skills/LICENSE"
+        }
+      ]
+    },
+    "react-engineering": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "path": "vendor/vercel-labs-agent-skills/skills/composition-patterns",
+          "vendor_root": "vendor/vercel-labs-agent-skills",
+          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "declared_license": "MIT"
+        },
+        {
+          "path": "vendor/vercel-labs-agent-skills/skills/react-best-practices",
+          "vendor_root": "vendor/vercel-labs-agent-skills",
+          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "declared_license": "MIT"
+        }
+      ]
+    },
+    "explain-codebase": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "path": "vendor/cursor-plugins/pstack/skills/how",
+          "vendor_root": "vendor/cursor-plugins",
+          "revision": "0452e08a314c03621ec5ac1324f1ad1dd824f1a4",
+          "license": "vendor/cursor-plugins/pstack/LICENSE"
+        },
+        {
+          "path": "vendor/cursor-plugins/pstack/skills/why",
+          "vendor_root": "vendor/cursor-plugins",
+          "revision": "0452e08a314c03621ec5ac1324f1ad1dd824f1a4",
+          "license": "vendor/cursor-plugins/pstack/LICENSE"
+        }
+      ]
+    },
+    "figma-project-rules": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "path": "vendor/figma-mcp-server-guide/skills/figma-create-design-system-rules",
+          "vendor_root": "vendor/figma-mcp-server-guide",
+          "revision": "fabc1ca81d839602ba7c1ca0f445a64246b3870e",
+          "declared_license": "not present in source checkout"
+        }
+      ]
+    }
+  }
+}
