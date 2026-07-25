@@ -56,7 +56,7 @@
         "emil-vocabulary": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/animation-vocabulary",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "d718b48fe3c7898804d588f050a2e266d82c9f5ef51da256c8cb8b5951527757"
           }
@@ -64,7 +64,7 @@
         "emil-apple": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/apple-design",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "11840b24a11d7f94f39c6aaab074750ae4e4de4ef54ee4b1dd97e16ebd485e61"
           }
@@ -72,7 +72,7 @@
         "emil-opportunities": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/find-animation-opportunities",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "91c1243164057fbf824088d12faea937878a757a7ac653e8288b775e8b27b882"
           }
@@ -80,7 +80,7 @@
         "emil-audit": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/improve-animations",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "AUDIT.md": "551c8473e20e5f4774680bc24d45e1c68e50992582720905c6b077756b7b5a55",
             "PLAN-TEMPLATE.md": "0a08ac8e23fd2082d7ffb86aeed7b789de77328c3cf874b16f1a755f2ef0a6ad",
@@ -90,7 +90,7 @@
         "emil-review": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/review-animations",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "61cf8ac0c4c8e1f63385298c546b16c65ca9aec34abddcd04e821c16712d671d",
             "STANDARDS.md": "e7d3605034acda54ca13e43aec9e64d65b53de20f75b11b8d694e373012fbe07"
@@ -111,7 +111,7 @@
         "vercel-composition": {
           "vendor_root": "vendor/vercel-labs-agent-skills",
           "source_root": "skills/composition-patterns",
-          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "revision": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
           "files": {
             "AGENTS.md": "89e3ddd58fcf99a53a50e25dfd21b8cde1be5f10b7df6bacd3dfa6796932f516",
             "README.md": "85915a43a6f0b4efe525e3cf6398dd866166da2025837c4460468a24a940da94",
@@ -132,7 +132,7 @@
         "vercel-performance": {
           "vendor_root": "vendor/vercel-labs-agent-skills",
           "source_root": "skills/react-best-practices",
-          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "revision": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
           "files": {
             "AGENTS.md": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
             "README.md": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",

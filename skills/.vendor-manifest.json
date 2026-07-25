@@ -1,7 +1,7 @@
 {
   "agent-browser": {
-    "hash": "c19a532a3777698b80b35270939a1dc559da451381971b3e1e78174d1ab54863",
-    "revision": "3bb1d43f8bb16444596365496f78395da8f1e6b7",
+    "hash": "e30f0bb840f6cef6181f680695ec6d08bf18b986e285edc8f2afbd5f28b62333",
+    "revision": "3cc7022271235694b5b5ce8aaea8bbfaa66e8cd5",
     "vendor_path": "vendor/vercel-labs-agent-browser/skills/agent-browser"
   },
   "architect": {
@@ -80,8 +80,8 @@
     "vendor_path": "vendor/cursor-plugins/pstack/skills/typescript-best-practices"
   },
   "web-design-guidelines": {
-    "hash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474",
-    "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+    "hash": "e9596b4d8c877954a9350596c1f885b2e4112485a202f3e9848416d8fa30b19f",
+    "revision": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
     "vendor_path": "vendor/vercel-labs-agent-skills/skills/web-design-guidelines"
   }
 }
