@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The repository now owns 50 skills. The Poteto prompt is the only P0 finding: `codex/AGENTS.md` (623 words) and `skills/poteto-mode/SKILL.md` (2,192 words) load 2,815 words before a playbook or principle reference. The current entrypoint directly exposes another 9,411 words through 37 links and requires selected leaves to be loaded, copied into a todo list, and attributed in the final reply.
+The repository now owns 43 skills. The Poteto prompt is the only P0 finding: `codex/AGENTS.md` (623 words) and `skills/poteto-mode/SKILL.md` (2,192 words) load 2,815 words before a playbook or principle reference. The current entrypoint directly exposes another 9,411 words through 37 links and requires selected leaves to be loaded, copied into a todo list, and attributed in the final reply.
 
 The isolated replacement reduced the static bootstrap plus entrypoint from 2,815 to 495 words in the fixture (82.4%). This is a word-count proxy for prompt surface, not a measurement of loaded model tokens. Its four-output blinded point total was 77 to 65, but each output had one cross-family reviewer and no variance estimate, so the result is descriptive only. The replacement is **not accepted for promotion**: the three completed pairs showed only a directional 12.6% median total-token reduction, one baseline arm did not complete, and the destructive/external-action task completed without a post-state check, which the blind Claude reviewer marked verification-critical. No Poteto or pre-existing skill prompt was changed.
 
@@ -16,6 +16,7 @@ This audit applies the current [OpenAI lean-prompt guidance](https://developers.
 - Ownership is `local`, `vendor`, or `vendor+patch`. Vendor findings should be fixed upstream or maintained as generated patches; local findings can be edited directly.
 - P0 means automatically loaded or cascading context. P1 means an oversized entrypoint or description. P2 means repetition, examples, or style rules without measured justification.
 - The initial sync briefly captured `find-skills` and `transitions-dev`. Both were subsequently uninstalled at the user's request, so their rows and single-purpose vendor sources are excluded from the final inventory.
+- The user subsequently uninstalled `diagnose`, `grill-me`, `grill-with-docs`, `handoff`, `prototype`, `to-prd`, and `write-a-skill`. Their rows are also excluded. The two format references required by `improve-codebase-architecture` were relocated into that remaining skill.
 
 ## Inventory
 
@@ -32,7 +33,6 @@ This audit applies the current [OpenAI lean-prompt guidance](https://developers.
 | blast-radius | 760 / 50 / 0 | Entry | P2 / ~250 | Keep caller search and runtime proof; delete repeated cautions and the fixed reporting ceremony. | vendor+patch |
 | commit | 201 / 17 / 0 | Entry | P2 / negligible | Already lean. Keep the scope check and commit-message contract; no split needed. | local |
 | convex-best-practices | 120 / 25 / 2,409 | Entry + selected ref | P2 / negligible | Strong router. Ensure only the reference matching the edited Convex surface is loaded. | local |
-| diagnose | 1,172 / 41 / 0 | Entry | P1 / ~600 | Move instrumentation recipes and long phase checklists to references; retain reproduce, minimize, hypothesize, prove. | vendor |
 | figma-code-connect | 3,420 / 35 / 3,958 | Entry + two refs | P1 / ~2,200 | Keep the mapping contract and required tool sequence; relocate language examples and templates to on-demand references. | vendor |
 | figma-create-design-system-rules | 2,550 / 44 / 0 | Entry | P1 / ~1,700 | Extract examples and generated-file templates; keep discovery, rule synthesis, and validation in the entrypoint. | vendor |
 | figma-create-new-file | 422 / 47 / 0 | Entry | P2 / ~80 | The mandatory prerequisite is justified; remove repeated “never call directly” wording after the trigger states it once. | vendor |
@@ -45,18 +45,14 @@ This audit applies the current [OpenAI lean-prompt guidance](https://developers.
 | figure-it-out | 844 / 53 / 0 | Entry + up to seven cross-skill refs | P1 / ~500 | Keep the fallback-playbook deliverable; remove automatic auxiliary-skill cascades and load evidence logging only for unattended work. | vendor+patch |
 | find-animation-opportunities | 1,430 / 56 / 0 | Entry | P1 / ~800 | Move the catalog of opportunities and rejection examples to a reference; retain scan, filter, rank, and exact-value output. | vendor |
 | frontend-design | 583 / 53 / 0 | Entry | P2 / ~150 | Keep the useful anti-generic design stance; delete repeated aesthetic examples and defer implementation rules to framework skills. | vendor |
-| grill-me | 98 / 37 / 0 | Entry | P2 / negligible | Already lean. Keep the adversarial-question contract. | vendor |
-| grill-with-docs | 513 / 37 / 906 | Entry + two refs | P2 / ~120 | Progressive disclosure is adequate; replace repeated output instructions with one response schema. | vendor |
 | gsap-best-practices | 291 / 25 / 4,827 | Entry + selected ref | P2 / negligible | Strong router. Do not mirror its GSAP constraints in `AGENTS.md`; select only the affected API reference. | local |
-| handoff | 119 / 14 / 0 | Entry | P2 / negligible | Already lean. Keep the required handoff fields and remove nothing. | vendor |
 | how | 1,058 / 46 / 1,691 | Entry + provider discovery/fan-out | P0 / ~1,000 | Stop unconditional routing from Poteto. Remove fixed-model and mandatory subagent workflow; retain evidence-backed walkthrough and load one relevant template. | vendor |
 | improve-animations | 1,206 / 74 / 1,509 | Entry + two refs | P1 / ~700 | Shorten the description and split survey, prioritization, and plan templates; load standards only for the affected animation stack. | vendor |
-| improve-codebase-architecture | 751 / 40 / 1,365 | Entry + selected ref | P2 / ~250 | Keep the read-only architecture audit; route to one report template and remove duplicate evidence rules. | vendor |
+| improve-codebase-architecture | 746 / 40 / 2,271 | Entry + selected ref | P2 / ~250 | Keep the read-only architecture audit; route to one report template and remove duplicate evidence rules. | vendor+patch |
 | interrogate | 754 / 28 / 2,609 | Entry + four refs/models | P1 / ~700 | Move model roster, role assignment, and concurrency defaults to configuration; retain adversarial dimensions and synthesis. | vendor |
 | motion | 369 / 81 / 6,533 | Entry + selected ref | P1 / ~70 | Shorten the description to triggers and keep the existing progressive router; avoid loading framework references together. | local |
 | next-best-practices | 489 / 20 / 10,036 | Entry + selected ref | P2 / negligible | Strong progressive disclosure. Enforce one topic reference per issue and keep examples out of the entrypoint. | vendor |
 | poteto-mode | 2,192 / 27 / 10,175 | 623-word bootstrap + entry + playbook + required principles | P0 / 2,335 entry words plus avoided cascades | Replace with the compact contract below. Delete forced todo copying, attribution, `how`/`architect` routing, punctuation bans, duplicated autonomy, and model slugs. | vendor+patch |
-| prototype | 541 / 69 / 2,061 | Entry + one of two refs | P1 / ~250 | Shorten the description and keep the two explicit prototype routes; remove repeated “throwaway” and verification prose. | vendor |
 | react-gsap-best-practices | 121 / 27 / 1,769 | Entry + selected ref | P2 / negligible | Strong router. Load lifecycle or ScrollTrigger guidance only when that surface is present. | local |
 | recall | 960 / 54 / 0 | Entry | P1 / ~500 | Reduce the monolithic reconstruction procedure to source order, confidence labeling, and handback schema; move examples out. | vendor+patch |
 | reflect | 710 / 28 / 2,529 | Entry + three-review stack | P1 / ~600 | Move fixed models and concurrency to configuration; keep the three lenses and require edits only when a concrete lesson exists. | vendor+patch |
@@ -64,13 +60,11 @@ This audit applies the current [OpenAI lean-prompt guidance](https://developers.
 | shadcn | 2,262 / 53 / 5,293 | Entry + selected ref | P1 / ~1,500 | Route by add, search, fix, style, or compose; move CLI transcripts and examples to operation-specific references. | vendor |
 | show-me-your-work | 1,105 / 52 / 0 | Entry | P1 / ~600 | Keep the TSV schema and review requirement; move command examples and repeated logging rules into a script help reference. | vendor+patch |
 | tdd | 553 / 39 / 0 | Entry | P2 / ~180 | Keep explicit/cheap-trigger gating and red-green proof; remove repeated exceptions already stated by the trigger. | vendor |
-| to-prd | 508 / 28 / 0 | Entry | P2 / ~150 | Keep extraction, review, and publish boundary; collapse tracker-specific prose into the connector tool description. | vendor |
 | typescript-best-practices | 264 / 13 / 927 | Entry + one ref | P2 / negligible | Strong compact entry. Keep the single detailed reference and remove cross-skill links unless the task actually uses them. | vendor+patch |
 | vercel-composition-patterns | 383 / 39 / 5,273 | Entry + selected ref | P2 / negligible | Strong router. Keep examples in references and load only the matching composition smell. | vendor |
 | vercel-react-best-practices | 948 / 41 / 27,520 | Entry + selected ref | P1 / ~300 | Keep rule indexing but shorten entry explanations; ensure the 74 reference files are never bulk-loaded. | vendor |
 | web-design-guidelines | 176 / 28 / 0 | Entry | P2 / negligible | Already lean. Keep the URL-backed checklist workflow and result format. | vendor |
 | why | 3,132 / 58 / 8,418 | Entry + provider discovery + selected refs | P0 / ~2,500 | Remove provider enumeration, fixed model assumptions, and automatic fan-out from the entry; route by evidence source and keep one rationale template. | vendor |
-| write-a-skill | 461 / 24 / 0 | Entry | P2 / ~100 | Keep structure and progressive-disclosure rules; delete duplicated examples already available in the repository guide. | vendor |
 
 ## Cross-cutting findings
 
@@ -191,11 +185,11 @@ The proposal is therefore not promoted. The smallest instruction group that must
 ## Sync and integrity status
 
 - Dedicated branch: `sync/skills-context-audit-20260725-223347`.
-- Repo-owned inventory: 50 skills.
+- Repo-owned inventory: 43 skills.
 - Added prompts: none. The two prompts captured during the initial sync were subsequently uninstalled with their single-purpose vendor sources.
 - Excluded and untouched: `~/.claude/skills/my-skill`.
 - Bundled system and plugin-cache skills: outside repository ownership and outside this audit.
-- Prompt edits: none to pre-existing `SKILL.md` files or `codex/AGENTS.md`. The project `AGENTS.md` vendor-source table was updated only to stop advertising the uninstalled `find-skills`.
+- Prompt edits: `improve-codebase-architecture` was patched only to internalize two format references formerly owned by `grill-with-docs`; no other surviving `SKILL.md` or `codex/AGENTS.md` was changed. The project `AGENTS.md` vendor-source table was previously updated only to stop advertising the uninstalled `find-skills`.
 - The settings sync now redacts both Context7 and Motion tokens before writing templates. The zero-match result is bounded to the patterns and paths scanned; it is not proof that no other secret form exists.
 
 Final command-level verification is recorded in `.audit/skill-context-audit.tsv`.

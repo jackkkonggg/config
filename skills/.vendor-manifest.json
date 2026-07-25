@@ -35,10 +35,6 @@
     "hash": "e80b1eccf103a6b26d8d8eea894ea6026f7f47302a1c97c169c9d9f819f7a5b4",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/blast-radius"
   },
-  "diagnose": {
-    "hash": "6b0d86fe514a8e13f67c846a8848b2f04a9d49b3ba53ef7cf745780480a98f1b",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/diagnose"
-  },
   "figma-code-connect": {
     "hash": "126591784e864f3896c05cdec88e68b266cad80589dbc06a8319423ee0d75dee",
     "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-code-connect"
@@ -87,18 +83,6 @@
     "hash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b",
     "vendor_path": "vendor/anthropics-skills/skills/frontend-design"
   },
-  "grill-me": {
-    "hash": "0fe30e2291a6f990a5414f85205535bc06519622bf604980511d7c11dad327e0",
-    "vendor_path": "vendor/mattpocock-skills/skills/productivity/grill-me"
-  },
-  "grill-with-docs": {
-    "hash": "b8aa6019536607a59ed665e75108a0b04a295365997036a3f5ebc55ed9b07e06",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/grill-with-docs"
-  },
-  "handoff": {
-    "hash": "dd07215fc3994f8c4ca06fd7e47d5f0ff50f6e624e6b45458745aec93f722c1c",
-    "vendor_path": "vendor/mattpocock-skills/skills/in-progress/handoff"
-  },
   "how": {
     "hash": "fe4c55e99cda04de565f6d9cab561dea9b1d3ca40bfdbbfa80ea4a8693563310",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/how"
@@ -122,10 +106,6 @@
   "poteto-mode": {
     "hash": "faebef1a371b2ae6477ff33dd0b112277d94bc66741af818a72c5d724b5f717c",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/poteto-mode"
-  },
-  "prototype": {
-    "hash": "1da13c7038b67b03ccac329fc75980fe82c92601c95671607abf79bd8d0dc61b",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/prototype"
   },
   "recall": {
     "hash": "9474770c30404bb4fb01dd9424dfffbae9e559be9228028b6fe1f2764998a647",
@@ -151,10 +131,6 @@
     "hash": "9e1767e1b85949eb1289f2a7ecb19379ababa76eed33bfad0b790495dee2db4c",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/tdd"
   },
-  "to-prd": {
-    "hash": "a9a42e82d98fc26a289ee525b29af933b81a5b937f58284bda69128c88e49b3d",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/to-prd"
-  },
   "typescript-best-practices": {
     "hash": "2847d9dd3a8432dba1f20ba2427d3866aa78c8151c715821afb63d46594d6185",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/typescript-best-practices"
@@ -174,9 +150,5 @@
   "why": {
     "hash": "cf28a3998c04862ba5b9dc9b20f69bca1e3e9d4e1fdd0e6d01b41f56fad14a60",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/why"
-  },
-  "write-a-skill": {
-    "hash": "03840258378476cbefa13fd3f7bf70db93ec1c3cdd7d0dc4edb9431e71a2a24d",
-    "vendor_path": "vendor/mattpocock-skills/skills/productivity/write-a-skill"
   }
 }
