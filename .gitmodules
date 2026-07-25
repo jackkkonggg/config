@@ -6,10 +6,6 @@
 	path = vendor/vercel-labs-agent-browser
 	url = https://github.com/vercel-labs/agent-browser.git
 	shallow = true
-[submodule "vendor/vercel-labs-next-skills"]
-	path = vendor/vercel-labs-next-skills
-	url = https://github.com/vercel-labs/next-skills.git
-	shallow = true
 [submodule "vendor/anthropics-skills"]
 	path = vendor/anthropics-skills
 	url = https://github.com/anthropics/skills.git
@@ -17,10 +13,6 @@
 [submodule "vendor/shadcn-ui"]
 	path = vendor/shadcn-ui
 	url = https://github.com/shadcn/ui.git
-	shallow = true
-[submodule "vendor/figma-mcp-server-guide"]
-	path = vendor/figma-mcp-server-guide
-	url = https://github.com/figma/mcp-server-guide.git
 	shallow = true
 [submodule "vendor/mattpocock-skills"]
 	path = vendor/mattpocock-skills

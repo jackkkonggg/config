@@ -27,6 +27,36 @@
               "from": "SKILL.md",
               "adapter": "SKILL.md"
             }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-accessibility",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-accessibility",
+          "imports": [
+            {
+              "from_glob": "*.md",
+              "exclude": ["SKILL.md"],
+              "to_prefix": "references/accessibility-"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
           ]
         },
         {
@@ -64,6 +94,39 @@
               "from": "SKILL.md",
               "adapter": "SKILL.md"
             }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-layout",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-layout",
+          "imports": [
+            {
+              "from": "grouping-and-alignment.md",
+              "to": "references/layout-grouping-and-alignment.md"
+            },
+            {
+              "from": "spacing-and-adaptivity.md",
+              "to": "references/layout-spacing-and-adaptivity.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
           ]
         },
         {
@@ -82,12 +145,56 @@
             {
               "from": "surfaces.md",
               "to": "references/polish-surfaces.md"
+            },
+            {
+              "from": "icons.md",
+              "to": "references/polish-icons.md"
             }
           ],
           "watches": [
             {
               "from": "SKILL.md",
               "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-writing",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-writing",
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/writing.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-interface",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-interface",
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/interface-review.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
             }
           ]
         }
@@ -243,6 +350,68 @@
         }
       ]
     },
+    "codebase-architecture": {
+      "ownership": "locally curated derivative",
+      "licenses": [
+        {
+          "vendor_root": "vendor/mattpocock-skills",
+          "from": "LICENSE",
+          "to": "assets/MATTPOCOCK-LICENSE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "matt-architecture-scan",
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/improve-codebase-architecture",
+          "imports": [
+            {
+              "from": "HTML-REPORT.md",
+              "to": "references/html-report.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "matt-architecture-design",
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/codebase-design",
+          "imports": [
+            {
+              "from": "DEEPENING.md",
+              "to": "references/deepening.md"
+            },
+            {
+              "from": "DESIGN-IT-TWICE.md",
+              "to": "references/design-it-twice.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        }
+      ]
+    },
     "explain-codebase": {
       "ownership": "locally curated derivative",
       "licenses": [
@@ -294,22 +463,6 @@
             {
               "from": "references/synthesizer-prompt.md",
               "adapter": "references/rationale.md"
-            }
-          ]
-        }
-      ]
-    },
-    "figma-project-rules": {
-      "ownership": "locally curated derivative",
-      "sources": [
-        {
-          "id": "figma-rules",
-          "vendor_root": "vendor/figma-mcp-server-guide",
-          "source_root": "skills/figma-create-design-system-rules",
-          "imports": [
-            {
-              "from": "SKILL.md",
-              "to": "references/workflow.md"
             }
           ]
         }

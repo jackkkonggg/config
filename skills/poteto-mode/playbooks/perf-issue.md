@@ -1,15 +1,17 @@
-### Perf issue
+### Performance Issue
 
-**You own the measurement story. Plan, review, verify the numbers.** Tie every fix to a measurement, don't read source instead of measuring.
+1. Capture a baseline trace on the reported surface and workload.
+2. Trace the architecture around the dominant cost. Do not infer a performance
+   ceiling from source alone.
+3. Load `../references/performance-strategies.md` and choose only strategies
+   supported by the trace.
+4. Make the smallest change tied to the measured mechanism. Use `architect`
+   only when the fix changes a consequential interface or module boundary.
+5. Capture a post-change trace with the same workload and compare the
+   artifacts. An inconclusive or wrong-surface result is not a pass.
+6. Run regression checks and cite the measurement in the PR.
 
-1. Capture a baseline trace via the matching control skill.
-2. `explain-codebase` in How mode to ground hypotheses; don't claim a perf ceiling without running it first.
-3. Plan the fix from the trace. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using your configured perf-issue model (default `gpt-5.5-high-fast`); review the diff. Capture a post-fix trace.
-   Apply the [Sequence Work into Verifiable Units](../references/principles/sequence-verifiable-units.md) principle reference, verifying each attempt before trying the next.
-4. Parse and compare the artifacts (JSON to sqlite, diff). "Inconclusive" or wrong-surface is not a pass; flag it.
-5. Cite the measurement in the PR.
-6. Run **Opening a PR**.
+Use the Hillclimb playbook for sustained iteration against one metric.
 
-For sustained improvement against a metric rather than a one-off fix, use the Hillclimb playbook (`playbooks/hillclimb.md`).
-
-**Reply:** baseline number, post-fix number, delta, artifact path.
+**Reply:** baseline, post-change result, delta, trace paths, and regression
+checks.

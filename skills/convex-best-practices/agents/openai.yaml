@@ -1,4 +1,0 @@
-interface:
-  display_name: "Convex Best Practices"
-  short_description: "Production-safe patterns for Convex backends."
-  default_prompt: "Use $convex-best-practices to review and improve this Convex backend change."

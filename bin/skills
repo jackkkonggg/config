@@ -279,10 +279,15 @@ NODE
 
   echo ""
   echo "==> grouped catalog"
-  if node "$REPO_DIR/scripts/validate-skill-catalog.mjs" \
-    --groups "$GROUPS_FILE" \
-    --provenance "$PROVENANCE" \
-    --composites "$COMPOSITES"; then
+  local catalog_args=(
+    --groups "$GROUPS_FILE"
+    --provenance "$PROVENANCE"
+    --composites "$COMPOSITES"
+  )
+  if ! skills_is_primary_worktree "$REPO_DIR"; then
+    catalog_args+=(--skip-global-links)
+  fi
+  if node "$REPO_DIR/scripts/validate-skill-catalog.mjs" "${catalog_args[@]}"; then
     echo "  catalog valid"
   else
     status=1

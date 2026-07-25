@@ -12,6 +12,7 @@ function parseArgs(argv) {
     provenance: null,
     composites: null,
     baseline: false,
+    skipGlobalLinks: false,
     json: false,
   };
 
@@ -22,6 +23,7 @@ function parseArgs(argv) {
     else if (argument === "--provenance") options.provenance = resolve(argv[++index]);
     else if (argument === "--composites") options.composites = resolve(argv[++index]);
     else if (argument === "--baseline") options.baseline = true;
+    else if (argument === "--skip-global-links") options.skipGlobalLinks = true;
     else if (argument === "--json") options.json = true;
     else throw new Error(`Unknown argument: ${argument}`);
   }
@@ -113,7 +115,7 @@ function validateLinks(path, label, errors) {
   }
 }
 
-function validateGroups(catalog, groups, repoRoot, errors) {
+function validateGroups(catalog, groups, repoRoot, errors, skipGlobalLinks) {
   const known = new Set(catalog.map((skill) => skill.name));
   const memberships = new Map();
 
@@ -208,6 +210,7 @@ function validateGroups(catalog, groups, repoRoot, errors) {
 
   for (const retired of groups.retired_skills ?? []) {
     if (known.has(retired)) errors.push(`${retired}: retired skill remains installed`);
+    if (skipGlobalLinks) continue;
     for (const root of [".agents/skills", ".claude/skills", ".codex/skills"]) {
       const path = join(homedir(), root, retired);
       if (existsSync(path) || isSymlink(path)) errors.push(`${retired}: stale global target ${path}`);
@@ -361,7 +364,7 @@ function main() {
       errors.push("group manifest is required");
     } else {
       const groups = readJson(options.groups);
-      validateGroups(catalog, groups, repoRoot, errors);
+      validateGroups(catalog, groups, repoRoot, errors, options.skipGlobalLinks);
       validateRetiredReferences(options.root, groups.retired_skills ?? [], errors);
       for (const path of collectMarkdown(options.root)) {
         if (!path.endsWith("/SKILL.md")) {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codebase Architecture"
+  short_description: "Scan and design deeper codebase architecture"
+  default_prompt: "Use $codebase-architecture to scan this codebase or design a selected architecture improvement."

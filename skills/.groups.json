@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "expected_repo_selectors": 26,
+  "expected_repo_selectors": 23,
   "max_description_characters": 4000,
   "max_skill_description_characters": 140,
   "max_router_words": 250,
@@ -10,13 +10,16 @@
     "react-engineering",
     "explain-codebase",
     "gsap-best-practices",
-    "figma-project-rules"
+    "frontend-design",
+    "shadcn",
+    "codebase-architecture",
+    "poteto-mode"
   ],
   "groups": [
     {
       "id": "figma",
       "label": "Figma",
-      "skills": ["figma-project-rules"],
+      "skills": [],
       "external_providers": [
         {
           "id": "figma@openai-curated",
@@ -47,12 +50,12 @@
     {
       "id": "react-engineering",
       "label": "React engineering",
-      "skills": ["react-engineering", "next-best-practices", "shadcn"]
+      "skills": ["react-engineering", "shadcn"]
     },
     {
-      "id": "language-backend",
-      "label": "Language and backend",
-      "skills": ["typescript-best-practices", "convex-best-practices"]
+      "id": "language",
+      "label": "Language",
+      "skills": ["typescript-best-practices"]
     },
     {
       "id": "agent-workflows",
@@ -72,7 +75,11 @@
     {
       "id": "engineering-assurance",
       "label": "Engineering assurance",
-      "skills": ["blast-radius", "improve-codebase-architecture", "tdd"]
+      "skills": [
+        "blast-radius",
+        "codebase-architecture",
+        "tdd"
+      ]
     },
     {
       "id": "utilities",
@@ -86,6 +93,8 @@
     "better-colors",
     "better-typography",
     "better-ui",
+    "codebase-design",
+    "convex-best-practices",
     "figma-code-connect",
     "figma-create-design-system-rules",
     "figma-create-new-file",
@@ -95,9 +104,12 @@
     "figma-implement-design",
     "figma-use",
     "figma-use-figjam",
+    "figma-project-rules",
     "find-animation-opportunities",
     "how",
     "improve-animations",
+    "improve-codebase-architecture",
+    "next-best-practices",
     "react-gsap-best-practices",
     "review-animations",
     "vercel-composition-patterns",

@@ -12,6 +12,9 @@ Choose the mode from the user’s question:
 - **Why** — motivation, tradeoffs, regressions, thresholds, or historical
   intent. Load `references/rationale.md` and
   `references/epistemics.md`.
+- **Teach** — a scoped walkthrough that connects runtime flow to the evidence
+  for its design. Load `references/runtime.md`, then only the rationale
+  references needed to explain the important choices.
 
 For mixed questions, establish the runtime flow first, then investigate only the
 rationale that remains unknown. Do not infer historical intent from code shape.

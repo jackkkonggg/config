@@ -7,38 +7,87 @@
         "jakub-colors": {
           "vendor_root": "vendor/jakubkrehel-skills",
           "source_root": "skills/better-colors",
-          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
           "files": {
-            "SKILL.md": "f0d99ef14d99304362cca1c2b0f4e6fce44779b3ba0ddb68084f1250b547907a",
-            "accessibility-contrast.md": "ef405133cbca83ea2934ea3bf59338df8f6e81db81bca7eccb2eb54133295b34",
-            "color-conversion.md": "c2a09184f2b3aeac20bd174c29030f1aa1d79c51fbc28d599dcea53cadc5b342",
+            "SKILL.md": "ed532c387bb93c94df4f48a8f035d8627df9b6c3a26d09c16f305248b51d307a",
+            "accessibility-contrast.md": "4dce9edf6afc4fddfe06d7d63382503423a1b65a86f4ec5fe00074215fa6005d",
+            "agents/openai.yaml": "cda9853d8173026d956fb0ca2829f9f9035345f3c885df0e52537f318b1a39d5",
+            "color-conversion.md": "cca032df7f66828df596d9dc4ad94cb8e0aa0887654aaec099e76a966a6c2687",
+            "color-usage.md": "1eefac184ad33b64aa054ecbef6263357fd80788fab027115a952e65bf183294",
             "gamut-and-tailwind.md": "18e410dd1dfd985fa43c1ae1cba9a843641f13baf211c25ca95c2f3d247c158e",
-            "palette-generation.md": "c4c18dd24a0ce7f84c8db8cf55a0fd454b612082605ee8f50db2cf1b5e01d30a"
+            "palette-generation.md": "3ad02b3cc7c2abbd7d643de9d6275f15e49dac2afd0dc2093261189f9571cff1"
+          }
+        },
+        "jakub-accessibility": {
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-accessibility",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
+          "files": {
+            "SKILL.md": "a240b853d5fcb82f70d560484100b59291fdb1eb47bfeab0cb53d586c4778c2b",
+            "agents/openai.yaml": "98699206d4fb00b72bcaf69bb446f541644cc0cc3d23967e266731e100a55563",
+            "focus-and-keyboard.md": "c3a06d4f3002760a459da608fd74832a1445476c7fd76c848499ebe2ad031019",
+            "forms.md": "01a23db15fa32e4110198f2fd99a3ae85383f5feae57715f959184f6efe79a27",
+            "hit-areas.md": "dbe5a28eec3fcce7f0d3278b22656637748dfe48f4e474abc8d79aacaf7215fa",
+            "motion-and-zoom.md": "8bac5b6c45133abe77aaba93ddaa70a6ad811e27647f1dab54edc8bbb46bb7c9",
+            "screen-readers.md": "4ee2ac09a35678406bd1af4220a72706f8a052d0d8d12067dd436e42633c6ee5",
+            "semantics-and-aria.md": "3290a83e1795f148dc41727a0c5724b67397532873561ba39d7018f93bb1ace8"
           }
         },
         "jakub-typography": {
           "vendor_root": "vendor/jakubkrehel-skills",
           "source_root": "skills/better-typography",
-          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
           "files": {
-            "SKILL.md": "a17408922649a87721669e19fe185342a91c147e554134d2bcc1b103a9967b88",
-            "choosing-fonts.md": "7ada14fbf8af2fe5e045a9b2effefc83a50bd590f97845bedb221ed074f649e1",
-            "css-cheat-sheet.md": "bf0d8b3f136c6087bb464d90a2659d1ae06be8d873ef87318928ce3eefca4996",
-            "details-and-accessibility.md": "6c01a4b2e9a57f06e90ba05956ae3f8c746e9c0b032929ea9a8c7abb47226388",
-            "spacing-and-sizing.md": "8d95064d0ee5e3f42bf4bda09a0264ce3ade96d59137a3b5853c447d7c17a8bf",
-            "variable-fonts-and-opentype.md": "b7ceb5adaabab0c62ecf5d28f77db1485de32be4095bfd9a844bbda31f9ba31c",
-            "wrapping-and-punctuation.md": "28986e834421dff80349823616e1afb0b62cc7e0f60d5949451f234a37d2c919"
+            "SKILL.md": "e22f30804f1dfaab5581000c17af5b25aa2e0e7d8186da4f192ff7c95ebbf2e8",
+            "agents/openai.yaml": "6760b6d92ff84272ef37b524816e26626dd43bd07fe2f53cbff8f85cfbff457e",
+            "choosing-fonts.md": "90a7c4f93e5d82a1f59aef20bfaec8f9297a63018b4ab8523e4eb8bfbda6dd8c",
+            "css-cheat-sheet.md": "45c77f0d1954e12e76c3903361f52703cb4f4287d54c651710f60926247165fb",
+            "details-and-accessibility.md": "b8a3beb706d974d5cba962edaf954b2417b1d2b2ffb05c948a8eb8640249522b",
+            "spacing-and-sizing.md": "df78e8fcf74953e5762340d7f793dcc9823b614f0e2ef7e67234ffb9ad3a5aba",
+            "variable-fonts-and-opentype.md": "5aa349721fa1f667ce4a9515199e866d83b9fd8eb1d815e6265f092201a44dfe",
+            "wrapping-and-punctuation.md": "8717deaab5b71c9531f936b9f6ea53de2df776f52f188e5cabff1b78f724f745"
+          }
+        },
+        "jakub-layout": {
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-layout",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
+          "files": {
+            "SKILL.md": "413d7ec94c19b518330724c7003e5aa72b4a48c3676fc603fad452df4a8ccd89",
+            "agents/openai.yaml": "d51a2ca663c9331f8f23b7a550e5f848f83e81361e21f2280cc384e99cc0ae15",
+            "grouping-and-alignment.md": "9e619838e3175cafb7837a52ca83a9a9fbe91a88001fde606a73adba6f0fee90",
+            "spacing-and-adaptivity.md": "3204ff8756b452989c6d713964e91f7f9293394ffc82ba4b920db599bf10b6e5"
           }
         },
         "jakub-ui": {
           "vendor_root": "vendor/jakubkrehel-skills",
           "source_root": "skills/better-ui",
-          "revision": "f8a1574b08319685705a82e3c28139d1c935af9e",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
           "files": {
-            "SKILL.md": "941e95e9daf2be6c17e0285be0155e60dc2b9fef6b640ab98a16670d70c28889",
-            "animations.md": "d63653e38442a95d824d9827137574cd53a0acf5ed6926bc5395540fe5298047",
-            "performance.md": "ce907ae3d9a55cc996364518cbace376c9d88b64206fdc4c67809199115aa613",
-            "surfaces.md": "ca1feef55ebb7267ed01d9d717eb4857a2e333665719e04ac878ab104478a824"
+            "SKILL.md": "d0ad037f2f5bdf510ad78c501745cfb96804951925339da5a834684a0f2d1b19",
+            "agents/openai.yaml": "799e0b58bded32edf5c217f97e08c364660ec24234978b2e3f7dee1868bea871",
+            "animations.md": "08a3476fde72d7399539d6885e6ad8b018962fe16764303cf835173aebba93b7",
+            "icons.md": "e401bdabd358825ca51b20d10635a7b42d655f13819a1d6fbfa0ddae1686245a",
+            "performance.md": "8450bd42fa61ee425a07de94abba0815119e7ee481eba53ef4ff42e70ca81de5",
+            "surfaces.md": "b0276679502ab5cf3de64a65c5bc196c92b362bde04ded74c4304e711fdaecfd"
+          }
+        },
+        "jakub-writing": {
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-writing",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
+          "files": {
+            "SKILL.md": "23c459bfbb8c7e097eaf9b1ebd7c1b7677e52343f06437aaec5f4bb065661984",
+            "agents/openai.yaml": "a5aec7e0cbc87930962f139eff4341dcf87e83fd19b9447e3f614db2bc71de67"
+          }
+        },
+        "jakub-interface": {
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-interface",
+          "revision": "79a09456be60419e652e63fc9e057b5587d051ea",
+          "files": {
+            "SKILL.md": "597ba2b155069cd5dc40863dbe1e950774c6580eeaff8d09c569d62a6ea70ed8",
+            "agents/openai.yaml": "fee6da27cba45cca3f2db2b9109c85a0e222cda61aab9e8985a1b30bf0f8dee8"
           }
         }
       },
@@ -56,7 +105,7 @@
         "emil-vocabulary": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/animation-vocabulary",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "d718b48fe3c7898804d588f050a2e266d82c9f5ef51da256c8cb8b5951527757"
           }
@@ -64,7 +113,7 @@
         "emil-apple": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/apple-design",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "11840b24a11d7f94f39c6aaab074750ae4e4de4ef54ee4b1dd97e16ebd485e61"
           }
@@ -72,7 +121,7 @@
         "emil-opportunities": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/find-animation-opportunities",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "91c1243164057fbf824088d12faea937878a757a7ac653e8288b775e8b27b882"
           }
@@ -80,7 +129,7 @@
         "emil-audit": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/improve-animations",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "AUDIT.md": "551c8473e20e5f4774680bc24d45e1c68e50992582720905c6b077756b7b5a55",
             "PLAN-TEMPLATE.md": "0a08ac8e23fd2082d7ffb86aeed7b789de77328c3cf874b16f1a755f2ef0a6ad",
@@ -90,7 +139,7 @@
         "emil-review": {
           "vendor_root": "vendor/emilkowalski-skills",
           "source_root": "skills/review-animations",
-          "revision": "f6f79ca1d8e9e2d82c8b90d7481b70ca66f4adfb",
+          "revision": "e695d13cb298db0f46d5ef05be2ad13fa12908a6",
           "files": {
             "SKILL.md": "61cf8ac0c4c8e1f63385298c546b16c65ca9aec34abddcd04e821c16712d671d",
             "STANDARDS.md": "e7d3605034acda54ca13e43aec9e64d65b53de20f75b11b8d694e373012fbe07"
@@ -111,7 +160,7 @@
         "vercel-composition": {
           "vendor_root": "vendor/vercel-labs-agent-skills",
           "source_root": "skills/composition-patterns",
-          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "revision": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
           "files": {
             "AGENTS.md": "89e3ddd58fcf99a53a50e25dfd21b8cde1be5f10b7df6bacd3dfa6796932f516",
             "README.md": "85915a43a6f0b4efe525e3cf6398dd866166da2025837c4460468a24a940da94",
@@ -132,7 +181,7 @@
         "vercel-performance": {
           "vendor_root": "vendor/vercel-labs-agent-skills",
           "source_root": "skills/react-best-practices",
-          "revision": "b9c8ee0643d87d3c5a953d1e22382ff2ead39229",
+          "revision": "7c180d9044c9ae2b442b567aad4e42a28dd5ed62",
           "files": {
             "AGENTS.md": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
             "README.md": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",
@@ -215,15 +264,48 @@
       },
       "licenses": []
     },
+    "codebase-architecture": {
+      "ownership": "locally curated derivative",
+      "sources": {
+        "matt-architecture-scan": {
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/improve-codebase-architecture",
+          "revision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
+          "files": {
+            "HTML-REPORT.md": "0b0936104158abeef7246ff6cbabefa4dc055f17589f2833f2d93001421910a1",
+            "SKILL.md": "4b4cb798c3863d5b6f5c0b4604af1ecb5beb6df82553c972898a91ba38bcf289",
+            "agents/openai.yaml": "c8cb20f68ebf0edb4e497bc11ae5fcaa196004e661cd189015b04f4109ced7f1"
+          }
+        },
+        "matt-architecture-design": {
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/codebase-design",
+          "revision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
+          "files": {
+            "DEEPENING.md": "125e6b77413ad2bc7cf7a772bc74336d580a50f9e797db2178ed133d62333d06",
+            "DESIGN-IT-TWICE.md": "21c3264953bd30ee87b181a3ccaf0e70649f461e5ffd7dc654acee4ba1788b31",
+            "SKILL.md": "a8d50abac5a4018f60e1d911d4b6f4e36454ca14d6c390c0695a578c7de65dad",
+            "agents/openai.yaml": "edebc9e4fcfe102114012575eaa9600b9b5fd08c311664f389c36e7bc717740f"
+          }
+        }
+      },
+      "licenses": [
+        {
+          "vendor_root": "vendor/mattpocock-skills",
+          "from": "LICENSE",
+          "to": "assets/MATTPOCOCK-LICENSE"
+        }
+      ]
+    },
     "explain-codebase": {
       "ownership": "locally curated derivative",
       "sources": {
         "pstack-how": {
           "vendor_root": "vendor/cursor-plugins",
           "source_root": "pstack/skills/how",
-          "revision": "0452e08a314c03621ec5ac1324f1ad1dd824f1a4",
+          "revision": "04166ac89136d36de2a87f24429e6cc307594953",
           "files": {
-            "SKILL.md": "d3f9b30a250c32672cf5e612c8d533907d4fd591a46874089d0cc1f3046d443f",
+            "SKILL.md": "1f4036902709f1d19b3d040f8ac89e20bfd12bdf1018fd91834f06edaaf575e2",
             "references/critic-prompt.md": "aa77a15590814c814bd5cb074842029ab7b790c2e8379050525bdbc20739d1bb",
             "references/critique-rubric.md": "5774ff2caf51796e54c4a61b63620a165de5801f23c8f47406e527abfbe9addc",
             "references/explainer-prompt.md": "04336086e7c415394459ca2f461717d920e15339517dbf5a56ca042f8b4fead3",
@@ -233,14 +315,14 @@
         "pstack-why": {
           "vendor_root": "vendor/cursor-plugins",
           "source_root": "pstack/skills/why",
-          "revision": "0452e08a314c03621ec5ac1324f1ad1dd824f1a4",
+          "revision": "04166ac89136d36de2a87f24429e6cc307594953",
           "files": {
-            "SKILL.md": "0d52542dd598fcb1986474c897d613f137a8489e8dce73d07bc35c8c11dc4d65",
+            "SKILL.md": "ac1aa3dcb8f2ee1614c11056cc62cd642f8b09f10c11953465dd1319f5ec9d4b",
             "references/epistemics.md": "ba99dcdc4fbce91a83b50fc0c9b2c5769febd95540b1722c6b87fe8f900bb60a",
             "references/investigator-prompt.md": "e35d8eaea13f0a027dd35572d525e9f66e8f8918ca9e555237dc228f26278d5f",
             "references/source-playbook.md": "3cfb0245d5b2019eeeaa7a0e023579d390f2cdcdff6942d2fe009b9efac0eb11",
             "references/sources/code-archaeology.md": "8c14aa382f0de40829b2668d43e3f54814480bb93a486c9282ada4003f6b9dbd",
-            "references/sources/databricks.md": "e7de7e261777619c1fc0f604dbe53f755fecd026eda227c6da06a18fb2944596",
+            "references/sources/databricks.md": "269a22032f027ee30a33c1b5e30443d13dd6d127ff20d8d1e8a20715b06a69cc",
             "references/sources/datadog.md": "db80803f1635a5015e3190f4753c4228083e6cebf222c84e24fc3c3919aa5574",
             "references/sources/incident-postmortem.md": "486132457d3782eea64292ce7a2d3bbe3b24b372b20ca00de4329e820f74cd42",
             "references/sources/linear.md": "7e1b72ba459089168efd701502f8c268d2481154aeeda1ddd84f840f7e974760",
@@ -258,20 +340,6 @@
           "to": "assets/PSTACK-LICENSE"
         }
       ]
-    },
-    "figma-project-rules": {
-      "ownership": "locally curated derivative",
-      "sources": {
-        "figma-rules": {
-          "vendor_root": "vendor/figma-mcp-server-guide",
-          "source_root": "skills/figma-create-design-system-rules",
-          "revision": "fabc1ca81d839602ba7c1ca0f445a64246b3870e",
-          "files": {
-            "SKILL.md": "401da565f9882e74fef37e9f08b7afc7530d8f4740734b5b476949d5013a086c"
-          }
-        }
-      },
-      "licenses": []
     }
   }
 }

@@ -1,0 +1,520 @@
+{
+  "harness_version": 2,
+  "generated_at": "2026-07-25T19:51:48.851Z",
+  "candidates": [
+    {
+      "model": "claude",
+      "task": "ui-implementation",
+      "variant": "baseline",
+      "loaded_words": 545,
+      "result": {
+        "text": "## Smallest plan — header only\n\n**Scope:** the Dashboard.tsx header band (title + filter toolbar). No changes to `loadRows`, `sortRows`, `saveFilter`, or `removeWorkspace`.\n\n**1. Aesthetic direction (pick one, commit).** Editorial/utilitarian: a dark ink band, one distinctive display face for the product/workspace name paired with a refined body face for controls, a single sharp accent used only for active filter state. Asymmetric composition — name left, controls pushed right with generous negative space; a subtle grain or hairline rule for depth instead of a flat fill. Avoid Inter/Roboto/system stacks and purple-on-white.\n\n**2. Accessibility, minimum viable.** Wrap in `<header>` with a real `<h1>`; give the search input a visible or visually-hidden `<label>` (placeholder is not a label) plus `aria-describedby` for result counts; ensure accent-on-background meets 4.5:1; visible focus rings on every control; respect `prefers-reduced-motion` for the load-in stagger.\n\n**3. Out of scope, flag don't fix.** Table header clickable divs → should become `<button>` with `aria-sort`; the 20k-row sort on keystroke; `saveFilter` validating after write; immediate `removeWorkspace` — that one traces to a 2025 support request with no linked product decision, so removal behavior needs an owner's call, not a refactor.\n\n**Verification:** axe/keyboard-only pass on the header, contrast check, and confirm existing Dashboard tests still pass.\n\nI have not edited anything — say the word and I'll implement step 1–2.",
+        "input_tokens": 2,
+        "output_tokens": 891
+      }
+    },
+    {
+      "model": "claude",
+      "task": "ui-implementation",
+      "variant": "proposal",
+      "loaded_words": 323,
+      "result": {
+        "text": "## Scope\n\nHeader/toolbar region of `Dashboard.tsx` only. No changes to `loadRows`, `saveFilter`, or `removeWorkspace` — those are separate defects (see Not in scope).\n\n## Plan (smallest viable)\n\n1. **Ground the direction.** Confirm Finch's audience and the header's job (orient + filter). Reuse existing tokens and components; don't introduce a second visual vocabulary.\n2. **One structural header block.** Workspace name as display type, a quiet utility-type line for result count/active filters, and the filter toolbar on one row. Type hierarchy carries the identity — no new decorative layers.\n3. **One signature element.** Pick a single memorable device (e.g. the live result-count readout treated as the header's focal figure) and keep everything around it quiet.\n4. **Accessibility, in the same pass.** Give the search field a real associated `<label>` (visible or visually hidden); keep the placeholder as a hint only. Ensure header controls are native focusable elements with visible focus. Any motion respects `prefers-reduced-motion`.\n5. **States + responsive.** Handle loading, empty, and filtered states; verify wrap behavior for narrow widths.\n\n## Verification\n\nRender the app and inspect the header at narrow, mid, and wide viewports: check clipping, spacing, hierarchy, keyboard tab order, visible focus, and label association. Revise before finishing.\n\n## Not in scope\n\nClickable-div table headers, sort-per-keystroke cost (72% in `sortRows`), `saveFilter` write-before-validate, and unconfirmed `removeWorkspace` DELETE — the last needs a linked product decision, not a UI fix.",
+        "input_tokens": 2,
+        "output_tokens": 815
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "ui-implementation",
+      "variant": "baseline",
+      "loaded_words": 545,
+      "result": {
+        "text": "Use a compact “field journal” direction: warm paper-toned surface, ink typography, and one sharp finch-yellow accent. Keep the change inside `Dashboard.tsx` and its existing styling mechanism.\n\n1. Add a semantic `<header>` above the current filter toolbar containing:\n\n   - Product/title and a short results-context line.\n   - The existing search/filter controls—moved, not duplicated.\n   - A restrained visual signature, such as a thin yellow rule or small geometric finch mark built with CSS.\n\n2. Fix header-adjacent accessibility:\n\n   - Give search a persistent `<label>`; retain placeholder only as an example.\n   - Use real `<button>` elements for sortable table headers, with visible focus styles and `aria-sort`.\n   - Preserve keyboard operation and sufficient text/background contrast.\n   - Respect reduced-motion preferences if adding a brief entrance transition.\n\n3. Keep behavior unchanged:\n\n   - Do not alter `loadRows`, sorting performance, filter persistence, workspace deletion, table data, or empty-state logic.\n   - Do not add dependencies, new abstractions, confirmation flows, or unrelated cleanup. The immediate-delete history lacks enough product authority to change it here.\n\n4. Verify:\n\n   - TypeScript build passes.\n   - Header works at narrow and wide widths without clipping.\n   - Search and sort controls are reachable and operable by keyboard in logical order.\n   - Labels, focus indicators, and sort state are exposed to assistive technology.\n   - Existing filtering, sorting, results, and empty-state behavior remain unchanged.\n\nRecord the 20k-row sorting delay and deletion ambiguity as separate follow-up issues, outside this header change.",
+        "input_tokens": 20469,
+        "output_tokens": 444
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "ui-implementation",
+      "variant": "proposal",
+      "loaded_words": 323,
+      "result": {
+        "text": "Product: Finch dashboard. Audience: people scanning and filtering workspace data. Main job: orient users and make search/filtering immediate.\n\nSmallest implementation plan:\n\n1. Reshape only the existing dashboard header/filter toolbar; preserve current components and tokens.\n2. Give it one restrained “field index” identity:\n   - Product/workspace title as the dominant element.\n   - Result count and active-filter summary beneath it.\n   - Search and filters grouped as the primary action area.\n   - One signature element: a compact finch-inspired status marker using existing colors—no new illustration system.\n3. Fix header-adjacent accessibility:\n   - Add a persistent visible label to search; keep placeholder as example text.\n   - Use semantic buttons for filter actions with visible focus states.\n   - Ensure contrast, keyboard order, responsive wrapping, and reduced-motion behavior.\n4. Protect input responsiveness by filtering on each keystroke but sorting only when the filtered dataset or sort selection changes; memoize the result. Do not broaden this into a `loadRows` rewrite.\n5. Keep deletion, `saveFilter` validation, table-header semantics, results table, and empty state out of this header change; record them as separate follow-ups because they require distinct behavioral or product decisions.\n\nVerification:\n\n- Render populated, filtered, and narrow-mobile states.\n- Keyboard-test every header control and confirm the search label is announced.\n- Check visible focus, contrast, wrapping, and 200% zoom.\n- Re-run the input trace with 20k rows and confirm `sortRows` no longer runs on irrelevant header keystrokes.",
+        "input_tokens": 20110,
+        "output_tokens": 386
+      }
+    },
+    {
+      "model": "claude",
+      "task": "holistic-ui-review",
+      "variant": "baseline",
+      "loaded_words": 2579,
+      "result": {
+        "text": "**Project Finch — holistic review (read-only; no files touched)**\n\n**Correctness / data safety**\n- `saveFilter` writes to localStorage before validating shape, so an invalid filter is persisted and reloaded on next boot. Validate first, then write.\n- `removeWorkspace` fires DELETE straight from a menu click — no confirm, no undo. Git history shows this became immediate after a 2025 support request with no linked product decision, so treat the current behavior as *unowned*, not *intended*. Don't change it unilaterally: surface it to whoever owns workspace lifecycle and get the decision recorded before touching it.\n\n**Performance**\n- `loadRows` re-sorts all 20k rows per keystroke, with a trace attributing 72% of input delay to `sortRows`. Filtering narrows the set, so sorting after filtering is right; the waste is re-sorting on every keystroke. Debounce input and memoize the sort on (filter, sortKey). Re-run the same trace afterward to confirm the 72% actually drops.\n\n**Accessibility / UI**\n- Clickable header divs give no keyboard focus, no role, no sort state. Use `<th>` with a real `<button>` and `aria-sort`.\n- The search field has placeholder only. Add a persistent label (visually hidden if space is tight); placeholders vanish on input and aren't reliable names.\n- Check the header buttons and any icon-only row actions meet a 40×40px desktop hit area (44×44 for touch), and that inputs are ≥16px on mobile to avoid iOS focus zoom.\n\nNo changes applied — these are findings only.",
+        "input_tokens": 2,
+        "output_tokens": 677
+      }
+    },
+    {
+      "model": "claude",
+      "task": "holistic-ui-review",
+      "variant": "proposal",
+      "loaded_words": 2077,
+      "result": {
+        "text": "**Quick holistic interface review — Project Finch (read-only; no edits made)**\n\nScope: Dashboard.tsx primary path (filter toolbar → results table → empty state), across accessibility, writing, layout, and polish.\n\n**Findings (ranked)**\n\n1. **Table header uses clickable divs** (high). No native semantics: no role, no tab focus, no Enter/Space activation, no sort-state announcement. Sorting is the table's main affordance, so it's unusable by keyboard and screen readers. Native `<th>` + `<button>` is both correct and less code.\n2. **Search field has placeholder only, no label** (high). Placeholders show format; they don't replace a visible label. The field loses its name once typing starts.\n3. **`removeWorkspace` fires DELETE immediately from a menu item** (high). Destructive, unconfirmed, and undoable only by re-creation; git history shows the immediacy was a 2025 support-request change with no linked product decision — treat as unratified.\n4. **`sortRows` on 20k rows per keystroke** (medium). Trace attributes 72% of input delay; sorting belongs after filtering and outside the keystroke path.\n5. **`saveFilter` persists before validating** (medium). An invalid shape reaches localStorage and can poison later loads.\n\n**Rejected for lack of evidence:** color, contrast, typography, spacing, and empty-state copy — no rendered output or tokens supplied.\n\n**Verification:** artifact facts and the cited trace only; nothing inspected or executed.\n\n**Verdict: Needs changes.**",
+        "input_tokens": 2,
+        "output_tokens": 893
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "holistic-ui-review",
+      "variant": "baseline",
+      "loaded_words": 2579,
+      "result": {
+        "text": "Quick holistic review—no edits made.\n\nHighest-priority findings:\n\n- Workspace deletion is dangerously immediate. A menu item calls `DELETE` without confirmation or recovery. The support-request history explains when this changed but not an approved product decision. Reconfirm intent; consider confirmation or undo before implementation.\n- Filtering has a clear performance bottleneck. The same 20k rows are sorted after every keystroke, with `sortRows` causing 72% of input delay. Filter first, avoid redundant sorting, and verify with the same interaction trace.\n- `saveFilter` persists unvalidated data. Validate and normalize the filter at the storage boundary before writing to `localStorage`.\n- Table headers use clickable `div`s. These lack native keyboard and semantic behavior; use actual buttons within header cells and expose sort state.\n- The search field relies on placeholder text as its label. Add a persistent visible label or an accessible name; placeholder text disappears during entry.\n- Empty-state quality cannot be assessed from the supplied facts. Check that it explains why no rows appear and offers an appropriate recovery action.\n- Visual polish—contrast, typography, hit areas, radii, and surface treatment—cannot be verified without rendered evidence. Preserve existing tokens and styling conventions if changes are later authorized.\n\nVerification should include keyboard-only sorting/search, screen-reader names and sort announcements, deletion cancellation/recovery behavior, malformed saved filters, empty results, and an input-latency trace using the 20k-row dataset.",
+        "input_tokens": 21831,
+        "output_tokens": 340
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "holistic-ui-review",
+      "variant": "proposal",
+      "loaded_words": 2077,
+      "result": {
+        "text": "Scope: Quick review of the Dashboard’s primary filter-and-results path, including accessibility, UX writing, interaction safety, and responsiveness. Read-only; no changes made.\n\n1. High — Workspace deletion happens immediately from a menu item, without confirmation or recovery. This risks irreversible data loss. The support-request history explains when it changed but does not establish an intentional product decision. Require an explicit “Delete workspace” confirmation that repeats the consequence, or provide undo.\n\n2. High — Clickable `<div>` table headers lack native control semantics and keyboard behavior. Use `<button>` elements with accessible names and expose the current sort direction, such as `aria-sort` on the corresponding header cell.\n\n3. High — Sorting 20k rows after every keystroke causes measurable input latency; `sortRows` accounts for 72% of the delay. Avoid re-sorting when only the search query changes, cache the ordered rows, or reduce work before sorting.\n\n4. Medium — The search field uses its placeholder as its only label. Placeholders disappear during entry and do not provide a reliable accessible name. Add a persistent visible `<label>`; retain the placeholder only for format or example text.\n\n5. Medium — `saveFilter` writes unvalidated data to `localStorage`. Invalid persisted state can break later sessions. Validate and normalize at the storage boundary before writing.\n\nRejected for insufficient evidence: visual hierarchy, color contrast, typography, empty-state copy quality, responsive layout, and loading/error-state behavior.\n\nVerification: artifact facts, performance trace attribution, and deletion history were reviewed; no rendered interface or source implementation was available for direct interaction testing.\n\nVerdict: **Needs changes**.",
+        "input_tokens": 20777,
+        "output_tokens": 378
+      }
+    },
+    {
+      "model": "claude",
+      "task": "architecture-investigation",
+      "variant": "baseline",
+      "loaded_words": 722,
+      "result": {
+        "text": "Scanned from the supplied facts only — no files read, so treat rankings as provisional until confirmed against the code.\n\n**Deepening candidates, ranked**\n\n1. **Row query module** — `loadRows`, `Dashboard.tsx`\n   *Problem:* read → filter → sort is inlined in the load path, so every keystroke re-sorts 20k rows (72% of input delay). Shallow: callers must know the ordering, not just ask for rows.\n   *Benefits:* one seam owning filter+sort+memoization gives locality for the perf fix and a testable interface for ordering/pagination without rendering.\n\n2. **Filter persistence module** — `saveFilter`\n   *Problem:* writes localStorage before validating shape, so invalid state is persisted. Validation and storage are separate shallow steps with no seam.\n   *Benefits:* validate-then-persist behind one interface; error modes become testable, storage becomes an adapter (second adapter = real seam).\n\n3. **Workspace deletion module** — `removeWorkspace`\n   *Problem:* DELETE fires straight from a menu item; git history shows immediacy was a 2025 support-request change with no linked product decision. Confirmation policy has no home.\n   *Benefits:* intent/confirmation behind one interface. Needs a product owner's call, not just a refactor — candidate for an ADR.\n\n4. **Table header / search accessibility** — clickable divs, unlabeled search field. Real, but a local fix, not a depth problem.\n\nWhich would you like to explore?",
+        "input_tokens": 2,
+        "output_tokens": 703
+      }
+    },
+    {
+      "model": "claude",
+      "task": "architecture-investigation",
+      "variant": "proposal",
+      "loaded_words": 240,
+      "result": {
+        "text": "**Mode: Scan (read-only).** No design, no edits; findings below are ranked candidates only.\n\n**Strong — row query module behind `loadRows`.** Friction: `loadRows` reads, filters, then sorts 20k rows on every keystroke, and a trace attributes 72% of input delay to `sortRows`. Sequencing and result-freshness knowledge currently live in `Dashboard.tsx` alongside toolbar, table, and empty-state rendering. Proposed responsibility: one module owning the query pipeline and its ordering/caching invariants. Locality/leverage: highest — it removes the hottest path from the view and gives sorting one owner. Testing impact: pipeline behavior becomes testable without rendering `Dashboard`. Passes the deletion test: removing it would scatter ordering rules back into callers.\n\n**Worth exploring — filter persistence.** `saveFilter` writes localStorage before validating shape, so invalid state can persist. Small but real invariant leak; likely a local reordering rather than a new seam.\n\n**Worth exploring (blocked) — workspace deletion intent.** `removeWorkspace` fires DELETE straight from a menu item. Git history says this became immediate after a 2025 support request with no linked product decision — a decision conflict that needs product confirmation before any change.\n\n**Speculative — table/search accessibility.** Clickable header divs and an unlabeled search field are correctness defects, best fixed locally, not architecture deepening.\n\n**Top recommendation:** the row query module. Verification if it proceeds: re-run the input-delay trace and add boundary tests before/after.",
+        "input_tokens": 2,
+        "output_tokens": 926
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "architecture-investigation",
+      "variant": "baseline",
+      "loaded_words": 722,
+      "result": {
+        "text": "1. **Rows loading module** — Best opportunity  \n   **Files:** `loadRows`, `sortRows`, Dashboard search/filter callers  \n   **Problem:** Reading, filtering, and repeatedly sorting 20k rows is spread across a shallow flow. Sorting after every keystroke causes 72% of input delay. The deletion test suggests removing `loadRows` would scatter sequencing and performance knowledge across callers.  \n   **Solution:** Deepen the Rows loading module so this behavior and its invariants gain locality behind one seam.  \n   **Benefits:** Highest leverage: callers receive responsive, correctly ordered results without coordinating the implementation. The interface becomes the test surface for filtering, ordering, and repeated-input behavior.\n\n2. **Filter persistence module**  \n   **Files:** `saveFilter`, filter callers  \n   **Problem:** The module persists before validating, leaking ordering and validity concerns through its seam.  \n   **Solution:** Deepen the Filter persistence module around valid filter storage behavior.  \n   **Benefits:** Better locality for validation and persistence failure modes; tests can verify behavior through the interface rather than implementation sequencing.\n\n3. **Workspace deletion module**  \n   **Files:** workspace menu item, `removeWorkspace`  \n   **Problem:** The interface exposes an immediate destructive action, but history provides no durable product rationale.  \n   **Solution:** Reassess whether deletion behavior belongs in a deeper module.  \n   **Benefits:** Could localize deletion invariants and improve tests, but product intent must be established first.\n\nThe clickable headers and unlabeled search field are important accessibility defects, but not strong deepening opportunities.\n\nWhich of these would you like to explore?",
+        "input_tokens": 18611,
+        "output_tokens": 459
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "architecture-investigation",
+      "variant": "proposal",
+      "loaded_words": 240,
+      "result": {
+        "text": "1. **Strong — Row loading/filtering/sorting responsibility**\n\nCurrent friction: `loadRows` combines JSON parsing, filtering, and sorting, while the same 20k rows are re-sorted after every keystroke. Tracing attributes 72% of input delay to `sortRows`, making this the clearest high-leverage architecture issue.\n\nProposed responsibility: concentrate row preparation and query behavior—including sequencing and reuse of expensive work—behind one domain-owned boundary.\n\nLocality and leverage: this would centralize rules currently embedded in the loading path and improve the dashboard’s dominant interaction cost.\n\nTesting impact: enables tests around observable row-query behavior, ordering, and repeated searches without coupling tests to `Dashboard.tsx` internals.\n\nDecision conflicts: none recorded.\n\n2. **Worth exploring — Filter persistence boundary**\n\nCurrent friction: `saveFilter` writes to `localStorage` before validating shape, allowing invalid external data to become persisted state.\n\nProposed responsibility: own validation and persistence sequencing at the storage boundary.\n\nTesting impact: focused invariant and failure-path tests. The opportunity is narrower than the row pipeline.\n\n3. **Speculative — Workspace deletion lifecycle**\n\nImmediate deletion from a menu item concentrates no confirmation, recovery, or explicit policy. History records a support request but no linked product decision. This may indicate a missing lifecycle boundary, but product intent must be recovered before architectural conclusions.\n\nThe clickable table headers and unlabeled search field are important accessibility defects, but the supplied facts do not establish an architectural deepening opportunity.\n\n**Top recommendation:** investigate the row loading/filtering/sorting cluster first; it has measured user impact, concentrated domain behavior, and the strongest testing leverage.",
+        "input_tokens": 17879,
+        "output_tokens": 423
+      }
+    },
+    {
+      "model": "claude",
+      "task": "interface-design",
+      "variant": "baseline",
+      "loaded_words": 1521,
+      "result": {
+        "text": "**Deepening candidate: filter persistence (Dashboard.tsx, `saveFilter`)**\n\nProblem: `saveFilter` writes localStorage *before* validating, so the interface leaks an invariant callers must remember (\"validate first\"). Storage access and filter meaning are smeared across the toolbar's call sites — no locality.\n\n**Shape 1 — one deep module, storage inlined.**\nA `FilterState` module with `readFilter(): Filter` and `writeFilter(candidate): Result`. Validation happens inside, before any write; a rejected candidate leaves stored state untouched. Interface is two entry points; localStorage is an implementation detail with no seam. Highest leverage, but tests must run against a browser-ish storage stand-in.\n\n**Shape 2 — same module, storage behind a port.**\nIdentical interface, plus a `FilterStore` port (`get`/`set`) injected as an **adapter**: localStorage in production, in-memory in tests. Two adapters, so the **seam** is real, not hypothetical. Validation still sits inside the deep module, not in the adapter.\n\n**Recommendation: Shape 2.** Same narrow interface, but the interface becomes the test surface without touching browser globals, and the validate-before-write invariant is provable at that surface.\n\nVerification I'd ask for: a test asserting an invalid candidate produces no stored change, plus deletion of any per-helper tests Shape 2 subsumes. I'd change no files without your go-ahead.\n\n`removeWorkspace` and the `sortRows` cost are separate candidates — out of scope here.\n\nWhich shape shall we grill?",
+        "input_tokens": 2,
+        "output_tokens": 884
+      }
+    },
+    {
+      "model": "claude",
+      "task": "interface-design",
+      "variant": "proposal",
+      "loaded_words": 1040,
+      "result": {
+        "text": "**Mode: Design** (scoped to filter persistence only; read-only — this authorizes no edits).\n\n**Shape A — validated store, storage as port.** One deep module: `load(): Filter` and `commit(draft): Result<Filter, Invalid>`. `commit` validates and canonicalises *before* any write, so the current write-then-validate ordering in `saveFilter` becomes unrepresentable. Storage sits behind a port with two real adapters — localStorage in production, in-memory in tests — so the seam is justified, not hypothetical. Hidden behind it: serialization, schema version, corrupt/absent-value recovery to defaults.\n\n**Shape B — filter session.** The module owns the draft → applied → persisted transition and exposes a subscribable current filter; only validated *applied* filters persist. Deeper against Dashboard's toolbar coupling, but it absorbs UI lifecycle concerns and widens the interface.\n\n**Choice: A**, grafting B's draft/applied distinction as a `commit`-only rule rather than a subscription. A passes the deletion test — remove it and validation, versioning, and corruption handling scatter back across callers; B risks becoming a shallow wrapper over React state.\n\n**Verification:** test at the interface — round-trip, invalid draft rejected with zero writes, corrupt and missing values yield defaults, version migration. Delete the old `saveFilter` unit tests rather than layering.\n\nOut of scope here: `sortRows` input delay, header/label accessibility, and the unlinked immediate-deletion decision. Route this design to `architect` before implementation.",
+        "input_tokens": 2,
+        "output_tokens": 1049
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "interface-design",
+      "variant": "baseline",
+      "loaded_words": 1521,
+      "result": {
+        "text": "Two credible interface shapes for filter persistence:\n\n1. Explicit operations\n\n```ts\ninterface FilterPersistence {\n  load(): Result<Filter | null, ReadError>\n  save(candidate: unknown): Result<Filter, ValidationError | WriteError>\n  clear(): Result<void, WriteError>\n}\n```\n\nThe module validates and normalizes before writing. Its implementation hides serialization, storage keys, parsing, and `localStorage`. Callers must understand three operations and several error modes, so the interface is moderately shallow.\n\n2. Single state transition\n\n```ts\ninterface PersistedFilter {\n  update(\n    change: { type: \"replace\"; candidate: unknown } | { type: \"clear\" }\n  ): Result<Filter | null, ValidationError | PersistenceError>\n\n  current(): Result<Filter | null, PersistenceError>\n}\n```\n\nInvariant: `update` either validates and commits the complete filter or leaves the previous value unchanged. Calls are ordered synchronously; malformed stored data produces a persistence error rather than leaking parsing details.\n\nI would choose shape 2. It creates a deeper module because atomic validation-and-persistence sits behind one mutation entry point. That gives callers more leverage and concentrates filter invariants, serialization, and failure handling in one place, improving locality.\n\n`localStorage` is local-substitutable: the implementation can use an in-memory storage adapter in tests without exposing that internal seam through the external interface. Tests should exercise `current` and `update`, proving invalid candidates never overwrite valid filters, valid filters round-trip, clearing works, and malformed stored data is handled. Delete the old `saveFilter` tests once this interface test surface covers its behaviour.",
+        "input_tokens": 19782,
+        "output_tokens": 439
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "interface-design",
+      "variant": "proposal",
+      "loaded_words": 1040,
+      "result": {
+        "text": "Filter persistence should own validation, serialization, storage, and recovery so callers cannot persist invalid state.\n\n**Shape 1 — Minimal repository**\n\n```ts\ninterface FilterStore {\n  load(): Result<Filter | null, FilterStoreError>\n  save(candidate: unknown): Result<Filter, FilterStoreError>\n  clear(): Result<void, FilterStoreError>\n}\n```\n\nInvariants:\n\n- `save` validates before writing.\n- Stored data is always a valid, versioned `Filter`.\n- Malformed stored data returns a typed error or is cleared according to a fixed recovery policy.\n- Operations are synchronous and preserve the previous value when validation or serialization fails.\n\nBrowser `localStorage` remains behind the module. Tests use an in-memory adapter, making this a local-substitutable dependency.\n\nThis shape offers high leverage through three operations but exposes persistence mechanics to callers.\n\n**Shape 2 — Filter session**\n\n```ts\ninterface FilterSession {\n  restore(defaults: Filter): Filter\n  update(change: FilterChange): Result<Filter, InvalidFilter>\n  reset(): Filter\n}\n```\n\n`update` validates, derives the next filter, and persists it atomically. Callers never handle raw storage values or separately sequence validation and saving. Storage failures become explicit `PersistenceUnavailable` errors if the UI must react; otherwise the session retains the last valid in-memory filter.\n\nThis better concentrates filter lifecycle rules and prevents the current write-before-validation bug by construction.\n\n**Recommendation**\n\nChoose `FilterSession`. Its interface matches Dashboard’s actual responsibility: restore, change, and reset filters—not manage storage. It has greater depth and stronger sequencing guarantees. Test behavior exclusively through this interface using an in-memory storage adapter; replace tests coupled to serialization or `localStorage` internals. This design does not address sorting, deletion, or accessibility concerns.",
+        "input_tokens": 19051,
+        "output_tokens": 443
+      }
+    },
+    {
+      "model": "claude",
+      "task": "refactoring",
+      "variant": "baseline",
+      "loaded_words": 2711,
+      "result": {
+        "text": "**Scope.** Filter parsing and persistence only. Out of scope, split and shipped separately: the sortRows input delay (Perf issue, 72% of delay, needs a baseline), the unlabeled search field and clickable table headers (control-ui work), and `removeWorkspace`'s immediate DELETE. That deletion is an unlinked product decision from a 2025 support request, and data deletion is a pause point, so I will not touch or \"fix\" it here. `saveFilter` writing localStorage before validating is a real boundary defect; I pin it as-is and route the reorder to Bug fix, because correcting it changes behavior.\n\n**Steps.**\n1. Run explain-codebase in How mode over Dashboard.tsx, `loadRows`, and `saveFilter` to learn the contract.\n2. Write the pin before moving structure: characterization tests over parse inputs (malformed, empty, unicode) and a localStorage round trip. Type check and lint are not a pin.\n3. Name the target shape first, the parsed filter type with parsing at the boundary (Foundational Thinking, Type System Discipline, Boundary Discipline).\n4. Subtract first, delete dead validators and one-caller wrappers (Subtract Before You Add).\n5. Extract parse and persist in small green steps, migrate every caller, delete the old API in the same wave. No shims.\n6. Prove equivalence on the running app, not on compilation (Prove It Works).\n7. Ordered commits, subtraction then reshape. Then Opening a PR.\n\n**Reply will state** the reader-load delta and anything reverted.",
+        "input_tokens": 2,
+        "output_tokens": 768
+      }
+    },
+    {
+      "model": "claude",
+      "task": "refactoring",
+      "variant": "proposal",
+      "loaded_words": 441,
+      "result": {
+        "text": "## Scope\n\nRefactor only: filter parsing in `loadRows` and persistence in `saveFilter`. No behavior change, no edits until you approve.\n\n## Behavior pin (first, before any move)\n\n1. Characterization tests over the real functions: `loadRows` for a matrix of filter inputs (empty, whitespace, multi-term, no-match, malformed JSON) asserting exact row order out; `saveFilter` asserting the current localStorage key, serialized value, and the fact that a shape-invalid filter is **still written before validation rejects it**. Types alone are not a contract.\n\n## Target shape\n\n2. One `parseFilter(raw) → Filter` making invalid filter states unrepresentable, and one persistence seam (`readFilter`/`writeFilter`) owning the storage key and serialization. `Dashboard.tsx` consumes both; no storage or parsing logic left inline.\n3. Delete redundant paths first, then move in small steps with the pin green. Migrate every caller and drop the old path in the same wave.\n\n## Verification\n\n4. Pin green at each step, plus a real-app pass: filter, reload, confirm restored state and identical table contents.\n\n## Out of scope — separate changes\n\n- `saveFilter` write-before-validate is a **bug**; the pin locks it in today. Fix it in its own commit.\n- `sortRows` 72% input delay: performance change.\n- Header divs / unlabeled search: accessibility change.\n- `removeWorkspace` immediate DELETE: unlinked 2025 decision — needs product confirmation, not a refactor.",
+        "input_tokens": 2,
+        "output_tokens": 700
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "refactoring",
+      "variant": "baseline",
+      "loaded_words": 2711,
+      "result": {
+        "text": "Consumer impact stays unchanged. Filters parse, persist, reload, and drive the same rows as before. Maintainers get one validated filter shape and a clearer persistence boundary.\n\n1. Pin the behavior contract first. Run explain-codebase in How mode over `Dashboard.tsx`, `loadRows`, and `saveFilter`. Add characterization tests covering valid, invalid, missing, and reloaded filters.\n2. Name the target shape. Define one `Filter` type plus boundary parsers for UI input and stored JSON. Run architect because parsing and persistence cross function boundaries.\n3. Subtract before you add. Remove duplicate shape checks and one-caller parsing wrappers only when the characterization tests cover them.\n4. Move in small behavior-preserving steps, each keeping the pin green. Parse and validate before persistence. Migrate every caller in the same wave, then delete the old API. Add no compatibility shim.\n5. Prove behavior is unchanged on the real artifact. Replay the pinned filter cases through the toolbar, storage reload, `loadRows`, table, and empty state. Compare row outputs and stored values before and after.\n6. Confirm the change earns its place. Require fewer validation paths, less hidden invalid state, and a shorter call path from input to persisted `Filter`.\n7. Rebase into ordered commits. Commit the behavior pin, the parser boundary, the persistence migration, then verified cleanup. Run Opening a PR.\n\nPrinciples shaping decisions:\n\n- Foundational Thinking defined `Filter` before logic.\n- Boundary Discipline placed validation before `localStorage`.\n- Subtract Before You Add and Laziness Protocol limited cleanup.\n- Prove It Works required replayed equivalence.\n- Migrate Callers Then Delete Legacy APIs prohibited dual paths.\n- Minimize Reader Load set the success measure.\n\nSorting performance, deletion behavior, and accessibility remain separate work.",
+        "input_tokens": 21867,
+        "output_tokens": 559
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "refactoring",
+      "variant": "proposal",
+      "loaded_words": 441,
+      "result": {
+        "text": "Plan:\n\n1. Pin current behavior with characterization tests covering:\n\n   - Accepted and rejected filter shapes.\n   - JSON/load failures and fallback behavior.\n   - The exact localStorage key and serialized representation.\n   - `saveFilter`’s current write-before-validation ordering, including invalid inputs.\n   - Reload round-trips from persisted data.\n\n2. Define a small target boundary:\n\n   - `parseFilter(unknown): ParseResult<Filter>` owns shape validation.\n   - Persistence owns only localStorage reads/writes.\n   - Existing UI/controller code preserves current sequencing and observable outcomes.\n   - Keep parsing pure; treat JSON and localStorage values as untrusted boundary data.\n\n3. Move parsing rules into the pure parser without changing accepted shapes, defaults, coercions, or errors. Migrate every caller in the same change and delete superseded parsing paths.\n\n4. Extract persistence behind narrowly named functions while retaining the current storage format and write-before-validation behavior. Fixing that ordering would be a separate bug change, because it alters observable behavior.\n\n5. Keep the behavior pin green after each move. Add an equivalence table or replay harness comparing old and new results for valid, malformed, missing, and previously persisted filters.\n\n6. Verify on the real app surface: change filters, reload, confirm identical restored state, and exercise malformed stored values.\n\n7. Confirm reader load improved through one parsing owner, one persistence owner, fewer duplicated shape checks, and no compatibility layer.\n\nThe sorting delay, destructive workspace action, and accessibility issues are out of scope. Record them separately; do not mix fixes into this refactor.",
+        "input_tokens": 18159,
+        "output_tokens": 449
+      }
+    },
+    {
+      "model": "claude",
+      "task": "bug-repair",
+      "variant": "baseline",
+      "loaded_words": 2580,
+      "result": {
+        "text": "**Playbook: Bug fix.** Scope stays `saveFilter` only. The sort perf, the unlabeled search field, and the immediate `removeWorkspace` DELETE are separate findings, not this diff.\n\n**1. Reproduce.** I drive it myself through `control-ui`, the browser surface. Submit a malformed filter from the toolbar, read `localStorage` in the console, confirm the bad entry persisted and the reload path then renders a broken toolbar. I do not hand the repro to the user.\n\n**2. Root-cause.** `explain-codebase` How mode over `saveFilter` and its callers to confirm the write precedes the shape check, with runtime evidence, not a reading.\n\n**3. Fix.** Parse the filter into a validated `Filter` before any write, reject early, persist only the parsed value. This is Boundary Discipline, so validation sits at the persistence boundary and internal callers trust the type. Type System Discipline pushes the parsed-shape return so an unvalidated filter cannot reach storage. Laziness Protocol keeps me from extracting a storage layer. Delegate the edit to a `poteto-agent` subagent on the bug-fix model, scoped to `saveFilter`, then review the diff myself.\n\n**4. Cheap regression proof.** A local unit test asserting `localStorage` is untouched after an invalid save, plus one passing valid case. Cheap and local, so the tdd cadence applies.\n\n**5. Sequencing.** Failing test commits first, fix on top, per Sequence Work into Verifiable Units.\n\n**6. Verify** on the browser surface again, then Opening a PR. Prove It Works means the original repro passes there, not just green tests.",
+        "input_tokens": 2,
+        "output_tokens": 1091
+      }
+    },
+    {
+      "model": "claude",
+      "task": "bug-repair",
+      "variant": "proposal",
+      "loaded_words": 409,
+      "result": {
+        "text": "**Plan only — no edits made.** Scope is `saveFilter`; the sort cost, header/label accessibility, and immediate `removeWorkspace` DELETE stay untouched unless you ask.\n\n**1. Reproduce.** Drive the Dashboard filter toolbar myself: save a malformed filter (e.g. missing/empty field, wrong operator type), then read `localStorage` and reload. Expected symptom: the bad entry persists and the toolbar rehydrates into a broken filter or empty state.\n\n**2. Confirm the mechanism.** Artifact facts say `saveFilter` writes `localStorage` before validating the shape, so the write is unconditional and validation failure happens after persistence. Verify that ordering in the actual function before designing anything — don't fix from the description alone.\n\n**3. Cheap regression proof, written first.** A unit test on `saveFilter` against a fake/in-memory storage: given an invalid filter, assert it throws or returns a failure *and* that storage was never written; given a valid filter, assert exactly one write with the expected value. That's the cheapest level that proves the behavior.\n\n**4. Narrow fix.** Reorder so validation gates the write: validate, return/throw on failure, persist only on success. No new validation library, no schema refactor, no error-UI redesign.\n\n**5. Verify.** Run the new test (failing before, passing after) and re-run the manual repro on the same Dashboard surface — the unit test alone doesn't prove the UI path.\n\n**Report:** symptom, ordering mechanism, fix, failing→passing evidence.",
+        "input_tokens": 2,
+        "output_tokens": 656
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "bug-repair",
+      "variant": "baseline",
+      "loaded_words": 2580,
+      "result": {
+        "text": "1. Read the Principles section in full.\n2. Reproduce the bug through the dashboard filter toolbar. Spy on `localStorage` and submit an invalid filter.\n3. Trace the filter path with `explain-codebase` How mode. Confirm that `saveFilter` writes before validation. Check Rationale mode for relevant history.\n4. Name the data shape. Treat input as `unknown`, validate it into the existing valid `Filter` shape, then permit persistence.\n5. Add a cheap regression test before the fix. Assert that an invalid filter throws or returns the existing failure result and makes zero `localStorage.setItem` calls. Add a valid-filter assertion showing one write with the expected value.\n6. Run the test and preserve the failing output.\n7. Move validation ahead of the write in `saveFilter`. Keep the change local. Skip `architect` because no function boundary needs to change.\n8. Run the focused test and preserve the passing output. Reproduce through the dashboard again on the same surface.\n9. Review the diff, stage the failing regression proof before the fix, then follow Opening a PR.\n\nScope stays limited to filter persistence. Workspace deletion, table accessibility, and sorting performance are separate issues.\n\nPrinciples that shaped the plan:\n\n- **Boundary Discipline.** External filter data is validated before the `localStorage` side effect.\n- **Type System Discipline.** `unknown` input becomes a valid `Filter` only after parsing.\n- **Fix Root Causes.** The write ordering changes instead of adding cleanup after an invalid write.\n- **Laziness Protocol.** The fix remains inside `saveFilter`.\n- **Prove It Works.** The same UI repro and failing-then-passing storage assertion provide the proof.\n- **Sequence Work into Verifiable Units.** The regression test precedes the fix.",
+        "input_tokens": 21589,
+        "output_tokens": 659
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "bug-repair",
+      "variant": "proposal",
+      "loaded_words": 409,
+      "result": {
+        "text": "Using the Poteto bug-fix playbook, keep the change limited to `saveFilter`.\n\n1. Reproduce the bug by calling `saveFilter` with an invalid filter and confirming `localStorage.setItem` runs or an existing stored filter is overwritten.\n2. Trace the current sequence and identify the existing validation rule or type guard. The proven mechanism should be: persistence occurs before that validation result is checked.\n3. Add a cheap regression test using mocked `localStorage`:\n\n   - Seed a known valid stored filter.\n   - Call `saveFilter` with an invalid shape.\n   - Assert it rejects/returns failure as currently intended.\n   - Assert `setItem` was not called and the seeded value remains unchanged.\n   - Add a valid-filter case asserting exactly one write with the validated serialization.\n\n   Run the invalid case before implementation to record the failure.\n4. Move validation ahead of serialization and `localStorage.setItem`. Return or throw through the existing error path when validation fails; do not add compatibility behavior or alter filter semantics.\n5. Re-run the regression tests, then repeat the original repro through the filter toolbar and inspect local storage to prove invalid input is not persisted while valid filters still save.\n\nDo not include deletion behavior, accessibility cleanup, or sorting performance in this fix; those facts describe separate issues.",
+        "input_tokens": 18117,
+        "output_tokens": 393
+      }
+    },
+    {
+      "model": "claude",
+      "task": "performance",
+      "variant": "baseline",
+      "loaded_words": 2339,
+      "result": {
+        "text": "**Playbook: Perf issue** (`playbooks/perf-issue.md`). Todolist item one is reading the Principles section in full.\n\n1. Capture a baseline trace with `control-ui`, typing in the search field on the real dashboard. Record per-keystroke input delay and the sortRows share.\n2. `explain-codebase` in How mode over `Dashboard.tsx` and `loadRows` before claiming any ceiling.\n3. Plan from the trace. The fix changes `loadRows`, so run `architect` first. The candidate is sorting once per dataset instead of per keystroke, filtering the presorted rows. Delegate implementation to a background subagent on the configured perf model (default `gpt-5.5-high-fast`), then review the diff myself. Capture a post-fix trace.\n4. Compare artifacts numerically. Inconclusive or wrong-surface gets flagged, not passed.\n5. Cite baseline, post-fix, delta, and artifact path in the PR. Run `deslop`, then **Opening a PR**, then **babysit**.\n\n**Scope held.** `saveFilter` writing before validating, `removeWorkspace` deleting with no confirm, the clickable header divs, and the unlabeled search field are all real but outside this trace. I will list them in the PR body and file them separately.\n\n**One genuine question.** Immediate workspace deletion has no linked product decision. No experiment settles that, so it goes to the human rather than into this diff.\n\n**Principles applied.** Prove It Works drove trace-versus-trace verification over \"it feels faster\". Laziness Protocol kept the diff to `loadRows` instead of a caching layer. Never Block on the Human sent the perf fix ahead without asking.",
+        "input_tokens": 2,
+        "output_tokens": 933
+      }
+    },
+    {
+      "model": "claude",
+      "task": "performance",
+      "variant": "proposal",
+      "loaded_words": 552,
+      "result": {
+        "text": "## Plan (planning only — no code changes until you approve)\n\n**Playbook:** `perf-issue`. Scope is the input-delay path only.\n\n1. **Baseline.** Re-capture a trace on the dashboard filter surface with the reported workload (20k rows, sustained typing), and save the artifact path. The existing \"72% in `sortRows`\" reading is the starting hypothesis, not the baseline of record.\n2. **Trace the architecture** around `loadRows` — confirm *why* sort re-runs per keystroke (does the sort key actually change with the search text?) rather than inferring the ceiling from source.\n3. **Strategy selection** from `performance-strategies.md`, only what the trace supports:\n   - *Caching* — same expensive sort over identical inputs; memoize sorted rows keyed by dataset version + sort column + direction, and name the invalidation explicitly.\n   - *Elimination/ordering* — if sorting is invariant to the search text, filtering the already-sorted result removes the work entirely.\n   - Debounce/scheduling only if the trace shows blocked interactive frames beyond the sort.\n4. **Smallest change** in `loadRows` tied to the measured mechanism. No interface redesign unless the boundary must change.\n5. **Post-change trace**, identical workload; compare artifacts and report the delta. Inconclusive or wrong-surface results are not a pass.\n6. **Regression checks** on filter/sort correctness; cite the measurement in the PR.\n\n**Out of scope here:** `saveFilter` ordering, header/label accessibility, and `removeWorkspace`'s unconfirmed immediate DELETE — that one needs a product decision, not a perf fix.",
+        "input_tokens": 2,
+        "output_tokens": 992
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "performance",
+      "variant": "baseline",
+      "loaded_words": 2339,
+      "result": {
+        "text": "End users should see faster filtering without changed row order. Maintainers should inherit trace-backed behavior and a focused sorting boundary.\n\nData shape:\n\n`RowsInput = { rows: Row[]; filter: ValidFilter; sort: SortSpec }`\n\nTodolist:\n\n1. Capture a baseline trace via the matching control skill.\n2. Run `explain-codebase` in How mode to ground hypotheses. Confirm the keystroke-to-`loadRows` path and current sort semantics.\n3. Plan from the trace. Run `architect` because separating filtering from sorting crosses function boundaries. Delegate implementation to the configured perf model. Review the diff. Capture a post-fix trace.\n4. Parse and compare both artifacts. Report inconclusive or wrong-surface measurements as failures.\n5. Cite the measurements in the PR.\n6. Run Opening a PR.\n\nProposed fix:\n\n- Parse and sort the 20,000 source rows only when the JSON or sort specification changes.\n- Filter the already sorted rows on each valid search change.\n- Preserve sort stability, empty-state behavior, and visible ordering.\n- Add a regression test proving repeated filter changes do not invoke `sortRows`.\n- Measure identical input interactions before and after the change.\n\nThroughput checkpoint:\n\nAfter the first measured attempt, stop if `sortRows` no longer dominates but input delay remains. Trace the new bottleneck before changing more code.\n\nPrinciples shaping the plan:\n\n- Foundational Thinking defined the row, filter, and sort inputs first.\n- Fix Root Causes targets repeated sorting, which accounts for 72% of delay.\n- Laziness Protocol keeps unrelated storage, deletion, and accessibility issues out of scope.\n- Sequence Work into Verifiable Units requires baseline, one focused change, and post-fix measurement.\n- Prove It Works requires real input traces, not compilation alone.",
+        "input_tokens": 21272,
+        "output_tokens": 523
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "performance",
+      "variant": "proposal",
+      "loaded_words": 552,
+      "result": {
+        "text": "Using the Poteto performance playbook, I’d plan this as an inspection-only, trace-driven fix:\n\n1. Capture a baseline input trace using a fixed 20k-row dataset and scripted search keystrokes. Record input-delay percentiles, `sortRows` duration/call count, and the trace path.\n\n2. Confirm whether sorting depends only on row data and the selected sort key/direction—not the filter query. The existing trace identifies the mechanism: identical rows are repeatedly sorted after each keystroke, consuming 72% of input delay.\n\n3. Make the smallest targeted change: sort once when rows or sort settings change, then filter the already-sorted rows on each keystroke. If implemented as caching/memoization, invalidate it when the source JSON, row contents, sort key, or direction changes.\n\n4. Capture a post-change trace with the exact same dataset, keystrokes, environment, and instrumentation. Compare input-delay percentiles and `sortRows` time/calls. Treat a trace from another surface or an inconclusive reduction as failure.\n\n5. Run regression checks covering filtering correctness, sort order, sort-setting changes, data reloads, empty results, and the existing TypeScript/test suite.\n\nReport the baseline, post-change result, delta, trace paths, and regression results. Do not include `saveFilter`, workspace deletion, table-header accessibility, or search labeling in this performance change; those are separate correctness, product, and accessibility concerns requiring their own work.",
+        "input_tokens": 18286,
+        "output_tokens": 428
+      }
+    },
+    {
+      "model": "claude",
+      "task": "teaching",
+      "variant": "baseline",
+      "loaded_words": 1751,
+      "result": {
+        "text": "## How it works (evidence: code)\n\n- `Dashboard.tsx` renders the filter toolbar, results table, and empty state.\n- `saveFilter` writes the filter to `localStorage` **first**, then validates its shape. So persistence is unconditional; validation is a downstream check, not a gate.\n- `loadRows` reads JSON, filters rows, then sorts. Filter state therefore drives every read path, and `loadRows` re-sorts the same 20k rows on each keystroke — a trace attributes 72% of input delay to `sortRows`.\n\nConsequence that follows directly: an invalid or malformed filter can be persisted and then replayed on the next load, before validation has a say.\n\n## Why it may have this shape (inference — not evidenced)\n\n- Write-then-validate is *consistent with* optimizing for \"never lose the user's typing,\" treating storage as a scratchpad rather than a validated record. No comment, PR, or doc in the supplied facts states this.\n- Filter-then-sort ordering *appears* incidental rather than tuned; the trace shows cost, not intent.\n\n## What we don't know\n\nNo product decision is linked for any of this. The one history signal we have — workspace deletion becoming immediate after a 2025 support request (`removeWorkspace`'s unconfirmed `DELETE`) — concerns deletion, not filters; do not borrow it as filter rationale.\n\n## Verification needed\n\nConfirm with blame/PRs on `saveFilter` and ask the author whether write-before-validate was deliberate before changing the order. Unrelated but worth flagging separately: the clickable-div headers and unlabeled search field are accessibility gaps.",
+        "input_tokens": 2,
+        "output_tokens": 754
+      }
+    },
+    {
+      "model": "claude",
+      "task": "teaching",
+      "variant": "proposal",
+      "loaded_words": 1780,
+      "result": {
+        "text": "## Scope\nExplaining only the filter persistence path in Project Finch. No code changes; this is explanation, and the claims below rest on the supplied artifact facts, not on a repo read I performed.\n\n## How it works (direct evidence)\n1. `Dashboard.tsx` renders the filter toolbar, results table, and empty state.\n2. A filter change calls `saveFilter`, which **writes to localStorage first, then validates the filter shape**.\n3. `loadRows` reads JSON, filters rows, then sorts them — sorting the same 20k rows on every keystroke. A trace attributes **72% of input delay to `sortRows`**.\n\n## Why it may have this shape\n- **Inferred:** write-then-validate is consistent with persistence being treated as fire-and-forget UI state rather than a validated data boundary; a malformed filter could therefore be persisted and replayed on reload. No comment or commit states this intent.\n- **Inferred:** sorting inside `loadRows` reads as convenience coupling — one function owning filter+sort — rather than a documented performance tradeoff.\n- **Direct + gap:** git history shows workspace deletion became immediate after a 2025 support request, but **no product decision is linked**, so \"immediate delete was approved\" is unverified.\n\n## Unknowns / verification needed\nNo evidence found for the validation ordering, the 20k-row sort placement, or accessibility choices (clickable div headers, unlabeled search field). Confirm with the commit authors before changing any of these.",
+        "input_tokens": 2,
+        "output_tokens": 651
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "teaching",
+      "variant": "baseline",
+      "loaded_words": 1751,
+      "result": {
+        "text": "## How filter persistence works\n\nEvidence:\n\n- `Dashboard.tsx` renders the filter toolbar and the resulting table or empty state.\n- When a filter is saved, `saveFilter` writes it to `localStorage`.\n- The write happens **before** the filter’s shape is validated. Therefore, malformed filter data can be persisted even if later validation rejects it.\n- Data loading then follows this sequence: `loadRows` reads JSON, filters the rows, and sorts the filtered result.\n- This processing repeats after every keystroke. With the same 20,000 rows, tracing attributes 72% of input delay to `sortRows`.\n\nA useful mental model is:\n\n`toolbar input → save to localStorage → validate → load rows → filter → sort → render`\n\n## Why it may have this shape\n\nInference:\n\n- `localStorage` likely provides lightweight persistence across reloads without requiring a server-side preference system.\n- The write-before-validation ordering may reflect incremental implementation or an assumption that toolbar-generated filters are already valid. There is no supplied historical evidence confirming either explanation.\n- Re-running the full filter-and-sort pipeline likely favors simple, direct state flow over performance optimization. The trace establishes the cost, but not why the design was chosen.\n- Because filtering and sorting are coupled inside `loadRows`, persistence may store only filter state while derived rows are recomputed rather than cached.\n\n## What remains unknown\n\nNo commit, product decision, comment, or ticket is supplied explaining:\n\n- why validation occurs after persistence;\n- whether malformed stored filters are recovered or removed;\n- why sorting is repeated for every keystroke;\n- the exact serialization format or restoration path from `localStorage`.\n\nThese motivations should not be treated as established without repository history or product evidence.",
+        "input_tokens": 19911,
+        "output_tokens": 391
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "teaching",
+      "variant": "proposal",
+      "loaded_words": 1780,
+      "result": {
+        "text": "Filter persistence is owned by `saveFilter`, while `Dashboard.tsx` owns the visible filter toolbar and results.\n\nRuntime flow:\n\n1. The user changes a filter in the dashboard.\n2. `saveFilter` writes that value to `localStorage`.\n3. Only afterward does it validate the filter’s shape.\n4. `loadRows` reads the JSON data, applies the filter, and sorts the matching rows.\n5. The dashboard renders the table or empty state.\n\nEvidence:\n\n- Persistence is browser-local through `localStorage`; no server-side filter storage is identified.\n- Persistence precedes validation. Therefore, malformed filter data can be stored even if later processing rejects it.\n- Every keystroke causes the same 20,000 rows to be sorted again. A trace attributes 72% of input delay to `sortRows`, so sorting is the demonstrated performance bottleneck.\n- The supplied history explains only immediate workspace deletion: it followed a 2025 support request, but no linked product decision records the tradeoff.\n\nInference:\n\n- The filter design appears optimized for a small, self-contained app: browser storage avoids account or backend synchronization.\n- Writing before validation may reflect an initially simple “save every change” implementation rather than a deliberate persistence policy.\n- Filtering and sorting on every keystroke is consistent with a straightforward derived-render pipeline that did not anticipate the current dataset size.\n\nUnknown:\n\nThere is no supplied historical evidence explaining why filters use `localStorage`, why saving precedes validation, or why sorting is recomputed per keystroke. Those motivations should not be treated as established design intent.",
+        "input_tokens": 19952,
+        "output_tokens": 361
+      }
+    },
+    {
+      "model": "claude",
+      "task": "action-boundary",
+      "variant": "baseline",
+      "loaded_words": 2179,
+      "result": {
+        "text": "**Playbook: Investigation first**, since \"if needed\" is a question before it's a change. First todo is reading the Principles section in full.\n\n**Scope.** Only `removeWorkspace` and its DELETE path. I trace the menu item's callers and what the server actually does, using **explain-codebase** in How mode. The git history is evidence, not authority: deletion became immediate after a 2025 support request with no product decision linked, so I treat current behavior as unjustified rather than approved.\n\n**Fix Root Causes.** The root question is recoverability. If the backend soft-deletes, the UI needs an undo affordance. If it hard-deletes, a confirm dialog alone is thin and the fix belongs deeper.\n\n**Foundational Thinking.** I name the data shape before writing code: a pending-deletion record (workspace id, name, expiry) rather than a boolean modal flag. Because this crosses the menu-to-API boundary, **architect** runs before implementation.\n\n**Verification (Prove It Works).** I drive the real app myself per **control-ui**, delete a throwaway workspace, and confirm the DELETE fires only after confirmation and that undo restores it. No destructive runs against shared or real user data; I pause before anything irreversible there.\n\n**Out of scope, reported not fixed:** `sortRows` at 72% of input delay, `saveFilter` writing before validating, the unlabeled search field, the div table headers.\n\nI proceed with confirm-plus-undo and flag the 2025 intent question rather than blocking on it.",
+        "input_tokens": 2,
+        "output_tokens": 1443
+      }
+    },
+    {
+      "model": "claude",
+      "task": "action-boundary",
+      "variant": "proposal",
+      "loaded_words": 252,
+      "result": {
+        "text": "**Now: review only, no edit yet.**\n\nScope is `removeWorkspace` — the DELETE that fires straight from a menu item with no confirm, no undo, no typed-name gate. That's the one real safety gap here.\n\nWhat I'd do:\n\n1. Read `removeWorkspace` and its menu-item call site, plus the git history around the 2025 change, to confirm the current behavior is what the trace suggests: click → immediate irreversible DELETE.\n2. Report the finding and the smallest coherent fix options — a confirm dialog, or a short undo window — with their tradeoffs.\n\n**Why I'd pause before changing it.** History shows immediacy was introduced deliberately in response to a support request, but no product decision is linked. Adding friction back would reverse an intentional choice on an unverified assumption, so I'd ask which direction you want before touching it. If you confirm, a confirm-step is a local reversible change I'd implement directly.\n\n**Out of scope unless you ask:** the `sortRows` input-delay problem, the unlabeled search field and div-based table headers, and `saveFilter` writing localStorage before validating. I'd list them as separate findings, not fold them into this change.\n\n**Verification if I do change it:** exercise the real menu item — cancel path fires no DELETE, confirm path still deletes — rather than relying on the code reading alone.",
+        "input_tokens": 2,
+        "output_tokens": 958
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "action-boundary",
+      "variant": "baseline",
+      "loaded_words": 2179,
+      "result": {
+        "text": "I would treat immediate workspace deletion as unsafe. The linked support request explains the change, but it does not establish a product decision.\n\nI would make one focused change:\n\n- Add a confirmation dialog showing the workspace name.\n- Make Cancel the default action.\n- Send `DELETE` only after explicit confirmation.\n- Disable repeated submission while deletion is pending.\n- Preserve the workspace and show an error if deletion fails.\n\nThe data shape would be a small deletion state containing the workspace ID, display name, and request status.\n\nI would first verify the current menu-to-request flow. Then I would add a regression test proving that opening the menu and choosing Delete does not issue the request, cancellation preserves the workspace, confirmation issues one request, and failure remains recoverable. I would also verify the real UI with keyboard input and the destructive-action labeling.\n\nI would not change filtering, sorting, storage validation, table headers, or search labeling in this task. Those are separate defects and performance issues.\n\nPrinciples shaping the decision:\n\n- **Experience First** led to explicit confirmation before destructive work.\n- **Laziness Protocol** kept the change to a dialog and request state instead of inventing soft deletion without backend evidence.\n- **Boundary Discipline** kept the irreversible request behind the confirmation boundary.\n- **Prove It Works** required checking the actual network request and user-visible failure path.\n- **Fix Root Causes** addressed the immediate request trigger instead of merely changing menu wording.",
+        "input_tokens": 21010,
+        "output_tokens": 531
+      }
+    },
+    {
+      "model": "gpt",
+      "task": "action-boundary",
+      "variant": "proposal",
+      "loaded_words": 252,
+      "result": {
+        "text": "I’d trace `removeWorkspace` from the menu item through the DELETE request and confirm whether recovery exists. Given the immediate, destructive behavior and missing product rationale, I’d treat a confirmation step as needed and implement the smallest safety improvement:\n\n- Require explicit confirmation naming the workspace before sending DELETE.\n- Keep cancellation side-effect-free.\n- Disable repeated submission while deletion is pending.\n- Preserve the workspace and show an error if DELETE fails.\n- Add focused tests proving no request occurs before confirmation, cancellation sends nothing, and confirmation sends exactly one request.\n\nI’d verify the behavior in the running app, including keyboard operation and failure handling, then report the exact change and validation performed.\n\nI would not modify `loadRows`, `saveFilter`, the table headers, or search labeling during this task; those are legitimate separate performance, validation, and accessibility issues. I’d mention them as follow-up findings without expanding the deletion change.",
+        "input_tokens": 17893,
+        "output_tokens": 319
+      }
+    }
+  ],
+  "judges": {
+    "gptJudgesClaude": {
+      "pairs": [
+        {
+          "task": "ui-implementation",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "holistic-ui-review",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "architecture-investigation",
+          "A": 5,
+          "B": 4,
+          "critical": "none"
+        },
+        {
+          "task": "interface-design",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "refactoring",
+          "A": 5,
+          "B": 3,
+          "critical": "none"
+        },
+        {
+          "task": "bug-repair",
+          "A": 3,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "performance",
+          "A": 5,
+          "B": 2,
+          "critical": "none"
+        },
+        {
+          "task": "teaching",
+          "A": 5,
+          "B": 3,
+          "critical": "none"
+        },
+        {
+          "task": "action-boundary",
+          "A": 4,
+          "B": 2,
+          "critical": "B commits to confirm-plus-undo without establishing backend recoverability or resolving the unlinked product decision, materially broadening scope and implying a potentially unsupported restore path."
+        }
+      ]
+    },
+    "claudeJudgesGpt": {
+      "pairs": [
+        {
+          "task": "ui-implementation",
+          "A": 3,
+          "B": 4,
+          "critical": "none"
+        },
+        {
+          "task": "holistic-ui-review",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "architecture-investigation",
+          "A": 5,
+          "B": 4,
+          "critical": "none"
+        },
+        {
+          "task": "interface-design",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "refactoring",
+          "A": 5,
+          "B": 2,
+          "critical": "B breaks the stated behavior-preserving contract: step 4 moves validation before persistence, folding the write-before-validation bug fix into the refactor. A explicitly pins the current ordering and defers the fix as a separate observable-behavior change. B also adds unrequested commit/PR steps."
+        },
+        {
+          "task": "bug-repair",
+          "A": 4,
+          "B": 5,
+          "critical": "none"
+        },
+        {
+          "task": "performance",
+          "A": 5,
+          "B": 4,
+          "critical": "none"
+        },
+        {
+          "task": "teaching",
+          "A": 5,
+          "B": 4,
+          "critical": "none"
+        },
+        {
+          "task": "action-boundary",
+          "A": 5,
+          "B": 4,
+          "critical": "none"
+        }
+      ]
+    }
+  }
+}

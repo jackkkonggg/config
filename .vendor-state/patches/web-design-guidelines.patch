@@ -1,0 +1,12 @@
+diff --git a/pristine/SKILL.md b/current/SKILL.md
+index ceae92a..d620e5c 100644
+--- a/pristine/SKILL.md
++++ b/current/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: web-design-guidelines
+-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
++description: Use to review UI code for accessibility, design, UX, and Web Interface Guidelines compliance.
+ metadata:
+   author: vercel
+   version: "1.0.0"
