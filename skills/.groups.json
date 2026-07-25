@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "expected_repo_selectors": 24,
+  "expected_repo_selectors": 23,
   "max_description_characters": 4000,
   "max_skill_description_characters": 140,
   "max_router_words": 250,
@@ -53,9 +53,9 @@
       "skills": ["react-engineering", "shadcn"]
     },
     {
-      "id": "language-backend",
-      "label": "Language and backend",
-      "skills": ["typescript-best-practices", "convex-best-practices"]
+      "id": "language",
+      "label": "Language",
+      "skills": ["typescript-best-practices"]
     },
     {
       "id": "agent-workflows",
@@ -94,6 +94,7 @@
     "better-typography",
     "better-ui",
     "codebase-design",
+    "convex-best-practices",
     "figma-code-connect",
     "figma-create-design-system-rules",
     "figma-create-new-file",

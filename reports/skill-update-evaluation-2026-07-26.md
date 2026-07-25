@@ -8,8 +8,8 @@ Branch: `codex/skill-updates-20260726-023815`
 Accepted. The proposed catalog passes the structural, context, safety, and
 blinded-quality gates.
 
-- 24 repo selectors.
-- 2,366 total description characters; no description exceeds 140.
+- 23 repo selectors.
+- 2,256 total description characters; no description exceeds 140.
 - Every declared router is at most 250 words.
 - Median transitive context fell 66.8% across the nine affected tasks.
 - Median Poteto context fell 83.9%; every measured Poteto route exceeded 50%.
@@ -25,6 +25,10 @@ and
 [Anthropic's Claude 5 context guidance](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models):
 entrypoints route work, detailed guidance loads selectively, and agent
 configuration—not shared prose—chooses models.
+
+After evaluation, the locally owned `convex-best-practices` selector was
+retired at the user's request. It was not loaded by any evaluation task, so
+the routed-context and blinded-quality results below are unchanged.
 
 ## Source decisions
 
