@@ -59,7 +59,6 @@ case "$command_name" in
     "$worktree_path/scripts/skill-updates.sh" verify
     git -C "$primary" merge --ff-only "$branch_name"
     "$primary/bin/skills" install --all
-    git -C "$worktree_path" submodule deinit --force --all
     git -C "$primary" worktree remove --force "$worktree_path"
     git -C "$primary" branch -d "$branch_name"
     echo "Promoted $branch_name and refreshed live skill symlinks."
