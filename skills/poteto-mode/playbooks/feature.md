@@ -1,21 +1,20 @@
 ### Feature
 
-**You own the design. Plan, review, verify.** Delegate implementation; stay in the lead.
+1. Trace the affected subsystem and state the user-visible outcome.
+2. Name the input, output, and persistent data shapes. If state or branching is
+   spread across files, read `references/principles/model-the-domain.md` and
+   choose the smallest structure that removes duplicated rules.
+3. Sketch types, signatures, and ownership before implementation when several
+   shapes are plausible. Use `architect` for a consequential design decision,
+   not for a local change with an obvious shape.
+4. Identify blocking work, independent workstreams, and shared writes.
+   Parallelize only disjoint work and give each worker isolated state.
+5. Implement the smallest complete slice. Preserve local conventions and avoid
+   unrelated cleanup or speculative flexibility.
+6. Verify the requested behavior on the real surface. Run targeted tests and
+   the cheapest relevant type, lint, build, or smoke checks.
+7. Use `interrogate` when the design remains contested or high-risk.
+8. Run the Opening a PR playbook when publishing.
 
-1. `explain-codebase` in How mode over the affected subsystem.
-2. `architect` for parallel design exploration. Skipping stays as `architect skipped: <reason>`; do not fold the design decision silently into implementation.
-3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
-   - **Blocking first steps.** Gates run before fan-out.
-   - **Independent workstreams.** Disjoint files, services, or layers parallelize. Shared writes serialize.
-   - **Shared mutable state.** Default to splitting the target (the [Separate Before Serializing Shared State](../references/principles/separate-before-serializing-shared-state.md) principle reference). Serialize only for real invariants.
-   - **Smallest safe decomposition.** If one worker is best, name why.
-4. Delegate code-writing to a subagent using your configured feature model (default `composer-2.5-fast`) with a specific scope (file paths, named data shape, success criteria); review its diff yourself. When the implementation admits multiple valid shapes (error handling, abstraction layer, test structure), delegate via the **arena** skill instead so the runners surface the alternatives and the cross-judge guards the pick. Mandatory: no skip-with-reason escape, and Laziness Protocol does not override it (the gain is review separation, not lines saved). You can spawn a subagent even though you are one; "the app is small" and "a subagent cannot spawn one" are both wrong. A subagent forbidden to spawn satisfies this by owning the diff directly with the same review separation; no "standing by" reply that waits on a nested agent. Comments per **Comments**. Surgical edits, re-ground against the source for upstream-derived files. Port shared-primitive improvements to all consumers and verify each. Commit liberally.
-5. Verify on the matching surface. "Inconclusive" or wrong-surface is not a pass; flag it.
-6. Rebase into small, ordered commits; stack follow-ups.
-   Use the [Sequence Work into Verifiable Units](../references/principles/sequence-verifiable-units.md) principle reference, building, verifying, and committing each small unit before the next.
-7. If the design is contested, `interrogate` before shipping.
-8. Run **Opening a PR**.
-
-Code-coupled work (one feature, one migration) goes to a single owner with the checkpoint inline; that owner fans out internally after the blocking phase. Parent-level fan-out is for slices that produce independent artifacts (audits, cross-subsystem investigations, competing experiments). Rewrite the checkpoint at phase boundaries; spawn a fresh owner rather than chaining interrupts.
-
-**Reply:** what you built, what you chose and why, open decisions. Tables for design alternatives.
+**Reply:** the outcome, chosen shape, meaningful tradeoffs, validation, and
+remaining gaps.

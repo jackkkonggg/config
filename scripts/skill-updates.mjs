@@ -192,6 +192,7 @@ function verify() {
     "skills/.provenance.json",
     "--composites",
     "skills/.composites.json",
+    "--skip-global-links",
   ]);
   run("node", ["scripts/composite-sync.mjs", "check"]);
   run("git", ["diff", "--check"]);
@@ -213,11 +214,14 @@ function verify() {
       !/\/assets\/.*(?:LICENSE|COPYING)/i.test(path),
   );
   if (behavioralChanges.length) {
-    const evaluationPath = resolve(repoRoot, "reports/skill-update-evaluation.md");
+    const evaluationPath = resolve(
+      repoRoot,
+      "reports/skill-update-evaluation-2026-07-26.md",
+    );
     const evaluation = existsSync(evaluationPath) ? readFileSync(evaluationPath, "utf8") : "";
     if (!/\bClaude\b/i.test(evaluation) || !/\bGPT\b/i.test(evaluation)) {
       throw new Error(
-        `Behavioral skill changes require Claude and GPT evaluation evidence in reports/skill-update-evaluation.md:\n${behavioralChanges.join("\n")}`,
+        `Behavioral skill changes require Claude and GPT evaluation evidence in ${evaluationPath}:\n${behavioralChanges.join("\n")}`,
       );
     }
   }

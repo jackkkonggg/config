@@ -1,7 +1,7 @@
-diff --git a/new_pristine/SKILL.md b/candidate/SKILL.md
+diff --git a/pristine/SKILL.md b/current/SKILL.md
 index 8485a1f..e01e647 100644
---- a/new_pristine/SKILL.md
-+++ b/candidate/SKILL.md
+--- a/pristine/SKILL.md
++++ b/current/SKILL.md
 @@ -1,6 +1,6 @@
  ---
  name: agent-browser

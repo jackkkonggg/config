@@ -10,8 +10,6 @@ Design before implementing. Sketch types, function signatures, class shapes, and
 
 ## Start
 
-Open a todolist with one entry per phase before starting. Autonomous mode without checkpoints needs the list to show phase position and keep phases from silently disappearing.
-
 1. Ground
 2. Sketch
 3. Agree
@@ -36,7 +34,8 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`: the caller's usage written first, then the type sketch, function signatures, module map, and prose rationale derived from it.
 
-Use your configured architect runners (defaults `claude-opus-4-8-thinking-xhigh`, `gpt-5.5-high-fast`, `composer-2.5-fast`).
+Use the architect runners selected by agent configuration. Prefer genuinely
+different design perspectives when several are available.
 
 This is the [Exhaust the Design Space](../poteto-mode/references/principles/exhaust-the-design-space.md) principle reference made concrete. Whole-shape alternatives, not point fixes inside one shape.
 

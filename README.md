@@ -86,13 +86,21 @@ does not cause related skills to load together.
 
 The composite selectors are:
 
-- `visual-design` for color, typography, and interface polish.
+- `visual-design` for color, typography, layout, accessibility, UX writing,
+  interface polish, and holistic review.
 - `motion-design` for motion vocabulary, opportunity discovery, audits, plans,
   and reviews.
 - `react-engineering` for component composition and React performance.
 - `explain-codebase` for runtime walkthroughs and historical rationale.
 - `gsap-best-practices` for plain and React GSAP implementation.
-- `figma-project-rules` for project-specific Figma-to-code conventions.
+
+Figma workflows are supplied by the curated Codex Figma plugin and Claude's
+official Figma plugin. The retired project-rule generator has no maintained
+replacement.
+
+Next.js guidance comes from the framework's version-matched bundled docs and
+generated `AGENTS.md`/`CLAUDE.md`. For older projects, run
+`npx @next/codemod@canary agents-md`.
 
 ## Vendor Skills
 
@@ -127,13 +135,11 @@ list`. A separate `SKILLS.md` is intentionally not maintained.
 |---|---|---|
 | `vercel-agent-skills` | vercel-labs/agent-skills | sources for `react-engineering`, plus `web-design-guidelines` |
 | `vercel-agent-browser` | vercel-labs/agent-browser | agent-browser |
-| `vercel-next-skills` | vercel-labs/next-skills | next-best-practices |
 | `anthropic-skills` | anthropics/skills | frontend-design |
 | `remotion-skills` | remotion-dev/skills | remotion-best-practices |
 | `shadcn-ui` | shadcn/ui | shadcn |
 | `swiftui-agent-skill` | avdlee/swiftui-agent-skill | swiftui-expert-skill |
 | `swift-concurrency` | avdlee/swift-concurrency-agent-skill | swift-concurrency |
-| `figma-mcp-server-guide` | figma/mcp-server-guide | source for `figma-project-rules`; other workflows use the curated Figma plugin |
 | `gstack` | garrytan/gstack | browse, qa, review, ship, retro, plan-ceo-review, plan-eng-review, setup-browser-cookies |
 | `claude-plugins-official` | anthropics/claude-plugins-official | commit-commands, frontend-design, typescript-lsp, swift-lsp |
 

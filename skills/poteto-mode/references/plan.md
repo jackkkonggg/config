@@ -12,20 +12,20 @@ Plan when the change spans three or more files, introduces architecture, has com
 
 ## 1. Re-read principles
 
-Read the **Principles** section of the `poteto-mode` skill end to end, and the principle reference files it indexes. The principles govern every plan decision; cross-link them.
+Read the **Principles** section of the `poteto-mode` skill end to end, and the leaf `principle-*` skills it indexes. The principles govern every plan decision; cross-link them.
 
 ## 2. Scope and constraints
 
-State your read of scope and constraints in one paragraph. Use `AskQuestion` only for genuinely ambiguous intent (the [Never Block on the Human](principles/never-block-on-the-human.md) principle reference); give concrete options with each open question.
+State your read of scope and constraints in one paragraph. Use `AskQuestion` only for genuinely ambiguous intent (the **never-block-on-the-human** principle skill); give concrete options with each open question.
 
 Resolve what is in scope vs explicitly out, technical or platform constraints, patterns to preserve, and the definition of done.
 
 ## 3. Explore in subagents
 
-Delegate codebase exploration (the [Guard the Context Window](principles/guard-the-context-window.md) principle reference).
+Delegate codebase exploration (the **guard-the-context-window** principle skill).
 
 - Prefer `subagent_type: "poteto-agent"`. `generalPurpose` is the fallback. Never use the built-in `plan` subagent_type; it ignores this skill.
-- Pass `model:` explicitly per the configured roles (defaults `composer-2.5-fast` for code, `claude-opus-4-8-thinking-xhigh` for judgment).
+- Let agent configuration select available models for each role.
 
 Each explorer returns file pointers, conventions, dependencies, test infrastructure, and entry points. No inlined dumps.
 
@@ -47,7 +47,7 @@ NN-slug/
 
 - One function or type plus tests, or one bug fix. Not "one file".
 - Two to three files touched, max.
-- Prefer eight to ten small phases over three to four large ones to preserve option value (the [Foundational Thinking](principles/foundational-thinking.md) principle reference).
+- Prefer eight to ten small phases over three to four large ones to preserve option value (the **foundational-thinking** principle skill).
 - Split if a phase has more than five test cases or three functions.
 
 ### Overview file
@@ -55,7 +55,7 @@ NN-slug/
 - **Context.** Problem and why now.
 - **Scope.** Included; explicitly excluded.
 - **Constraints.** Technical, platform, dependency, pattern.
-- **Alternatives.** Two or three approaches sketched, choice and rationale (the [Exhaust the Design Space](principles/exhaust-the-design-space.md) principle reference). Skip when constraints dictate one.
+- **Alternatives.** Two or three approaches sketched, choice and rationale (the **exhaust-the-design-space** principle skill). Skip when constraints dictate one.
 - **Applicable skills.** Domain skills the implementer should invoke, by name.
 - **Phases.** Ordered standard-markdown links to phase files.
 - **Verification.** Project-level commands.
@@ -66,14 +66,15 @@ NN-slug/
 - Back-link to overview.
 - **Goal.** What the phase accomplishes.
 - **Changes.** Files affected and the change at a high level. What and why, not how. No code snippets.
-- **Data structures.** Name the key types or schemas. One-line sketch only (the [Foundational Thinking](principles/foundational-thinking.md) principle reference).
+- **Data structures.** Name the key types or schemas. One-line sketch only (the **foundational-thinking** principle skill).
 - **Verification.** Per section 6.
 
-Order phases so infrastructure and shared types land first (the [Foundational Thinking](principles/foundational-thinking.md) principle reference). Each phase should be independently shippable.
+Order phases so infrastructure and shared types land first (the **foundational-thinking** principle skill). Each phase should be independently shippable.
 
-For changes touching existing code, apply the [Redesign from First Principles](principles/redesign-from-first-principles.md) principle reference: if we'd built this with the new requirement on day one, what would it look like? Redesign holistically; deliver incrementally.
+For changes touching existing code, apply the **redesign-from-first-principles** principle skill: if we'd built this with the new requirement on day one, what would it look like? Redesign holistically; deliver incrementally.
 
-If a phase creates or edits a skill, the phase instructs the implementer to use the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).
+If a phase creates or edits a skill, use the environment's skill-authoring
+workflow.
 
 ## 5. Verification per phase
 
@@ -88,17 +89,17 @@ Each phase needs both:
 - Native mobile: whatever simulator-driving skill your team has.
 - No control skill for the touched surface: flag it in the plan.
 
-For bug fixes, the loop is reproduce on the surface, fix, verify on the same surface. Unit tests show a branch behaves a certain way; they do not prove the bug is gone (the [Prove It Works](principles/prove-it-works.md) principle reference).
+For bug fixes, the loop is reproduce on the surface, fix, verify on the same surface. Unit tests show a branch behaves a certain way; they do not prove the bug is gone (the **prove-it-works** principle skill).
 
 ## 6. Implementation guidance
 
 In the overview, name which poteto-mode non-negotiables the implementer must apply, by name:
 
-- **explain-codebase** in How mode over each unfamiliar subsystem before changing it.
+- `explain-codebase` in How mode over each unfamiliar subsystem before changing it.
 - the **interrogate** skill for adversarial review on contested designs before shipping.
-- Poteto-mode's plain-prose cleanup over any prose surface before commit.
+- `/deslop` over each diff before commit. the **unslop** skill over any prose surface.
 - the **show-me-your-work** skill to keep a decision trail when the plan is large enough to need an auditable record.
-- Cursor's built-in **babysit** skill after opening the PR.
+- The environment's review-monitoring workflow after opening the PR.
 
 ## 7. Hand back
 

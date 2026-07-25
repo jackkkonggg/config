@@ -27,6 +27,36 @@
               "from": "SKILL.md",
               "adapter": "SKILL.md"
             }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-accessibility",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-accessibility",
+          "imports": [
+            {
+              "from_glob": "*.md",
+              "exclude": ["SKILL.md"],
+              "to_prefix": "references/accessibility-"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
           ]
         },
         {
@@ -64,6 +94,39 @@
               "from": "SKILL.md",
               "adapter": "SKILL.md"
             }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-layout",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-layout",
+          "imports": [
+            {
+              "from": "grouping-and-alignment.md",
+              "to": "references/layout-grouping-and-alignment.md"
+            },
+            {
+              "from": "spacing-and-adaptivity.md",
+              "to": "references/layout-spacing-and-adaptivity.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
           ]
         },
         {
@@ -82,12 +145,56 @@
             {
               "from": "surfaces.md",
               "to": "references/polish-surfaces.md"
+            },
+            {
+              "from": "icons.md",
+              "to": "references/polish-icons.md"
             }
           ],
           "watches": [
             {
               "from": "SKILL.md",
               "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-writing",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-writing",
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/writing.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "jakub-interface",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-interface",
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/interface-review.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
             }
           ]
         }
@@ -294,22 +401,6 @@
             {
               "from": "references/synthesizer-prompt.md",
               "adapter": "references/rationale.md"
-            }
-          ]
-        }
-      ]
-    },
-    "figma-project-rules": {
-      "ownership": "locally curated derivative",
-      "sources": [
-        {
-          "id": "figma-rules",
-          "vendor_root": "vendor/figma-mcp-server-guide",
-          "source_root": "skills/figma-create-design-system-rules",
-          "imports": [
-            {
-              "from": "SKILL.md",
-              "to": "references/workflow.md"
             }
           ]
         }

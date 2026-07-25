@@ -1,15 +1,25 @@
 ### Refactoring
 
-**You own the contract. The structure changes; the behavior does not.** For "refactor", "rename", "extract", "inline", "dedupe", "restructure", "move this module", "tidy up this area". Distinct from Feature, which adds behavior, and Bug fix, which corrects it.
+The structure changes; observable behavior does not.
 
-If the cleanup reveals a missing feature or a real bug, split it out and ship the structural change first against the pinned contract. A redesign is allowed, but name it and route to Feature. Large or cross-cutting structural work (a migration across many call sites, a coordinated reshape of many subsystems) belongs to the **figure-it-out** skill; this playbook is the focused-to-medium change.
+1. Pin current behavior with a characterization test, snapshot, replay, or
+   equivalence harness. Type checking alone is not a behavior contract.
+2. Name the target module layout, types, and call graph. Read
+   `references/principles/model-the-domain.md` when the change replaces
+   scattered state or branching. Keep local code when a new structure would
+   only add indirection.
+3. Remove dead weight and redundant paths before introducing the new shape.
+4. Move in small steps that keep the behavior pin green. When reshaping an API,
+   migrate every caller and remove the old path in the same wave.
+5. Verify behavior on the real surface. For a larger reshape, compare old and
+   new outputs or replay the recorded baseline.
+6. Confirm the result lowers reader load through fewer layers, less hidden
+   state, or more concentrated ownership. Revert speculative cleanup that does
+   not help.
+7. Order commits so each behavior-preserving step is independently reviewable.
+8. Run the Opening a PR playbook when publishing.
 
-1. Pin the behavior contract first. Run **explain-codebase** in How mode over the affected subsystem to learn the contract, then write a characterization test, snapshot, or equivalence harness that captures current behavior before any structure moves. The harness makes "refactor" a checkable claim ([Prove It Works](../references/principles/prove-it-works.md)). If the area has no coverage, write the pin before touching structure. Type check and lint are not a pin.
-2. Name the target shape. State what the module layout, types, and call graph should be if built today ([Foundational Thinking](../references/principles/foundational-thinking.md), [Redesign from First Principles](../references/principles/redesign-from-first-principles.md)). If the target crosses a function boundary, run the **architect** skill for parallel design exploration of the shape before the move.
-3. Subtract before you add. Delete dead weight, collapse one-caller wrappers, drop redundant validators, and remove orphan references before introducing the new shape ([Subtract Before You Add](../references/principles/subtract-before-you-add.md)). The smallest change that reaches the target shape ships ([Laziness Protocol](../references/principles/laziness-protocol.md)). A speculative cleanup that "might help" gets reverted, not left to ride.
-4. Move in small behavior-preserving steps, each keeping the pin green. For API reshapes, migrate every caller and delete the old API in the same wave ([Migrate Callers Then Delete Legacy APIs](../references/principles/migrate-callers-then-delete-legacy-apis.md)). No compatibility shims, no parallel old-and-new paths. Spot-check every rename against the actual files; renames silently miss usages in strings, prose, and back-references. Delegate the mechanical edits to a subagent using your configured refactoring model (default `composer-2.5-fast`) with a specific scope (file paths, the names being moved, the behavior to hold); review the diff yourself.
-5. Prove behavior is unchanged on the real artifact, not "it compiles" ([Prove It Works](../references/principles/prove-it-works.md)). For larger reshapes, run an equivalence check: a script that diffs old-vs-new outputs, a recorded baseline replayed against the new code, or a smoke run on the matching surface via the relevant control skill. Own the verification yourself; do not trust a delegate's "looks good" summary.
-6. Confirm the change earns its place. The success measure is reduced reader load ([Minimize Reader Load](../references/principles/minimize-reader-load.md)): fewer layers between question and answer, less hidden state, fewer indirections without a second consumer. If the diff does not lower reader load somewhere, revert it.
-7. Rebase into small ordered commits that tell the story. A subtraction commit, then the reshape, then any follow-on cleanup, so a single revert undoes one slice. Shape them with [Sequence Work into Verifiable Units](../references/principles/sequence-verifiable-units.md), so each behavior-preserving slice stays green before the next. Run **Opening a PR**.
+Split any discovered bug or missing feature into its own change.
 
-**Reply:** the structure that changed, the pin you held it against, the equivalence proof, the reader-load delta, what shipped and what got reverted. No new behavior.
+**Reply:** the structure changed, behavior pin, equivalence proof, and
+reader-load improvement.
