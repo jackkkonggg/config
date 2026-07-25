@@ -36,6 +36,7 @@ if [ -f "$HOME/.codex/config.toml" ]; then
   sed \
     -e 's/CONTEXT7_API_KEY = "ctx7sk-[^"]*"/CONTEXT7_API_KEY = "${CONTEXT7_API_KEY}"/' \
     -e 's/"--api-key", "ctx7sk-[^"]*"/"--api-key", "${CONTEXT7_API_KEY}"/' \
+    -e 's/^TOKEN = "[0-9a-f]\{64\}"$/TOKEN = "${MOTION_TOKEN}"/' \
     "$HOME/.codex/config.toml" > "$REPO_DIR/codex/config.toml.template"
   echo "  codex/config.toml.template (redacted)"
 else

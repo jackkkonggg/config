@@ -118,6 +118,9 @@ format_reset_time() {
 # ── Extract JSON data ───────────────────────────────────
 model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 
+# Reasoning effort — absent when the model doesn't support it
+effort=$(echo "$input" | jq -r '.effort.level // empty')
+
 size=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
 [ "$size" -eq 0 ] 2>/dev/null && size=200000
 
@@ -190,6 +193,9 @@ if [ -n "$session_start" ] && [ "$session_start" != "null" ]; then
 fi
 
 line1="${blue}${model_name}${reset}"
+if [ -n "$effort" ]; then
+    line1+=" ${dim}🧠 ${reset}${magenta}${effort}${reset}"
+fi
 line1+="${sep}"
 line1+="✍️ ${pct_color}${pct_used}%${reset}"
 line1+="${sep}"

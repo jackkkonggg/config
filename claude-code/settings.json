@@ -1,9 +1,17 @@
 {
+  "skillListingBudgetFraction": 0.04,
   "includeCoAuthoredBy": false,
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$HOME/.claude/statusline.sh\""
+  },
   "enabledPlugins": {
+    "figma@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
     "warp@claude-code-warp": true
   },
   "extraKnownMarketplaces": {
@@ -14,12 +22,10 @@
       }
     }
   },
-  "theme": "dark",
-  "skillListingBudgetFraction": 0.04,
-  "skipAutoPermissionPrompt": true,
+  "effortLevel": "high",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash \"$HOME/.claude/statusline.sh\""
-  }
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true
 }

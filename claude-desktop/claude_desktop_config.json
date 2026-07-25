@@ -1,10 +1,55 @@
 {
+  "mcpServers": {
+    "blender": {
+      "command": "/opt/homebrew/bin/uvx",
+      "args": [
+        "blender-mcp"
+      ]
+    }
+  },
+  "coworkUserFilesPath": "/Users/jq/Claude",
   "preferences": {
-    "coworkWebSearchEnabled": true,
-    "sidebarMode": "chat",
-    "coworkScheduledTasksEnabled": true,
-    "ccdScheduledTasksEnabled": true,
+    "menuBarEnabled": false,
     "quickEntryShortcut": "off",
-    "menuBarEnabled": false
+    "launchPreviewPersistedWorkspaces": [],
+    "launchPreviewSessionScopedSessions": [],
+    "coworkScheduledTasksEnabled": true,
+    "coworkHipaaRestricted": false,
+    "ccdScheduledTasksEnabled": true,
+    "sidebarMode": "chat",
+    "bypassPermissionsGateByAccount": {
+      "f6a1311a-6067-4bea-87b4-d4d637cfb84a": true
+    },
+    "coworkWebSearchEnabled": true,
+    "coworkModelAutoFallbackByAccount": {
+      "f6a1311a-6067-4bea-87b4-d4d637cfb84a": true
+    },
+    "keepAwakeEnabled": true,
+    "remoteToolsDeviceName": "jacks-macbook-pro-local",
+    "epitaxyPrefs": {
+      "starred-local-code-sessions": [],
+      "starred-cowork-spaces": [],
+      "starred-session-groups": [],
+      "dframe-local-slice": {
+        "pinnedOrder": [],
+        "homeProjectsPinnedOrder": []
+      },
+      "desktop-frame.paneStore.v1": {
+        "state": {
+          "extraPanesByMode": {},
+          "colWeightsByMode": {},
+          "rowSplit": 0.5,
+          "draftNonce": 0
+        },
+        "version": 4
+      },
+      "ccd-sessions-filter": {
+        "state": {
+          "selectedProjects": []
+        },
+        "version": 0
+      },
+      "dframe-group-scopes": {}
+    }
   }
 }

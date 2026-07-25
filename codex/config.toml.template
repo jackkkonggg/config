@@ -1,29 +1,32 @@
-model = "gpt-5.5"
-model_reasoning_effort = "low"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+model_auto_compact_token_limit = 220000
 
-notify = ["/Users/jq/.codex/plugins/cache/openai-bundled/computer-use/1.0.770/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
+notify = ["/Users/jq/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+service_tier = "default"
+approval_policy = "never"
+approvals_reviewer = "user"
+sandbox_mode = "danger-full-access"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-06T15:25:31Z"
+last_updated = "2026-07-25T03:19:36Z"
 source_type = "local"
 source = "/Users/jq/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-06T02:45:18Z"
+last_updated = "2026-07-24T07:46:33Z"
 source_type = "local"
 source = "/Users/jq/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
 [plugins."documents@openai-primary-runtime"]
-enabled = true
+enabled = false
 
 [plugins."spreadsheets@openai-primary-runtime"]
-enabled = true
+enabled = false
 
 [plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[plugins."computer-use@openai-bundled"]
-enabled = true
+enabled = false
 
 [plugins."build-macos-apps@openai-curated"]
 enabled = true
@@ -40,7 +43,31 @@ enabled = true
 [plugins."figma@openai-curated"]
 enabled = true
 
-[plugins."browser-use@openai-bundled"]
+[plugins."notion@openai-curated"]
+enabled = true
+
+[plugins."build-ios-apps@openai-curated"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
 enabled = true
 
 [projects."/Users/jq"]
@@ -85,23 +112,235 @@ trust_level = "trusted"
 [projects."/Users/jq/Documents/Codex/2026-05-07/what-are-my-skill-and-yes"]
 trust_level = "trusted"
 
+[projects."/Users/jq/Documents/dwf/falcon/falcon-frontend"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-08/evaluate-creating-an-open-source-gitbook"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/docuplane"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-10/is-there-an-opensource-workos"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-10/so-i-have-an-account-cloudflare"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dev-tunnel"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/nota/nota-cms"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-11/evaluate-an-app-that-would-allow"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-12/what-s-the-differences-between-the"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/devtunnel"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/folio"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-16/skill-creator-users-jq-codex-skills"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-16/one-issue-with-codex-is-that"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/royal-tell"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-16/so-i-ve-upgraded-to-an"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-17/i-keep-having-these-kinds-of"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-17/https-socket-dev-features-firewall-how"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-17/so-i-want-you-to-fetch"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-17/what-kind-of-notion-automation-is"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-18/i-want-to-build-a-tool"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/mailhook"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-20/the-process-with-the-high-cpu"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-22/i-have-a-new-idea-you"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-22/https-cursor-com-marketplace-cursor-cursor"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-23/https-github-com-stremio-https-github"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-23/run-a-security-audit-on-this"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-26/i-have-2-macbooks-both-are"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-26/can-you-look-into-the-current"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-28/list-all-the-features-of-gitbook"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/qms/qms-website"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-29/go-through-the-official-git-book"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/openbook"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-30/i-want-to-make-a-tool"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/token-lens"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-05-30/goal-build-a-clean-modern-professional"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-06-06/i-m-thinking-of-an-app"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/feed-me"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-06-08/what-days-have-the-letter-d"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/website-v3"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-06-13/i-d-like-to-build-an"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/taste-print"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/tickr/tickr-landing-page"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-06-22/so-i"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/openair"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/website-v4"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-jq-Documents-site-prompt-fable/a9316b37-0e70-49ce-8868-8c62f706ea09/scratchpad/imgtest"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-jq-Documents-site-prompt-fable/a9316b37-0e70-49ce-8868-8c62f706ea09/scratchpad/materials/figma"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-jq-Documents-site-prompt-fable/a9316b37-0e70-49ce-8868-8c62f706ea09/scratchpad/gen/sections"]
+trust_level = "trusted"
+
+[projects."/private/tmp/claude-501/-Users-jq-Documents-site-prompt-fable/a9316b37-0e70-49ce-8868-8c62f706ea09/scratchpad/gen/assets"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-02/can"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/dwf/rfq"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-10/sites-plugin-sites-openai-bundled-create"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-10/hel"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-10/sta"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/cr-tracking"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/watch-hub-electron"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/vela"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/vela-v2"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/vega"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-23/4-1-checkout-coupons-live-under"]
+trust_level = "trusted"
+
+[projects."/Users/jq/Documents/Codex/2026-07-24/realtime-voice-chat"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
-"gpt-5.5" = 2
+"gpt-5.5" = 4
+"gpt-5.6-sol" = 1
 
 [features]
 memories = false
 chronicle = false
+js_repl = false
 
 [memories]
 generate_memories = false
 use_memories = false
 
-[mcp_servers.figma-local]
-url = "http://127.0.0.1:3845/mcp"
-
 [mcp_servers.context7]
 command = "npx"
 args = ["-y", "@upstash/context7-mcp", "--api-key", "${CONTEXT7_API_KEY}"]
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/jq/.codex"
+CODEX_HOME = "/Users/jq/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e13fd947e846d3d306e9249dd3c73d14931b6494803dbafb16cef85e6add9506"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.721.41059"
+SKY_CUA_SERVICE_PATH = "/Users/jq/.codex/computer-use/Codex Computer Use.app"
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
 
 [mcp_servers.motion]
 command = "npx"
@@ -109,3 +348,28 @@ args = ["-y", "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&ver
 
 [mcp_servers.motion.env]
 TOKEN = "${MOTION_TOKEN}"
+
+[desktop]
+ambient-suggestions-enabled = true
+reviewDelivery = "inline"
+preventSleepWhileRunning = true
+keepRemoteControlAwakeWhilePluggedIn = true
+conversationDetailMode = "STEPS_COMMANDS"
+default-service-tier = "priority"
+followUpQueueMode = "queue"
+dock-icon-preference = "app-default"
+usePointerCursors = true
+reduced-motion-preference = "off"
+appearanceDiffMarkerStyle = "color"
+realtimeVoiceScreenContextEnabled = true
+
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/jq/Documents/openbook" = "zed"
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e13fd947e846d3d306e9249dd3c73d14931b6494803dbafb16cef85e6add9506"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/jq/.codex"
