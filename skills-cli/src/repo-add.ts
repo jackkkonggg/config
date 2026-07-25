@@ -145,6 +145,8 @@ async function copySkill(source: string, target: string): Promise<void> {
 }
 
 function linkSkill(configRepoDir: string, skillName: string): void {
+  if (process.env.SKILLS_SKIP_GLOBAL_LINKS === '1') return;
+
   const skillDir = join(configRepoDir, 'skills', skillName);
   if (!existsSync(join(skillDir, 'SKILL.md'))) {
     throw new Error(`Imported skill is missing SKILL.md: ${skillDir}`);
@@ -378,7 +380,7 @@ export async function runRepoAdd(args: string[], options: AddOptions): Promise<v
 
   if (options.global || options.project || options.agent?.length || options.copy) {
     throw new Error(
-      `Scope, agent, and copy flags are not supported. Skills are always imported into ${configRepoDir}/skills and linked from there.`
+      `Scope, agent, and copy flags are not supported. Skills are always imported into ${configRepoDir}/skills.`
     );
   }
 

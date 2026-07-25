@@ -2,23 +2,25 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+source "$REPO_DIR/scripts/worktree-lib.sh"
+
+if skills_is_primary_worktree "$REPO_DIR"; then
+  worktree_result="$(skills_create_review_worktree "$REPO_DIR" "settings-sync")"
+  printf '%s\n' "$worktree_result"
+  review_worktree="$(printf '%s\n' "$worktree_result" | sed -n 's/^WORKTREE_PATH=//p')"
+  exec "$review_worktree/scripts/sync-settings.sh" --in-worktree
+fi
+
+skills_require_linked_worktree "$REPO_DIR" "scripts/sync-settings.sh"
 cd "$REPO_DIR"
 
-branch_prefix="sync/settings"
-branch_name="${1:-$branch_prefix-$(date +%Y%m%d-%H%M%S)}"
-
-if ! command -v git >/dev/null 2>&1; then
-  echo "ERROR: git is required." >&2
-  exit 1
+if [ "${1:-}" = "--in-worktree" ]; then
+  shift
 fi
 
-echo "==> Creating sync branch"
-if git rev-parse --verify --quiet "$branch_name" >/dev/null; then
-  git switch "$branch_name"
-else
-  git switch -c "$branch_name"
-fi
-echo "  $branch_name"
+echo "==> Using review worktree"
+echo "  $(git branch --show-current)"
+echo "  $REPO_DIR"
 
 echo ""
 echo "==> Fetching settings into repo"
@@ -59,12 +61,6 @@ mkdir -p "$REPO_DIR/zed/themes"
 cp "$HOME/.config/zed/settings.json" "$REPO_DIR/zed/settings.json" 2>/dev/null && echo "  zed/settings.json" || echo "  zed/settings.json (not found)"
 cp "$HOME/.config/zed/keymap.json" "$REPO_DIR/zed/keymap.json" 2>/dev/null && echo "  zed/keymap.json" || echo "  zed/keymap.json (not found)"
 cp "$HOME/.config/zed/themes/dark-modern.json" "$REPO_DIR/zed/themes/dark-modern.json" 2>/dev/null && echo "  zed/themes/dark-modern.json" || echo "  zed/themes/dark-modern.json (not found)"
-
-# Repo-owned skills are the source of truth. Refresh global links so review covers
-# settings changes while installed skills continue pointing at this checkout.
-echo ""
-echo "==> Refreshing installed repo skills"
-"$REPO_DIR/bin/skills" install --all
 
 echo ""
 echo "==> Checking for leaked secrets"

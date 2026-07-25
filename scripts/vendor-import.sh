@@ -2,6 +2,8 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+source "$REPO_DIR/scripts/worktree-lib.sh"
+skills_require_linked_worktree "$REPO_DIR" "scripts/vendor-import.sh"
 MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
 VENDOR_STATE_DIR="$REPO_DIR/.vendor-state"
 PRISTINE_ROOT="$VENDOR_STATE_DIR/pristine"
@@ -82,10 +84,11 @@ if [ "$RETROACTIVE" = false ]; then
 fi
 
 HASH=$(compute_hash "$VENDOR_FULL")
+REVISION=$(vendor_revision_for_path "$REPO_DIR" "$VENDOR_PATH")
 
 # Update manifest
 [ ! -f "$MANIFEST" ] && echo '{}' > "$MANIFEST"
-manifest_add "$MANIFEST" "$SKILL_NAME" "$VENDOR_PATH" "$HASH" "$FILE_MAP"
+manifest_add "$MANIFEST" "$SKILL_NAME" "$VENDOR_PATH" "$HASH" "$FILE_MAP" "$REVISION"
 
 if [ "$RETROACTIVE" = true ]; then
   echo "  Created pristine vendor state from source"

@@ -14,6 +14,8 @@ REPO_DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
 MANIFEST="$REPO_DIR/skills/.vendor-manifest.json"
 GROUPS_FILE="$REPO_DIR/skills/.groups.json"
 PROVENANCE="$REPO_DIR/skills/.provenance.json"
+COMPOSITES="$REPO_DIR/skills/.composites.json"
+source "$REPO_DIR/scripts/worktree-lib.sh"
 LINK_TARGETS=(
   "$HOME/.agents/skills"
   "$HOME/.claude/skills"
@@ -28,10 +30,15 @@ Commands:
   list                                  Print the grouped repo skill catalog
   install [--all|skill...]              Link repo skills globally
   add <source> [--skill name] [--list]  Clone/import skills into this repo
+  worktree create <slug>                Create an isolated review worktree
+  updates check [selectors...]          Check original sources for updates
+  updates prepare [selectors...]        Prepare updates in a linked worktree
+  updates verify                        Verify an update worktree
+  updates promote <branch>              Fast-forward a verified branch into main
   apply                                 Apply repo configs and install all skills
   sync-settings [branch-name]            Branch, fetch app settings, and show review diff
-  update-repo                           Pull this repo, update vendor skills, reinstall all skills
-  sync-vendor                           Sync vendored skills into skills/
+  update-repo                           Deprecated alias for updates prepare --all
+  sync-vendor [skill...]                Sync direct mirrors in a linked worktree
   doctor                                Check local setup
   help                                  Show this help
 
@@ -107,6 +114,8 @@ remove_retired_links() {
 install_repo_skills() {
   local skills=()
 
+  skills_require_primary_worktree "$REPO_DIR" "skills install"
+
   if [ "$#" -eq 0 ]; then
     echo "Usage: skills install [--all|skill...]" >&2
     return 1
@@ -139,22 +148,22 @@ install_repo_skills() {
 add_repo_skill() {
   local cli_dir="$REPO_DIR/skills-cli"
 
+  skills_require_linked_worktree "$REPO_DIR" "skills add"
+
   if [ ! -f "$cli_dir/dist/cli.mjs" ]; then
     echo "==> Building repo-owned skills CLI"
     pnpm --dir "$cli_dir" install
     pnpm --dir "$cli_dir" run build
   fi
 
-  SKILLS_CONFIG_REPO_DIR="$REPO_DIR" node "$cli_dir/bin/cli.mjs" add "$@"
+  SKILLS_CONFIG_REPO_DIR="$REPO_DIR" \
+    SKILLS_SKIP_GLOBAL_LINKS=1 \
+    node "$cli_dir/bin/cli.mjs" add "$@"
 }
 
 update_repo() {
-  cd "$REPO_DIR"
-  git pull --ff-only
-  git submodule update --init --remote --depth 1
-  "$REPO_DIR/scripts/vendor-sync.sh"
-  "$0" install --all
-  "$0" doctor
+  echo "WARNING: skills update-repo is deprecated; preparing reviewed updates instead." >&2
+  "$REPO_DIR/scripts/skill-updates.sh" prepare --all
 }
 
 doctor() {
@@ -201,13 +210,23 @@ doctor() {
 
   echo ""
   echo "==> symlink health"
-  local target_root link_path target_path
+  local target_root link_path target_path primary_path
+  primary_path="$(skills_primary_worktree "$REPO_DIR")"
   for target_root in "${LINK_TARGETS[@]}"; do
     [ -d "$target_root" ] || continue
     while IFS= read -r link_path; do
       target_path="$(readlink "$link_path")"
       if [ -e "$target_path" ]; then
         echo "  ok: $link_path -> $target_path"
+        case "$(skills_realpath "$target_path")" in
+          "$primary_path"/skills/*) ;;
+          *)
+            if [ -f "$target_path/SKILL.md" ] && [ -f "$REPO_DIR/skills/$(basename "$link_path")/SKILL.md" ]; then
+              echo "  wrong checkout: $link_path must target $primary_path/skills/" >&2
+              status=1
+            fi
+            ;;
+        esac
       else
         echo "  broken: $link_path -> $target_path"
         status=1
@@ -262,7 +281,8 @@ NODE
   echo "==> grouped catalog"
   if node "$REPO_DIR/scripts/validate-skill-catalog.mjs" \
     --groups "$GROUPS_FILE" \
-    --provenance "$PROVENANCE"; then
+    --provenance "$PROVENANCE" \
+    --composites "$COMPOSITES"; then
     echo "  catalog valid"
   else
     status=1
@@ -285,8 +305,27 @@ case "$cmd" in
     shift
     add_repo_skill "$@"
     ;;
+  worktree)
+    shift
+    subcommand="${1:-}"
+    shift || true
+    case "$subcommand" in
+      create)
+        skills_create_review_worktree "$REPO_DIR" "${1:-change}"
+        ;;
+      *)
+        echo "Usage: skills worktree create <slug>" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+  updates)
+    shift
+    "$REPO_DIR/scripts/skill-updates.sh" "$@"
+    ;;
   apply)
     shift
+    skills_require_primary_worktree "$REPO_DIR" "skills apply"
     "$REPO_DIR/scripts/apply.sh" "$@"
     ;;
   update-repo)
@@ -295,6 +334,7 @@ case "$cmd" in
     ;;
   sync-vendor)
     shift
+    skills_require_linked_worktree "$REPO_DIR" "skills sync-vendor"
     "$REPO_DIR/scripts/vendor-sync.sh" "$@"
     ;;
   sync-settings)

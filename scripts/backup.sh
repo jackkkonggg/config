@@ -2,6 +2,8 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+source "$REPO_DIR/scripts/worktree-lib.sh"
+skills_require_linked_worktree "$REPO_DIR" "scripts/backup.sh"
 
 echo "==> Backing up configs into $REPO_DIR"
 

@@ -1,0 +1,95 @@
+name: Skill source updates
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare:
+    strategy:
+      fail-fast: false
+      matrix:
+        source:
+          - vendor/anthropics-skills
+          - vendor/claude-plugins-official
+          - vendor/cursor-plugins
+          - vendor/emilkowalski-skills
+          - vendor/figma-mcp-server-guide
+          - vendor/gstack
+          - vendor/jakubkrehel-skills
+          - vendor/mattpocock-skills
+          - vendor/remotion-skills
+          - vendor/shadcn-ui
+          - vendor/swift-concurrency
+          - vendor/swiftui-agent-skill
+          - vendor/vercel-labs-agent-browser
+          - vendor/vercel-labs-agent-skills
+          - vendor/vercel-labs-next-skills
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Check source
+        id: check
+        env:
+          SOURCE: ${{ matrix.source }}
+        run: |
+          report="$(node scripts/skill-updates.mjs check "$SOURCE" --json)"
+          printf '%s\n' "$report"
+          available="$(printf '%s' "$report" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).update_count > 0 ? "true" : "false"))')"
+          echo "available=$available" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare isolated update
+        if: steps.check.outputs.available == 'true'
+        id: prepare
+        env:
+          SOURCE: ${{ matrix.source }}
+        run: |
+          slug="$(basename "$SOURCE" | tr -cd 'a-zA-Z0-9-')"
+          created="$(./bin/skills worktree create "skill-update-$slug")"
+          printf '%s\n' "$created"
+          worktree="$(printf '%s\n' "$created" | sed -n 's/^WORKTREE_PATH=//p')"
+          branch="$(printf '%s\n' "$created" | sed -n 's/^WORKTREE_BRANCH=//p')"
+          set +e
+          "$worktree/scripts/skill-updates.sh" prepare "$SOURCE"
+          prepare_status=$?
+          set -e
+          if [ "$prepare_status" -ne 0 ] && [ -z "$(git -C "$worktree" status --porcelain)" ]; then
+            echo "Preparation failed without producing a reviewable change." >&2
+            exit "$prepare_status"
+          fi
+          git -C "$worktree" add -A
+          git -C "$worktree" commit -m "chore(skills): update $slug"
+          git -C "$worktree" push --set-upstream origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+
+      - name: Open draft pull request
+        if: steps.check.outputs.available == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ steps.prepare.outputs.branch }}
+          SOURCE: ${{ matrix.source }}
+          SLUG: ${{ steps.prepare.outputs.slug }}
+        run: |
+          gh pr create \
+            --draft \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore(skills): update $SLUG" \
+            --body "Automated weekly source update for \`$SOURCE\`.
+
+This draft may include a watched-adapter stop or pending behavioral gate. Review the workflow logs, resolve manual composite routing work, run \`skills updates verify\`, and include both Claude and GPT evaluation evidence before marking it ready."

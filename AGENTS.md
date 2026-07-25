@@ -3,142 +3,86 @@
 ## Repository Layout
 
 ```
-skills/          Installable user-authored skills + patched vendor skills
-skills-cli/      Repo-owned skills add CLI derived from vercel-labs/skills
-vendor/          External skill repos (shallow git submodules)
-.vendor-state/   Vendor pristine copies and generated patches
-claude-code/     Claude Code config backups
-claude-desktop/  Claude Desktop config backups
-codex/           Codex config backups
-cursor/          Cursor config backups
-opencode/        OpenCode config backups
-zed/             Zed config backups
-scripts/         Automation (backup, restore, install, update)
+skills/          Installable local skills and patched vendor skills
+skills-cli/      Repo-owned skills CLI
+vendor/          External source repositories as git submodules
+.vendor-state/   Merge bases, source locks, and generated patches
+scripts/         Update, backup, restore, and validation automation
 bin/             Global command entrypoints
 ```
 
-Claude Code's global instruction file is backed up as `claude-code/CLAUDE.md` and applied to `~/.claude/CLAUDE.md`.
+The remaining top-level app directories contain backed-up Claude, Codex, Cursor,
+OpenCode, and Zed configuration.
+
+## Worktree Safety
+
+The primary checkout is live: global Codex and Claude skill directories symlink
+into its `skills/` tree. Never edit skills, vendor state, manifests, or backed-up
+settings in the primary checkout.
+
+- Create an isolated branch and linked worktree with `skills worktree create <slug>`.
+- Run imports, vendor syncs, settings syncs, and update preparation there.
+- Review and commit the worktree, then promote it from the clean primary checkout
+  with `skills updates promote <branch>`.
+- `skills install --all`, `skills apply`, and restore operations are primary-only.
+
+The command guards enforce these boundaries. Do not bypass them by editing through
+a global skill symlink.
 
 ## Skills CLI
 
-This repo owns an installable machine-level `skills` wrapper.
+Install the machine-level wrapper once with `./scripts/install-cli.sh`.
 
-Install it once:
-
-```bash
-./scripts/install-cli.sh
-```
-
-The command is symlinked to `~/.local/bin/skills`, which should be on `PATH`.
-
-### Reinstall all repo skills
+Common commands:
 
 ```bash
+skills list
+skills doctor
 skills install --all
-```
-
-### Apply repo settings and skills
-
-```bash
 skills apply
-```
-
-This copies the current repo backups for Claude Code, Claude Desktop, Codex, and Zed into their live settings directories, then reinstalls all repo skills as global symlinks.
-
-### Reinstall a single skill
-
-```bash
-skills install <skill-name>
-```
-
-### Create a custom skill
-
-Create custom skills directly in `skills/<skill-name>/SKILL.md`:
-
-```markdown
----
-name: my-skill
-description: Use when the user asks for X, Y, or Z.
----
-
-# My Skill
-
-Instructions the agent should follow when this skill is active.
-```
-
-Then link it into global agent skill directories:
-
-```bash
-skills install my-skill
-```
-
-### Add an external skill
-
-```bash
-skills add <source> --skill <skill-name>
-```
-
-`skills add` is backed by this repo's local `skills-cli/` copy, derived from `vercel-labs/skills`. It keeps upstream-style source parsing and skill discovery, but it always imports into `skills/` and then links from this repo. It does not support project/global scope or agent-selection flags.
-
-### Update repo and skills
-
-```bash
-skills update-repo
-```
-
-Use this to check for updates from the original vendor git sources. It pulls the repo, updates shallow vendor submodules, syncs patched vendor skill mirrors, and reinstalls all repo skills.
-
-### Sync app settings for review
-
-```bash
 skills sync-settings
+skills updates check --all
+skills updates prepare --all
+skills updates verify
+skills updates promote <branch>
 ```
 
-This creates a new `sync/settings-YYYYMMDD-HHMMSS` branch, fetches Claude Code, Codex, Claude Desktop, and Zed settings into the repo, refreshes repo skill links, then prints `git status` so changes can be reviewed with `git diff`.
+`skills updates check` is read-only. `prepare` advances changed source submodules
+only inside a linked worktree, then performs transactional merges and validation.
+The deprecated `skills update-repo` alias now prepares a review worktree; it does
+not update or install directly from the primary checkout.
 
-## Available User-Authored Skills
+Create local skills under `skills/<name>/SKILL.md`. Add external skills with
+`skills add <source> --skill <name>` from a linked worktree.
 
-| Skill | Purpose |
-|---|---|
-| `code-audit` | Structured codebase audit with auto-detection and prioritized findings |
-| `convex-best-practices` | Convex backend rules (functions, schema, database, auth, scheduling) |
-| `grammy-best-practices` | grammY Telegram bot framework patterns |
-| `gsap-best-practices` | GSAP animation rules (core, timelines, ScrollTrigger, plugins, utils) |
-| `motion` | Official Motion AI Kit skill for animation guidance, docs, examples, springs, previews, and performance audits |
-| `react-gsap-best-practices` | React + GSAP lifecycle-safe patterns (useGSAP, contextSafe, SSR) |
-| `typescript-clean-code` | Clean Code principles adapted for TypeScript |
-| `react-doctor` | Scan React code for security, performance, correctness issues |
+## Source Ownership
 
-## Vendor Skill Sources
+Direct mirrors use `skills/.vendor-manifest.json` and
+`.vendor-state/pristine/`. Grouped derivatives use:
 
-| Source Repo | Skills Provided |
-|---|---|
-| `vercel-labs/agent-skills` | react-best-practices, web-design-guidelines, composition-patterns |
-| `vercel-labs/agent-browser` | agent-browser |
-| `vercel-labs/next-skills` | next-best-practices |
-| `anthropics/skills` | frontend-design |
-| `remotion-dev/skills` | remotion-best-practices |
-| `shadcn/ui` | shadcn |
-| `avdlee/swiftui-agent-skill` | swiftui-expert-skill |
-| `avdlee/swift-concurrency-agent-skill` | swift-concurrency |
-| `figma/mcp-server-guide` | create-design-system-rules, implement-design |
-| `garrytan/gstack` | browse, qa, review, ship, retro, plan-ceo-review, plan-eng-review, setup-browser-cookies |
+- `skills/.composites.json` for source paths, imports, watched adapters, ignores,
+  and license destinations.
+- `skills/.provenance.json` for locked revisions and per-file hashes.
+- `.vendor-state/composites/` for three-way merge bases.
 
-## Vendor Patch Workflow
+Imported reference files may merge automatically. Changes to watched routers or
+adapters stop for manual review. New unmapped upstream files fail validation.
+Never advance a source lock after a conflict.
 
-Patched vendor copies live under `skills/`. Pristine vendor state lives under `.vendor-state/pristine/`, and generated patch files live under `.vendor-state/patches/`.
+## Canonical Inventories
 
-```bash
-skills sync-vendor
-```
+- `skills list` / `skills/.groups.json`: installed selectors and taxonomy.
+- `skills/.vendor-manifest.json`: direct vendor mirrors.
+- `skills/.composites.json`: grouped-skill ownership and merge policy.
+- `skills/.provenance.json`: composite source locks.
+- `.gitmodules`: source repositories.
 
-Do not put `.pristine` or `vendor.patch` files back inside installable skill directories.
+Do not maintain a parallel Markdown skill inventory; it becomes stale and is not
+used by the tooling.
 
-## Config Backup & Restore
+## Config Backup and Restore
 
-```bash
-./scripts/backup.sh    # system -> repo (redacts secrets)
-./scripts/restore.sh   # repo -> system (substitutes secrets from .env)
-```
-
-Codex config is stored as `codex/config.toml.template`. Claude Code's Motion MCP entry is stored as `claude-code/mcp.json.template`. OpenCode config is stored as `opencode/opencode.jsonc.template`. Backup and sync scripts redact Context7 and Motion keys; restore substitutes them from the environment or `.env`.
+`skills sync-settings` and `scripts/backup.sh` must run in a linked worktree and
+redact secrets before writing templates. `skills apply` and `scripts/restore.sh`
+must run in the primary checkout because they update live configuration. Never
+commit `.env` or unredacted credentials.

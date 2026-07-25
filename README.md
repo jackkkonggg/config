@@ -39,11 +39,16 @@ bin/             Global command entrypoints
 | `skills list` | Print the repo skill catalog grouped by capability |
 | `skills install --all` | Link all repo skills into global agent skill directories |
 | `skills install <skill>` | Link one or more repo skills into global agent skill directories |
-| `skills add <source> ...` | Clone/import skills into this repo, then link from `skills/` |
+| `skills add <source> ...` | Clone/import skills into this repo from a linked worktree |
+| `skills worktree create <slug>` | Create an isolated branch and linked review worktree |
+| `skills updates check --all` | Read-only check for upstream source changes |
+| `skills updates prepare --all` | Prepare transactional source updates in a review worktree |
+| `skills updates verify` | Validate a prepared update worktree |
+| `skills updates promote <branch>` | Fast-forward a committed update and refresh live links |
 | `skills apply` | Copy repo Claude Code, Claude Desktop, Codex, and Zed configs into live settings directories, then install all repo skills |
-| `skills sync-settings [branch-name]` | Create/switch to a sync branch, fetch Claude/Codex/Claude Desktop/Zed settings, refresh skill links, and show changes for review |
-| `skills update-repo` | Pull this repo, check vendor skill sources for updates, sync vendor mirrors, reinstall skills |
-| `skills sync-vendor` | Sync vendor skill mirrors and regenerate patch files |
+| `skills sync-settings` | Fetch settings into an isolated review worktree |
+| `skills update-repo` | Deprecated alias for `skills updates prepare --all` |
+| `skills sync-vendor [skill...]` | Transactionally sync direct vendor mirrors in a linked worktree |
 | `skills doctor` | Check local dependencies, command installation, target dirs, repo skills, and symlinks |
 
 `skills add` is backed by this repo's local `skills-cli/` copy, derived from `vercel-labs/skills`, so it keeps upstream-style source parsing and skill discovery for sources such as `owner/repo`, `owner/repo@skill`, GitHub tree URLs, SSH git URLs, direct git URLs, and local paths. It does not ask for project/global scope or agent selection: imports always land in this repo's `skills/` directory, and global agent skill directories are symlinked back here.
@@ -93,13 +98,30 @@ The composite selectors are:
 
 External skill repos are tracked as shallow git submodules in `vendor/`. Patched installable copies live in `skills/`; pristine vendor copies and generated patches live in `.vendor-state/`.
 
-To check for updates from the original vendor git sources and refresh installed skills, run:
+The primary checkout is the live symlink target. Check sources from anywhere, but
+prepare changes in an isolated linked worktree:
 
 ```bash
-skills update-repo
+skills updates check --all
+skills updates prepare --all
 ```
 
-This pulls the config repo, updates the shallow vendor submodules, syncs patched vendor mirrors, and reinstalls all repo skills.
+Direct mirrors lock a source commit and content hash in
+`skills/.vendor-manifest.json`. Grouped derivatives declare exact imported,
+watched, and ignored upstream files in `skills/.composites.json`; their per-file
+locks and three-way merge bases live in `skills/.provenance.json` and
+`.vendor-state/composites/`. Router or adapter drift requires manual review, and
+new unmapped source files fail validation.
+
+After review, commit the worktree and promote it from a clean primary checkout:
+
+```bash
+skills updates verify
+skills updates promote codex/skill-updates-YYYYMMDD-HHMMSS
+```
+
+The canonical skill inventory is `skills/.groups.json`, rendered by `skills
+list`. A separate `SKILLS.md` is intentionally not maintained.
 
 | Submodule | Source | Skills |
 |---|---|---|
@@ -138,10 +160,13 @@ This pulls the config repo, updates the shallow vendor submodules, syncs patched
 **Periodic sync:**
 ```bash
 skills sync-settings
-git add -A && git commit -m "chore: sync agent settings"
 ```
 
-`skills sync-settings` and `./scripts/backup.sh` redact Context7 and Motion keys before writing their templates. `./scripts/restore.sh` reads `CONTEXT7_API_KEY` and `MOTION_TOKEN` from the environment or `.env`.
+The command creates a linked worktree and leaves the primary live checkout
+untouched. Review and commit there. `skills sync-settings` and
+`./scripts/backup.sh` redact Context7 and Motion keys before writing their
+templates. `./scripts/restore.sh` reads `CONTEXT7_API_KEY` and `MOTION_TOKEN`
+from the environment or `.env`.
 
 **Sync settings for review:**
 ```bash

@@ -1,0 +1,319 @@
+{
+  "version": 1,
+  "composites": {
+    "visual-design": {
+      "ownership": "locally curated derivative",
+      "licenses": [
+        {
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "from": "LICENSE",
+          "to": "assets/JAKUB-LICENSE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "jakub-colors",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-colors",
+          "imports": [
+            {
+              "from_glob": "*.md",
+              "exclude": ["SKILL.md"],
+              "to_prefix": "references/"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ]
+        },
+        {
+          "id": "jakub-typography",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-typography",
+          "imports": [
+            {
+              "from": "choosing-fonts.md",
+              "to": "references/typography-choosing-fonts.md"
+            },
+            {
+              "from": "css-cheat-sheet.md",
+              "to": "references/typography-css.md"
+            },
+            {
+              "from": "details-and-accessibility.md",
+              "to": "references/typography-accessibility.md"
+            },
+            {
+              "from": "spacing-and-sizing.md",
+              "to": "references/typography-spacing.md"
+            },
+            {
+              "from": "variable-fonts-and-opentype.md",
+              "to": "references/typography-variable-fonts.md"
+            },
+            {
+              "from": "wrapping-and-punctuation.md",
+              "to": "references/typography-wrapping.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ]
+        },
+        {
+          "id": "jakub-ui",
+          "vendor_root": "vendor/jakubkrehel-skills",
+          "source_root": "skills/better-ui",
+          "imports": [
+            {
+              "from": "animations.md",
+              "to": "references/polish-interactions.md"
+            },
+            {
+              "from": "performance.md",
+              "to": "references/polish-performance.md"
+            },
+            {
+              "from": "surfaces.md",
+              "to": "references/polish-surfaces.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ]
+        }
+      ]
+    },
+    "motion-design": {
+      "ownership": "locally curated derivative",
+      "licenses": [
+        {
+          "vendor_root": "vendor/emilkowalski-skills",
+          "from": "LICENSE",
+          "to": "assets/EMIL-LICENSE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "emil-vocabulary",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "source_root": "skills/animation-vocabulary",
+          "imports": [
+            {
+              "from": "SKILL.md",
+              "to": "references/vocabulary.md"
+            }
+          ]
+        },
+        {
+          "id": "emil-apple",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "source_root": "skills/apple-design",
+          "imports": [
+            {
+              "from": "SKILL.md",
+              "to": "references/apple.md"
+            }
+          ]
+        },
+        {
+          "id": "emil-opportunities",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "source_root": "skills/find-animation-opportunities",
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/opportunities.md"
+            }
+          ]
+        },
+        {
+          "id": "emil-audit",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "source_root": "skills/improve-animations",
+          "imports": [
+            {
+              "from": "AUDIT.md",
+              "to": "references/audit-rules.md"
+            },
+            {
+              "from": "PLAN-TEMPLATE.md",
+              "to": "references/plan-template.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/audit.md"
+            }
+          ]
+        },
+        {
+          "id": "emil-review",
+          "vendor_root": "vendor/emilkowalski-skills",
+          "source_root": "skills/review-animations",
+          "imports": [
+            {
+              "from": "STANDARDS.md",
+              "to": "references/review-standards.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/review.md"
+            }
+          ]
+        }
+      ]
+    },
+    "react-engineering": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "id": "vercel-composition",
+          "vendor_root": "vendor/vercel-labs-agent-skills",
+          "source_root": "skills/composition-patterns",
+          "imports": [
+            {
+              "from_glob": "rules/*.md",
+              "to_prefix": "references/composition-"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "AGENTS.md",
+              "reason": "compiled duplicate of rules"
+            },
+            {
+              "glob": "README.md",
+              "reason": "human documentation"
+            },
+            {
+              "glob": "metadata.json",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "vercel-performance",
+          "vendor_root": "vendor/vercel-labs-agent-skills",
+          "source_root": "skills/react-best-practices",
+          "imports": [
+            {
+              "from_glob": "rules/*.md",
+              "to_prefix": "references/performance-"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "AGENTS.md",
+              "reason": "compiled duplicate of rules"
+            },
+            {
+              "glob": "README.md",
+              "reason": "human documentation"
+            },
+            {
+              "glob": "metadata.json",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        }
+      ]
+    },
+    "explain-codebase": {
+      "ownership": "locally curated derivative",
+      "licenses": [
+        {
+          "vendor_root": "vendor/cursor-plugins",
+          "from": "pstack/LICENSE",
+          "to": "assets/PSTACK-LICENSE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "pstack-how",
+          "vendor_root": "vendor/cursor-plugins",
+          "source_root": "pstack/skills/how",
+          "watches": [
+            {
+              "from_glob": "**/*.md",
+              "adapter": "references/runtime.md"
+            }
+          ]
+        },
+        {
+          "id": "pstack-why",
+          "vendor_root": "vendor/cursor-plugins",
+          "source_root": "pstack/skills/why",
+          "imports": [
+            {
+              "from": "references/epistemics.md",
+              "to": "references/epistemics.md"
+            },
+            {
+              "from": "references/source-playbook.md",
+              "to": "references/source-playbook.md"
+            },
+            {
+              "from_glob": "references/sources/*.md",
+              "to_prefix": "references/source-"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "references/rationale.md"
+            },
+            {
+              "from": "references/investigator-prompt.md",
+              "adapter": "references/rationale.md"
+            },
+            {
+              "from": "references/synthesizer-prompt.md",
+              "adapter": "references/rationale.md"
+            }
+          ]
+        }
+      ]
+    },
+    "figma-project-rules": {
+      "ownership": "locally curated derivative",
+      "sources": [
+        {
+          "id": "figma-rules",
+          "vendor_root": "vendor/figma-mcp-server-guide",
+          "source_root": "skills/figma-create-design-system-rules",
+          "imports": [
+            {
+              "from": "SKILL.md",
+              "to": "references/workflow.md"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

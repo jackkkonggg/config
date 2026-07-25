@@ -10,6 +10,7 @@ function parseArgs(argv) {
     root: resolve("skills"),
     groups: null,
     provenance: null,
+    composites: null,
     baseline: false,
     json: false,
   };
@@ -19,6 +20,7 @@ function parseArgs(argv) {
     if (argument === "--root") options.root = resolve(argv[++index]);
     else if (argument === "--groups") options.groups = resolve(argv[++index]);
     else if (argument === "--provenance") options.provenance = resolve(argv[++index]);
+    else if (argument === "--composites") options.composites = resolve(argv[++index]);
     else if (argument === "--baseline") options.baseline = true;
     else if (argument === "--json") options.json = true;
     else throw new Error(`Unknown argument: ${argument}`);
@@ -256,17 +258,30 @@ function isSymlink(path) {
 }
 
 function validateProvenance(provenance, repoRoot, errors, warnings) {
+  if (provenance.version !== 2) {
+    errors.push(`provenance manifest version must be 2, found ${provenance.version}`);
+    return;
+  }
   for (const [composite, record] of Object.entries(provenance.composites ?? {})) {
-    for (const source of record.sources ?? []) {
-      const sourcePath = resolve(repoRoot, source.path);
+    for (const [sourceId, source] of Object.entries(record.sources ?? {})) {
+      const sourcePath = resolve(repoRoot, source.vendor_root, source.source_root);
       if (!existsSync(sourcePath)) {
-        errors.push(`${composite}: missing source ${source.path}`);
+        errors.push(`${composite}/${sourceId}: missing source ${source.vendor_root}/${source.source_root}`);
         continue;
       }
 
-      if (source.license) {
-        const licensePath = resolve(repoRoot, source.license);
-        if (!existsSync(licensePath)) errors.push(`${composite}: missing license ${source.license}`);
+      for (const [file, hash] of Object.entries(source.files ?? {})) {
+        const filePath = resolve(sourcePath, file);
+        const basePath = resolve(
+          repoRoot,
+          ".vendor-state/composites",
+          composite,
+          sourceId,
+          file,
+        );
+        if (!existsSync(filePath)) errors.push(`${composite}/${sourceId}: missing locked file ${file}`);
+        if (!existsSync(basePath)) errors.push(`${composite}/${sourceId}: missing merge base ${file}`);
+        if (!/^[a-f0-9]{64}$/.test(hash)) errors.push(`${composite}/${sourceId}: invalid hash for ${file}`);
       }
 
       const vendorRoot = resolve(repoRoot, source.vendor_root);
@@ -280,6 +295,49 @@ function validateProvenance(provenance, repoRoot, errors, warnings) {
           `${composite}: source drift at ${source.vendor_root}, expected ${source.revision}, found ${revision.stdout.trim()}`,
         );
       }
+    }
+  }
+}
+
+function validateCompositeRecipes(path, repoRoot, errors, warnings) {
+  if (!path || !existsSync(path)) {
+    errors.push("composite recipe manifest is required");
+    return;
+  }
+  const result = spawnSync(
+    "node",
+    [resolve(repoRoot, "scripts/composite-sync.mjs"), "check", "--json"],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+  if (result.status !== 0) {
+    errors.push(`composite recipe validation failed: ${result.stderr.trim() || result.stdout.trim()}`);
+    return;
+  }
+  const report = JSON.parse(result.stdout);
+  errors.push(...report.errors.map((error) => `composite: ${error}`));
+  warnings.push(...report.changes.map((change) => `composite source drift: ${change}`));
+}
+
+function validateDirectVendorState(repoRoot, errors) {
+  const manifest = readJson(resolve(repoRoot, "skills/.vendor-manifest.json"));
+  const expected = new Set(Object.keys(manifest));
+  const pristineRoot = resolve(repoRoot, ".vendor-state/pristine");
+  for (const entry of readdirSync(pristineRoot, { withFileTypes: true })) {
+    if (entry.isDirectory() && !expected.has(entry.name)) {
+      errors.push(`stale direct pristine state: ${entry.name}`);
+    }
+  }
+  for (const [name, record] of Object.entries(manifest)) {
+    if (!record.revision) errors.push(`${name}: direct vendor revision is missing`);
+    const sourceRoot = record.vendor_path.split("/").slice(0, 2).join("/");
+    const revision = spawnSync("git", ["-C", resolve(repoRoot, sourceRoot), "rev-parse", "HEAD"], {
+      encoding: "utf8",
+    });
+    if (revision.status !== 0) errors.push(`${name}: cannot resolve ${sourceRoot} revision`);
+    else if (record.revision && revision.stdout.trim() !== record.revision) {
+      errors.push(
+        `${name}: source revision ${revision.stdout.trim()} does not match lock ${record.revision}`,
+      );
     }
   }
 }
@@ -317,6 +375,8 @@ function main() {
     } else {
       validateProvenance(readJson(options.provenance), repoRoot, errors, warnings);
     }
+    validateCompositeRecipes(options.composites, repoRoot, errors, warnings);
+    validateDirectVendorState(repoRoot, errors);
   }
 
   const report = {

@@ -2,6 +2,8 @@
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+source "$REPO_DIR/scripts/worktree-lib.sh"
+skills_require_primary_worktree "$REPO_DIR" "scripts/restore.sh"
 FORCE=false
 
 while getopts "f" opt; do
