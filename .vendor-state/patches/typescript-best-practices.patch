@@ -1,0 +1,41 @@
+diff -ruN --exclude=.DS_Store .vendor-state/pristine/typescript-best-practices/SKILL.md skills/typescript-best-practices/SKILL.md
+--- .vendor-state/pristine/typescript-best-practices/SKILL.md	2026-06-27 01:26:22
++++ skills/typescript-best-practices/SKILL.md	2026-06-27 02:08:47
+@@ -5,7 +5,7 @@
+ 
+ # TypeScript best practices
+ 
+-Apply the **type-system-discipline** principle skill first; this skill grounds it in TypeScript syntax.
++Apply the [Type System Discipline](../poteto-mode/references/principles/type-system-discipline.md) principle reference first; this skill grounds it in TypeScript syntax.
+ 
+ | Rule | Summary |
+ |------|---------|
+@@ -17,7 +17,7 @@
+ | Type guards | Must verify the claim. A lying guard is worse than `as` because the bug hides behind a name that says it's safe. Name them `isX` or `hasX`. |
+ | Exhaustiveness | Inline `const _exhaustive: never = x;` in default arms so the compiler errors when a new variant is added. |
+ | `satisfies` over `as` | Validates the value without widening literal types. |
+-| Boundary validation | Validate where data crosses in; trust types inside. See the **boundary-discipline** principle skill. |
++| Boundary validation | Validate where data crosses in; trust types inside. See the [Boundary Discipline](../poteto-mode/references/principles/boundary-discipline.md) principle reference. |
+ | Schema-derived types | Reach for `Pick`/`Omit`/`Parameters`/`ReturnType`/`Awaited`/`typeof` before declaring a new interface. |
+ | Object args | Pass objects, not positional, so argument order is self-documenting. Skip on hot paths (per-frame render, tokenizers, parsers). |
+ 
+diff -ruN --exclude=.DS_Store .vendor-state/pristine/typescript-best-practices/references/patterns.md skills/typescript-best-practices/references/patterns.md
+--- .vendor-state/pristine/typescript-best-practices/references/patterns.md	2026-06-27 01:26:22
++++ skills/typescript-best-practices/references/patterns.md	2026-06-27 02:09:41
+@@ -1,6 +1,6 @@
+ # TypeScript patterns
+ 
+-Code examples for each rule in `SKILL.md`. The underlying principles are language-agnostic; see the **type-system-discipline** and **boundary-discipline** principle skills.
++Code examples for each rule in `SKILL.md`. The underlying principles are language-agnostic; see the [Type System Discipline](../../poteto-mode/references/principles/type-system-discipline.md) and [Boundary Discipline](../../poteto-mode/references/principles/boundary-discipline.md) principle references.
+ 
+ ## Branded types
+ 
+@@ -168,7 +168,7 @@
+ 
+ ## Boundary validation
+ 
+-Validate once where data crosses in; trust types inside. See the **boundary-discipline** principle skill.
++Validate once where data crosses in; trust types inside. See the [Boundary Discipline](../../poteto-mode/references/principles/boundary-discipline.md) principle reference.
+ 
+ - **Wire formats** (proto, JSON-RPC): parse with `ignoreUnknownFields` so forward-compatible changes don't break old clients.
+ - **Persisted JSON:** versioned blob with a try/catch around the parse.

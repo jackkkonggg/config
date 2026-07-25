@@ -17,9 +17,8 @@
 
 ## will-change
 
-- Avoid blanket `will-change` in CSS and inline styles — it forces compositing layers and can cause layout instability when overused.
-- Prefer `backface-visibility: hidden` or `translateZ(0)` as targeted GPU promotion hints.
-- Note: the official GSAP docs recommend `will-change: transform` on animated elements. In practice, applying it sparingly to a few key elements is fine; applying it broadly causes more harm than good. Use judgment per element.
+- Use `will-change: transform` in CSS on elements that will animate. It hints the browser to promote the layer.
+- Apply it only to elements that actually animate; do not set `will-change` or `force3D` on every element "just in case".
 
 ## Batch reads and writes
 

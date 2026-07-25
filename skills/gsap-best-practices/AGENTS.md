@@ -9,7 +9,7 @@ This is the fast-path playbook. Use it to make decisions quickly, then consult s
 - Keep animation ownership local to the feature/component that creates it.
 - Revert or kill animations/triggers on teardown to avoid leaks and stale listeners.
 - Always `.kill()` Observer and Draggable instances on teardown — they are not collected by `gsap.context()`.
-- Avoid `will-change`; prefer `backface-visibility: hidden` or `translateZ(0)` for GPU hints.
+- Use `will-change: transform` only on elements that actually animate; do not blanket apply `will-change` or `force3D`.
 - Prefer transform and opacity animation over layout-triggering properties.
 - Use `gsap.matchMedia()` for breakpoint-specific animation logic.
 - Respect reduced-motion preferences for non-essential animation.
@@ -34,7 +34,7 @@ This is the fast-path playbook. Use it to make decisions quickly, then consult s
 - Use `gsap.utils` helpers (clamp, mapRange, snap, distribute, pipe, toArray) instead of manual math.
 - Omit the last argument to `gsap.utils` methods to get a reusable function form.
 
-## Full references
+## Reference map
 
 - `rules/gsap-core.md`
 - `rules/gsap-timelines.md`

@@ -1,73 +1,68 @@
-# AGENTS.md
- <!--Extracted from https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/refs/heads/main/CLAUDE.md-->
+# Global Agent Instructions
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
+This is the shared global instruction file for Codex and Claude Code. Claude Code imports it through `~/.claude/CLAUDE.md`, which points at `~/.codex/AGENTS.md`.
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+## Authority
 
-## 1. Think Before Coding
+System, developer, and project instructions win over this file.
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+When no higher-priority instruction conflicts, `poteto-mode` is the default behavioral contract. This file is a bootstrap and index, not a second copy of Poteto. Do not blend competing styles. Follow Poteto unless a higher-priority instruction overrides it.
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+## Default Workflow
 
-## 2. Simplicity First
+- Start nontrivial work by using the relevant skill.
+- For Poteto-style work, read [`poteto-mode`](/Users/jq/.codex/skills/poteto-mode/SKILL.md) first.
+- For multi-step work, follow the matching Poteto playbook instead of inventing a bespoke checklist.
+- For reversible implementation work, proceed and present the result.
+- Pause only for irreversible actions or genuine product-direction ambiguity.
 
-**Minimum code that solves the problem. Nothing speculative.**
+## Change Discipline
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- Surface assumptions and meaningful interpretations when they affect the work. For reversible work, choose a path and state it instead of blocking.
+- Keep scope exact. Do not add features, configurability, abstraction, or impossible-case handling that the task did not ask for.
+- Make surgical edits. Touch only what the request needs, match local style, and leave unrelated cleanup for a note.
+- Clean up only your own leftovers. Remove imports, variables, functions, and files made unused by your change. Mention pre-existing dead code instead of deleting it.
+- Every changed line should trace to the user request, the selected Poteto playbook, or required verification. If it does not, drop it.
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+## Principle Index
 
-## 3. Surgical Changes
+These summaries are quick routing hints. Read the linked reference when a principle changes a decision.
 
-**Touch only what you must. Clean up only your own mess.**
+**Core**
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
+- [Laziness Protocol](/Users/jq/.codex/skills/poteto-mode/references/principles/laziness-protocol.md): prefer deletion, smaller diffs, and the least abstraction that solves the problem.
+- [Foundational Thinking](/Users/jq/.codex/skills/poteto-mode/references/principles/foundational-thinking.md): name core types, data structures, and sequencing before writing logic.
+- [Redesign from First Principles](/Users/jq/.codex/skills/poteto-mode/references/principles/redesign-from-first-principles.md): integrate new requirements as if they were present from day one.
+- [Subtract Before You Add](/Users/jq/.codex/skills/poteto-mode/references/principles/subtract-before-you-add.md): remove dead weight and redundant paths before layering on new structure.
+- [Minimize Reader Load](/Users/jq/.codex/skills/poteto-mode/references/principles/minimize-reader-load.md): reduce layers, hidden state, and indirection between question and answer.
+- [Outcome-Oriented Execution](/Users/jq/.codex/skills/poteto-mode/references/principles/outcome-oriented-execution.md): converge on the target architecture instead of preserving temporary compatibility forever.
+- [Experience First](/Users/jq/.codex/skills/poteto-mode/references/principles/experience-first.md): choose the user or operator experience over implementation convenience.
+- [Exhaust the Design Space](/Users/jq/.codex/skills/poteto-mode/references/principles/exhaust-the-design-space.md): compare real alternatives before committing to a novel UI or architecture.
+- [Build the Lever](/Users/jq/.codex/skills/poteto-mode/references/principles/build-the-lever.md): build the script, codemod, generator, or harness that performs or proves the work.
 
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+**Architecture**
 
-The test: Every changed line should trace directly to the user's request.
+- [Boundary Discipline](/Users/jq/.codex/skills/poteto-mode/references/principles/boundary-discipline.md): validate at system boundaries, trust internal types, and keep business logic pure.
+- [Type System Discipline](/Users/jq/.codex/skills/poteto-mode/references/principles/type-system-discipline.md): make illegal states unrepresentable and parse external data into typed models.
+- [Make Operations Idempotent](/Users/jq/.codex/skills/poteto-mode/references/principles/make-operations-idempotent.md): design commands and lifecycle steps to converge safely across retries and crashes.
+- [Migrate Callers Then Delete Legacy APIs](/Users/jq/.codex/skills/poteto-mode/references/principles/migrate-callers-then-delete-legacy-apis.md): move every caller to the new API and delete the old path in the same wave.
+- [Separate Before Serializing Shared State](/Users/jq/.codex/skills/poteto-mode/references/principles/separate-before-serializing-shared-state.md): give concurrent actors independent state before introducing locks or serialization.
 
-## 4. Goal-Driven Execution
+**Verification**
 
-**Define success criteria. Loop until verified.**
+- [Prove It Works](/Users/jq/.codex/skills/poteto-mode/references/principles/prove-it-works.md): verify against the real artifact before declaring done.
+- [Fix Root Causes](/Users/jq/.codex/skills/poteto-mode/references/principles/fix-root-causes.md): reproduce symptoms, trace to the root cause, and fix there.
+- [Sequence Work into Verifiable Units](/Users/jq/.codex/skills/poteto-mode/references/principles/sequence-verifiable-units.md): break work into small units, verify each one, and order commits so the proof is readable.
 
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+**Delegation**
 
-### Implementation
+- [Guard the Context Window](/Users/jq/.codex/skills/poteto-mode/references/principles/guard-the-context-window.md): route bulk reading and fan-out to subagents while keeping reduced findings in the main thread.
+- [Never Block on the Human](/Users/jq/.codex/skills/poteto-mode/references/principles/never-block-on-the-human.md): proceed on reversible work and reserve questions for genuine product or preference calls.
 
-When implementing a code change that depends on a package:
-- Use the relevant skill if one is available.
-- Use the Context7 MCP to fetch the latest package docs before relying on examples, APIs, or behavior.
-- Prefer current official docs over memory, blog posts, or assumptions.
+**Meta**
 
-For multi-step tasks, state a brief plan:
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
+- [Encode Lessons in Structure](/Users/jq/.codex/skills/poteto-mode/references/principles/encode-lessons-in-structure.md): turn repeated instructions into checks, scripts, metadata, or runtime guardrails.
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+## Package and API Freshness
 
----
-
-**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+When implementing code that depends on a package, use the relevant skill if one is available. Use Context7 or current official docs before relying on examples, APIs, or behavior from memory.

@@ -1,0 +1,21 @@
+diff -ruN --exclude=.DS_Store .vendor-state/pristine/show-me-your-work/SKILL.md skills/show-me-your-work/SKILL.md
+--- .vendor-state/pristine/show-me-your-work/SKILL.md	2026-06-27 01:26:22
++++ skills/show-me-your-work/SKILL.md	2026-06-27 02:09:41
+@@ -33,7 +33,7 @@
+ 
+ ## Logging a row
+ 
+-Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon (the **unslop** skill applies to log text too). A reviewer should understand each row without decoding it.
++Write each entry the way you'd tell a teammate what you did. Plain words, concrete actions, no AI speak or abstract jargon. A reviewer should understand each row without decoding it.
+ 
+ Use the helper so rows stay well-formed: `scripts/log.sh <logfile> <phase> <decision> <why> <evidence> <result>`. It stamps `ts`, writes the header on first use, strips stray tabs/newlines, and prefixes any cell starting with `=`, `+`, `-`, or `@` with a single quote so a reviewer opening the log in a spreadsheet doesn't trigger formula execution. A bare `printf` appending a row works too, but mind those same bytes if cells come from generated or user-supplied text.
+ 
+@@ -49,7 +49,7 @@
+ 
+ - One row is one decision or checkpoint. If it doesn't fit on one line, the decision isn't crisp yet.
+ - Append-only. A wrong call gets a new row that supersedes it. Never edit or delete history.
+-- Prefer evidence produced by committed scripts over hand-made one-offs, so a reviewer can re-run it (the **encode-lessons-in-structure** principle skill).
++- Prefer evidence produced by committed scripts over hand-made one-offs, so a reviewer can re-run it. See `../poteto-mode/references/principles/encode-lessons-in-structure.md`.
+ 
+ ## Audit the log against the transcript
+ 

@@ -1,0 +1,11 @@
+diff -ruN --exclude=.DS_Store .vendor-state/pristine/blast-radius/SKILL.md skills/blast-radius/SKILL.md
+--- .vendor-state/pristine/blast-radius/SKILL.md	2026-06-27 01:26:22
++++ skills/blast-radius/SKILL.md	2026-06-27 02:05:12
+@@ -45,6 +45,6 @@
+ - **Cleared.** What you checked and why it's fine.
+ - **Before you merge.** The cheapest test or repro that catches the real bug, including the script you wrote.
+ 
+-Write it through `unslop`, cite real code, and strip anything private before it goes anywhere public.
++Write it in plain, concrete prose, cite real code, and strip anything private before it goes anywhere public.
+ 
+ **Reply:** the writeup above, with the one safety fact either proven or marked unproven.

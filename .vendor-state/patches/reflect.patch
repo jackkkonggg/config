@@ -1,0 +1,12 @@
+diff -ruN --exclude=.DS_Store .vendor-state/pristine/reflect/SKILL.md skills/reflect/SKILL.md
+--- .vendor-state/pristine/reflect/SKILL.md	2026-06-27 01:26:22
++++ skills/reflect/SKILL.md	2026-06-27 02:08:47
+@@ -50,7 +50,7 @@
+ 
+ ### 4. Structural enforcement check
+ 
+-Sanity-check the synthesizer's Accepted list. For any item that would be enforced more reliably by a lint rule, script, metadata flag, or runtime check, move it from Accepted to Backlog. The synthesizer already applies this criterion; this is a final pass before edits land. See the **encode-lessons-in-structure** principle skill.
++Sanity-check the synthesizer's Accepted list. For any item that would be enforced more reliably by a lint rule, script, metadata flag, or runtime check, move it from Accepted to Backlog. The synthesizer already applies this criterion; this is a final pass before edits land. See the [Encode Lessons in Structure](../poteto-mode/references/principles/encode-lessons-in-structure.md) principle reference.
+ 
+ ### 5. Apply
+ 

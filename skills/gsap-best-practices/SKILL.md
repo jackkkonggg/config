@@ -11,15 +11,19 @@ Apply these rules when working on GSAP-powered animation codebases.
 
 - As of March 6, 2026, official GSAP docs state that all plugins, including former Club GSAP bonus plugins, are freely available in the public package. Use the standard `gsap` package and do not recommend legacy private-registry or paid-only installation flows. Prefer GSAP `3.13+` when this matters.
 
-## Rule loading order
+## Rule routing
 
-1. Read `rules/gsap-core.md`.
-2. Read `rules/gsap-timelines.md`.
-3. Read `rules/gsap-scrolltrigger.md`.
-4. Read `rules/gsap-plugins.md`.
-5. Read `rules/gsap-utils.md`.
-6. Read `rules/gsap-performance.md`.
-7. Use `AGENTS.md` as a compact summary plus pointer.
+Do not read every rule file by default. Start with the smallest relevant set:
+
+- Read `AGENTS.md` for broad GSAP reviews, unclear tasks, or when you need the compact checklist.
+- Read `rules/gsap-core.md` for tweens, eases, staggers, transform aliases, `matchMedia`, defaults, or `immediateRender`.
+- Read `rules/gsap-timelines.md` for sequencing, labels, position parameters, nested timelines, or playback control.
+- Read `rules/gsap-scrolltrigger.md` for scroll animation, ScrollTrigger, pinning, scrub, snap, batch, scroller proxies, refresh, or horizontal scroll.
+- Read `rules/gsap-plugins.md` for plugin registration or plugin APIs such as Flip, Draggable, Observer, SplitText, ScrambleText, DrawSVG, MorphSVG, MotionPath, ScrollTo, ScrollSmoother, or GSDevTools.
+- Read `rules/gsap-utils.md` for `gsap.utils`, value mapping, `clamp`, `mapRange`, `normalize`, `random`, `snap`, `distribute`, `toArray`, `selector`, `pipe`, `wrap`, or units.
+- Read `rules/gsap-performance.md` for jank, FPS, layout thrashing, many elements, `quickTo`, `quickSetter`, `will-change`, reduced motion, or animation cleanup/performance.
+
+If React or Next.js is involved, also use `react-gsap-best-practices` when available for `useGSAP`, `contextSafe`, SSR, StrictMode, and dependency-driven lifecycle behavior.
 
 ## Enforcement policy
 
