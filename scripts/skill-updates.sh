@@ -60,6 +60,7 @@ case "$command_name" in
     git -C "$primary" merge --ff-only "$branch_name"
     "$primary/bin/skills" install --all
     git -C "$primary" worktree remove --force "$worktree_path"
+    git -C "$primary" submodule update --init --recursive --depth 1
     git -C "$primary" branch -d "$branch_name"
     echo "Promoted $branch_name and refreshed live skill symlinks."
     ;;
