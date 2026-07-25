@@ -19,11 +19,6 @@
     "revision": "04166ac89136d36de2a87f24429e6cc307594953",
     "vendor_path": "vendor/cursor-plugins/pstack/skills/blast-radius"
   },
-  "codebase-design": {
-    "hash": "3d56729f322a86eeae38354ab7b12a5f30b70a07005816078953f55e37f07b0f",
-    "revision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/codebase-design"
-  },
   "figure-it-out": {
     "hash": "cc198f6fdf28cc072865dc71e3cf21030e6d3ae4136de5ef12ac80d2da0a1e06",
     "revision": "04166ac89136d36de2a87f24429e6cc307594953",
@@ -33,11 +28,6 @@
     "hash": "1c85d2efae03f05ebef44501999cefe6d294a8ad310705506fdfe08f19c36a47",
     "revision": "b29e7cf65e5cb78a5ac33d582270551bc74a14eb",
     "vendor_path": "vendor/anthropics-skills/skills/frontend-design"
-  },
-  "improve-codebase-architecture": {
-    "hash": "22ea100192edd70c6c20ce4a67db5e8db89253574ef0d05b3ffc0d675984e429",
-    "revision": "ed37663cc5fbef691ddfecd080dff42f7e7e350d",
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/improve-codebase-architecture"
   },
   "interrogate": {
     "hash": "3c519cb3e8e0732c8358e7ec48fb23a14c5ae2f8cdf3272f02dcbff263384e29",

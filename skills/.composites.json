@@ -350,6 +350,68 @@
         }
       ]
     },
+    "codebase-architecture": {
+      "ownership": "locally curated derivative",
+      "licenses": [
+        {
+          "vendor_root": "vendor/mattpocock-skills",
+          "from": "LICENSE",
+          "to": "assets/MATTPOCOCK-LICENSE"
+        }
+      ],
+      "sources": [
+        {
+          "id": "matt-architecture-scan",
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/improve-codebase-architecture",
+          "imports": [
+            {
+              "from": "HTML-REPORT.md",
+              "to": "references/html-report.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        },
+        {
+          "id": "matt-architecture-design",
+          "vendor_root": "vendor/mattpocock-skills",
+          "source_root": "skills/engineering/codebase-design",
+          "imports": [
+            {
+              "from": "DEEPENING.md",
+              "to": "references/deepening.md"
+            },
+            {
+              "from": "DESIGN-IT-TWICE.md",
+              "to": "references/design-it-twice.md"
+            }
+          ],
+          "watches": [
+            {
+              "from": "SKILL.md",
+              "adapter": "SKILL.md"
+            }
+          ],
+          "ignores": [
+            {
+              "glob": "agents/openai.yaml",
+              "reason": "upstream packaging metadata"
+            }
+          ]
+        }
+      ]
+    },
     "explain-codebase": {
       "ownership": "locally curated derivative",
       "licenses": [

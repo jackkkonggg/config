@@ -8,14 +8,14 @@ Branch: `codex/skill-updates-20260726-023815`
 Accepted. The proposed catalog passes the structural, context, safety, and
 blinded-quality gates.
 
-- 25 repo selectors.
-- 2,456 total description characters; no description exceeds 140.
+- 24 repo selectors.
+- 2,366 total description characters; no description exceeds 140.
 - Every declared router is at most 250 words.
-- Median transitive context fell 73.3% across the nine affected tasks.
-- Median Poteto context fell 84.1%; every measured Poteto route exceeded 50%.
+- Median transitive context fell 66.8% across the nine affected tasks.
+- Median Poteto context fell 83.9%; every measured Poteto route exceeded 50%.
 - No affected route loaded more than 10% additional context; Teach rose 1.7%.
 - The routing suite passed 8/8 tests.
-- Blinded quality averaged 4.83/5 for the proposal and 3.78/5 for baseline.
+- Blinded quality averaged 4.61/5 for the proposal and 3.72/5 for baseline.
 - Neither judge identified a critical proposal regression in scope, safety,
   permissions, behavior preservation, or verification.
 
@@ -35,7 +35,7 @@ configuration—not shared prose—chooses models.
 | `jakubkrehel/skills` | `79a09456be60419e652e63fc9e057b5587d051ea` | Import seven visual families into `visual-design`; watch routers and ignore packaging metadata. |
 | `anthropics/skills` | `b29e7cf65e5cb78a5ac33d582270551bc74a14eb` | Preserve current design substance behind direction, process, and writing routes. |
 | `shadcn/ui` | `aa13b0cb83cd32beb99820df63db1bb9357bc4f6` | Adopt current component, chat, registry, CLI, MCP, styling, and composition references behind a 196-word router. |
-| `mattpocock/skills` | `ed37663cc5fbef691ddfecd080dff42f7e7e350d` | Separate opportunity scanning from the new `codebase-design` selector. |
+| `mattpocock/skills` | `ed37663cc5fbef691ddfecd080dff42f7e7e350d` | Merge opportunity scanning and selected interface design into the routed `codebase-architecture` composite. |
 | `cursor/plugins` | `04166ac89136d36de2a87f24429e6cc307594953` | Reconcile all direct and composite locks together; remove platform paths and model slugs from shared workflows. |
 
 The Jakub composite explicitly classifies every upstream file. Specialist
@@ -73,22 +73,32 @@ tokenizer drift while preserving the relative prompt-size comparison.
 
 | Task | Baseline | Proposal | Change |
 | --- | ---: | ---: | ---: |
-| UI implementation | 542 | 317 | -41.5% |
-| Holistic UI review | 2,567 | 2,062 | -19.7% |
-| Architecture investigation | 719 | 192 | -73.3% |
-| Interface design | 1,512 | 981 | -35.1% |
-| Behavior-preserving refactor | 2,705 | 435 | -83.9% |
-| Bug repair | 2,574 | 403 | -84.3% |
-| Performance diagnosis | 2,333 | 543 | -76.7% |
-| Teach mode | 1,739 | 1,768 | +1.7% |
-| Destructive/external-action boundary | 2,176 | 249 | -88.6% |
+| UI implementation | 545 | 323 | -40.7% |
+| Holistic UI review | 2,579 | 2,077 | -19.5% |
+| Architecture investigation | 722 | 240 | -66.8% |
+| Interface design | 1,521 | 1,040 | -31.6% |
+| Behavior-preserving refactor | 2,711 | 441 | -83.7% |
+| Bug repair | 2,580 | 409 | -84.1% |
+| Performance diagnosis | 2,339 | 552 | -76.4% |
+| Teach mode | 1,751 | 1,780 | +1.7% |
+| Destructive/external-action boundary | 2,179 | 252 | -88.4% |
 
-Median reduction is 73.3%. The four Poteto cases have an 84.1% median
+Median reduction is 66.8%. The four Poteto cases have an 83.9% median
 reduction. Teach is the only increase and stays below the 10% ceiling because
 it intentionally combines runtime and rationale evidence.
 
-GPT-5.6 Sol's reported median total candidate tokens fell from 21,777 to
-19,389 (-11.0%) despite a large fixed CLI/system context. Claude's system-prompt
+The architecture follow-up replaced two selectors with one router. Broad
+requests default to a read-only Scan; detailed Design references load only
+after the user asks to shape a selected opportunity. Forward tests confirmed
+that Scan loaded no references, while an explicit two-shape interface request
+loaded only `deepening.md` and `design-it-twice.md`. Compared with the earlier
+split proposal, the merge adds 45 words (23.4%) to the unusually small Scan
+route and 50 words (5.1%) to Design. They remain 66.8% and 31.6% below their
+respective baselines. The accepted 10% ceiling compares proposal routes with
+their baselines, so neither route violates it.
+
+GPT-5.6 Sol's reported median total candidate tokens fell from 21,541 to
+18,714 (-13.1%) despite a large fixed CLI/system context. Claude's system-prompt
 file usage was cache-reported as two input tokens for every run, so its input
 counter is not used as a comparative claim.
 
@@ -109,14 +119,16 @@ quality, scope discipline, safety/permissions, and verification.
 
 | Variant | Score | Average |
 | --- | ---: | ---: |
-| Baseline | 68 / 90 | 3.78 / 5 |
-| Proposal | 87 / 90 | 4.83 / 5 |
+| Baseline | 67 / 90 | 3.72 / 5 |
+| Proposal | 83 / 90 | 4.61 / 5 |
 
-The proposal matched or exceeded baseline on 16 of 18 paired judgments. The
-two lower scores were one UI implementation and one interface-design output;
-neither had a critical regression. Both judges independently flagged the
-baseline refactor for changing invalid-filter persistence despite a
-behavior-preserving request. No critical proposal regression was reported.
+The proposal matched or exceeded baseline on 14 of 18 paired judgments. The
+four lower scores were the two UI implementation and two Teach outputs;
+neither task had a critical regression. One judge flagged the baseline
+refactor for changing invalid-filter persistence despite a behavior-preserving
+request, and the other flagged the baseline action-boundary answer for
+promising an unsupported undo path. No critical proposal regression was
+reported.
 
 ## Verification
 

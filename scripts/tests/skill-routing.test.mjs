@@ -56,14 +56,16 @@ test("shadcn routes components, chat, registries, presets, CLI, and MCP", () => 
   assert.match(router, /rendered component/i);
 });
 
-test("architecture selectors separate scanning from design", () => {
-  const scan = read("skills/improve-codebase-architecture/SKILL.md");
-  const design = read("skills/codebase-design/SKILL.md");
-  assert.match(scan, /scan|rank/i);
-  assert.match(scan, /codebase-design/);
-  assert.doesNotMatch(scan, /grilling|domain-modeling/);
-  assert.match(design, /DEEPENING\.md/);
-  assert.match(design, /DESIGN-IT-TWICE\.md/);
+test("codebase-architecture isolates Scan and Design modes", () => {
+  const router = read("skills/codebase-architecture/SKILL.md");
+  assert.match(router, /defaults to \*\*Scan\*\*/);
+  assert.match(router, /remains read-only/);
+  assert.match(router, /references\/html-report\.md/);
+  assert.match(router, /references\/deepening\.md/);
+  assert.match(router, /references\/design-it-twice\.md/);
+  assert.match(router, /does not authorize implementation/i);
+  assert.ok(!existsSync(resolve(root, "skills/improve-codebase-architecture")));
+  assert.ok(!existsSync(resolve(root, "skills/codebase-design")));
 });
 
 test("explain-codebase exposes How, Why, and Teach without separate selectors", () => {
@@ -88,8 +90,8 @@ test("Poteto keeps selective domain modeling and evidence-based playbooks", () =
 });
 
 test("negative routes do not add unrelated unconditional dependencies", () => {
-  assert.doesNotMatch(read("skills/visual-design/SKILL.md"), /shadcn|codebase-design/);
+  assert.doesNotMatch(read("skills/visual-design/SKILL.md"), /shadcn|codebase-architecture/);
   assert.doesNotMatch(read("skills/shadcn/SKILL.md"), /accessibility-\*|typography-\*/);
-  assert.doesNotMatch(read("skills/codebase-design/SKILL.md"), /frontend-design|visual-design/);
+  assert.doesNotMatch(read("skills/codebase-architecture/SKILL.md"), /frontend-design|visual-design/);
   assert.doesNotMatch(read("skills/poteto-mode/SKILL.md"), /always.*architect|always.*delegate/i);
 });

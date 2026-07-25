@@ -93,6 +93,8 @@ The composite selectors are:
 - `react-engineering` for component composition and React performance.
 - `explain-codebase` for runtime walkthroughs and historical rationale.
 - `gsap-best-practices` for plain and React GSAP implementation.
+- `codebase-architecture` for read-only architecture scans and selected module
+  or interface design.
 
 Figma workflows are supplied by the curated Codex Figma plugin and Claude's
 official Figma plugin. The retired project-rule generator has no maintained

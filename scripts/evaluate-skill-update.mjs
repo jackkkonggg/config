@@ -7,6 +7,7 @@ import { join, resolve } from "node:path";
 
 const root = resolve(".");
 const temp = mkdtempSync(join(tmpdir(), "skill-update-eval-"));
+const harnessVersion = 2;
 const outputPath = resolve(
   process.argv[2] ?? "reports/skill-update-evaluation-results-2026-07-26.json",
 );
@@ -53,7 +54,7 @@ const tasks = [
     id: "architecture-investigation",
     prompt: "Scan and rank the best codebase architecture deepening opportunity. Do not design it yet.",
     baseline: ["skills/improve-codebase-architecture/SKILL.md"],
-    proposal: ["skills/improve-codebase-architecture/SKILL.md"],
+    proposal: ["skills/codebase-architecture/SKILL.md"],
   },
   {
     id: "interface-design",
@@ -64,9 +65,9 @@ const tasks = [
       "skills/improve-codebase-architecture/INTERFACE-DESIGN.md",
     ],
     proposal: [
-      "skills/codebase-design/SKILL.md",
-      "skills/codebase-design/DEEPENING.md",
-      "skills/codebase-design/DESIGN-IT-TWICE.md",
+      "skills/codebase-architecture/SKILL.md",
+      "skills/codebase-architecture/references/deepening.md",
+      "skills/codebase-architecture/references/design-it-twice.md",
     ],
   },
   {
@@ -335,7 +336,8 @@ try {
   const checkpoint = existsSync(outputPath)
     ? JSON.parse(readFileSync(outputPath, "utf8"))
     : null;
-  const candidates = checkpoint?.candidates?.length === jobs.length
+  const candidates = checkpoint?.harness_version === harnessVersion &&
+      checkpoint?.candidates?.length === jobs.length
     ? checkpoint.candidates
     : await pool(jobs, 4, async (job) => ({
         model: job.model,
@@ -346,7 +348,7 @@ try {
       }));
   writeFileSync(
     outputPath,
-    `${JSON.stringify({ generated_at: new Date().toISOString(), candidates }, null, 2)}\n`,
+    `${JSON.stringify({ harness_version: harnessVersion, generated_at: new Date().toISOString(), candidates }, null, 2)}\n`,
   );
   const claudeCandidates = candidates.filter((item) => item.model === "claude");
   const gptCandidates = candidates.filter((item) => item.model === "gpt");
@@ -357,7 +359,7 @@ try {
   writeFileSync(
     outputPath,
     `${JSON.stringify(
-      { generated_at: new Date().toISOString(), candidates, judges: { gptJudgesClaude, claudeJudgesGpt } },
+      { harness_version: harnessVersion, generated_at: new Date().toISOString(), candidates, judges: { gptJudgesClaude, claudeJudgesGpt } },
       null,
       2,
     )}\n`,
