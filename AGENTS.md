@@ -115,7 +115,6 @@ This creates a new `sync/settings-YYYYMMDD-HHMMSS` branch, fetches Claude Code, 
 |---|---|
 | `vercel-labs/agent-skills` | react-best-practices, web-design-guidelines, composition-patterns |
 | `vercel-labs/agent-browser` | agent-browser |
-| `vercel-labs/skills` | find-skills |
 | `vercel-labs/next-skills` | next-best-practices |
 | `anthropics/skills` | frontend-design |
 | `remotion-dev/skills` | remotion-best-practices |

@@ -4,7 +4,7 @@ This file lists the installable skills currently present under `skills/`.
 Skills marked as patched have local modifications recorded under `.vendor-state/patches/`.
 Import commands for vendor skills use this repo-owned `skills add` wrapper backed by the local `skills-cli/` copy. Local skills are maintained only in this repo.
 
-Total skills: 31
+Total skills: 30
 
 Patched skills: 2
 
@@ -16,7 +16,6 @@ Patched skills: 2
 | `code-audit` | Local | No | - | Structured codebase audit with auto-detection, relevant docs and skill loading, prioritized findings, and optional auto-fix. |
 | `convex-best-practices` | Local | No | - | Convex backend rules for queries, mutations, actions, HTTP actions, schema, indexes, scheduling, file storage, and search. |
 | `create-design-system-rules` | Vendor | No | `skills add figma/mcp-server-guide --skill create-design-system-rules` | Generates custom design system rules for a codebase. Requires Figma MCP server connection. |
-| `find-skills` | Vendor | No | `skills add vercel-labs/skills --skill find-skills` | Helps users discover and install agent skills when they ask how to do something or whether a skill exists. |
 | `frontend-design` | Vendor | **Yes** - [patch](.vendor-state/patches/frontend-design.patch) | `skills add anthropics/skills --skill frontend-design` | Create distinctive, production-grade frontend interfaces with high design quality for pages, components, artifacts, and web apps. |
 | `grammy-best-practices` | Local | No | - | grammY Telegram bot framework patterns for middleware, commands, sessions, conversations, API transformers, files/media, reliability, and deployment. |
 | `gsap-best-practices` | Local | No | - | GSAP animation rules for tweens, timelines, ScrollTrigger, matchMedia, plugin usage, utilities, and performance. |

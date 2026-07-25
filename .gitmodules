@@ -1,58 +1,30 @@
-[submodule "vendor/vercel-agent-skills"]
-	path = vendor/vercel-agent-skills
+[submodule "vendor/vercel-labs-agent-skills"]
+	path = vendor/vercel-labs-agent-skills
 	url = https://github.com/vercel-labs/agent-skills.git
 	shallow = true
-[submodule "vendor/vercel-agent-browser"]
-	path = vendor/vercel-agent-browser
+[submodule "vendor/vercel-labs-agent-browser"]
+	path = vendor/vercel-labs-agent-browser
 	url = https://github.com/vercel-labs/agent-browser.git
 	shallow = true
-[submodule "vendor/vercel-skills"]
-	path = vendor/vercel-skills
-	url = https://github.com/vercel-labs/skills.git
-	shallow = true
-	branch = main
-[submodule "vendor/vercel-next-skills"]
-	path = vendor/vercel-next-skills
+[submodule "vendor/vercel-labs-next-skills"]
+	path = vendor/vercel-labs-next-skills
 	url = https://github.com/vercel-labs/next-skills.git
 	shallow = true
-[submodule "vendor/anthropic-skills"]
-	path = vendor/anthropic-skills
+[submodule "vendor/anthropics-skills"]
+	path = vendor/anthropics-skills
 	url = https://github.com/anthropics/skills.git
-	shallow = true
-[submodule "vendor/remotion-skills"]
-	path = vendor/remotion-skills
-	url = https://github.com/remotion-dev/skills.git
 	shallow = true
 [submodule "vendor/shadcn-ui"]
 	path = vendor/shadcn-ui
 	url = https://github.com/shadcn/ui.git
 	shallow = true
-[submodule "vendor/swiftui-agent-skill"]
-	path = vendor/swiftui-agent-skill
-	url = https://github.com/avdlee/swiftui-agent-skill.git
-	shallow = true
-[submodule "vendor/swift-concurrency"]
-	path = vendor/swift-concurrency
-	url = https://github.com/avdlee/swift-concurrency-agent-skill.git
-	shallow = true
 [submodule "vendor/figma-mcp-server-guide"]
 	path = vendor/figma-mcp-server-guide
 	url = https://github.com/figma/mcp-server-guide.git
 	shallow = true
-[submodule "vendor/gstack"]
-	path = vendor/gstack
-	url = https://github.com/garrytan/gstack.git
-	shallow = true
-[submodule "vendor/claude-plugins-official"]
-	path = vendor/claude-plugins-official
-	url = https://github.com/anthropics/claude-plugins-official.git
-	shallow = true
 [submodule "vendor/mattpocock-skills"]
 	path = vendor/mattpocock-skills
 	url = https://github.com/mattpocock/skills.git
-[submodule "vendor/Jakubantalik-transitions.dev"]
-	path = vendor/Jakubantalik-transitions.dev
-	url = https://github.com/Jakubantalik/transitions.dev.git
 [submodule "vendor/cursor-plugins"]
 	path = vendor/cursor-plugins
 	url = https://github.com/cursor/plugins.git
@@ -63,3 +35,23 @@
 [submodule "vendor/jakubkrehel-skills"]
 	path = vendor/jakubkrehel-skills
 	url = https://github.com/jakubkrehel/skills.git
+[submodule "vendor/remotion-skills"]
+	path = vendor/remotion-skills
+	url = https://github.com/remotion-dev/skills.git
+	shallow = true
+[submodule "vendor/swiftui-agent-skill"]
+	path = vendor/swiftui-agent-skill
+	url = https://github.com/avdlee/swiftui-agent-skill.git
+	shallow = true
+[submodule "vendor/swift-concurrency"]
+	path = vendor/swift-concurrency
+	url = https://github.com/avdlee/swift-concurrency-agent-skill.git
+	shallow = true
+[submodule "vendor/gstack"]
+	path = vendor/gstack
+	url = https://github.com/garrytan/gstack.git
+	shallow = true
+[submodule "vendor/claude-plugins-official"]
+	path = vendor/claude-plugins-official
+	url = https://github.com/anthropics/claude-plugins-official.git
+	shallow = true

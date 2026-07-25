@@ -1,186 +1,182 @@
 {
   "agent-browser": {
-    "vendor_path": "vendor/vercel-labs-agent-browser/skills/agent-browser",
-    "hash": "c19a532a3777698b80b35270939a1dc559da451381971b3e1e78174d1ab54863"
+    "hash": "c19a532a3777698b80b35270939a1dc559da451381971b3e1e78174d1ab54863",
+    "vendor_path": "vendor/vercel-labs-agent-browser/skills/agent-browser"
   },
   "animation-vocabulary": {
-    "vendor_path": "vendor/emilkowalski-skills/skills/animation-vocabulary",
-    "hash": "16bfb5a10b42c4c2dfeb15c3705f9a2de774b33bf4ae055305130d4abff4b16b"
+    "hash": "16bfb5a10b42c4c2dfeb15c3705f9a2de774b33bf4ae055305130d4abff4b16b",
+    "vendor_path": "vendor/emilkowalski-skills/skills/animation-vocabulary"
   },
   "apple-design": {
-    "vendor_path": "vendor/emilkowalski-skills/skills/apple-design",
-    "hash": "8d5d6949abe176aed835dc259e91470b6ee219f2bc2af92784a7f072a2e50ed0"
+    "hash": "8d5d6949abe176aed835dc259e91470b6ee219f2bc2af92784a7f072a2e50ed0",
+    "vendor_path": "vendor/emilkowalski-skills/skills/apple-design"
   },
   "architect": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/architect",
-    "hash": "884d6e77797c5b6d173286e216e3e7e62640751455617ab016567996210fbc12"
+    "hash": "884d6e77797c5b6d173286e216e3e7e62640751455617ab016567996210fbc12",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/architect"
   },
   "arena": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/arena",
-    "hash": "acec86f25fa08a96bc260b47cf3c83a82e6055233af9a2ea0cc54e1a5734a69c"
+    "hash": "acec86f25fa08a96bc260b47cf3c83a82e6055233af9a2ea0cc54e1a5734a69c",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/arena"
   },
   "better-colors": {
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-colors",
-    "hash": "993ea9cb2662cfa529b3a231beb13fa5677b8e4ced21c4b0ef84a6f5da7d5543"
+    "hash": "993ea9cb2662cfa529b3a231beb13fa5677b8e4ced21c4b0ef84a6f5da7d5543",
+    "vendor_path": "vendor/jakubkrehel-skills/skills/better-colors"
   },
   "better-typography": {
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-typography",
-    "hash": "a6a81a488dfa8efb27260de465de202f3e875470ccf38b52db7a51743c564acb"
+    "hash": "a6a81a488dfa8efb27260de465de202f3e875470ccf38b52db7a51743c564acb",
+    "vendor_path": "vendor/jakubkrehel-skills/skills/better-typography"
   },
   "better-ui": {
-    "vendor_path": "vendor/jakubkrehel-skills/skills/better-ui",
-    "hash": "66f4f4517e12af98f9c84a001bf808ed50060d2fbfb4a87969285d73d501417c"
+    "hash": "66f4f4517e12af98f9c84a001bf808ed50060d2fbfb4a87969285d73d501417c",
+    "vendor_path": "vendor/jakubkrehel-skills/skills/better-ui"
   },
   "blast-radius": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/blast-radius",
-    "hash": "e80b1eccf103a6b26d8d8eea894ea6026f7f47302a1c97c169c9d9f819f7a5b4"
+    "hash": "e80b1eccf103a6b26d8d8eea894ea6026f7f47302a1c97c169c9d9f819f7a5b4",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/blast-radius"
   },
   "diagnose": {
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/diagnose",
-    "hash": "6b0d86fe514a8e13f67c846a8848b2f04a9d49b3ba53ef7cf745780480a98f1b"
-  },
-  "figure-it-out": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/figure-it-out",
-    "hash": "cc198f6fdf28cc072865dc71e3cf21030e6d3ae4136de5ef12ac80d2da0a1e06"
-  },
-  "find-animation-opportunities": {
-    "vendor_path": "vendor/emilkowalski-skills/skills/find-animation-opportunities",
-    "hash": "83a8d4767cad74886eca6f621793a777ae8079018482e25aea1be9254650a961"
+    "hash": "6b0d86fe514a8e13f67c846a8848b2f04a9d49b3ba53ef7cf745780480a98f1b",
+    "vendor_path": "vendor/mattpocock-skills/skills/engineering/diagnose"
   },
   "figma-code-connect": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-code-connect",
-    "hash": "126591784e864f3896c05cdec88e68b266cad80589dbc06a8319423ee0d75dee"
+    "hash": "126591784e864f3896c05cdec88e68b266cad80589dbc06a8319423ee0d75dee",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-code-connect"
   },
   "figma-create-design-system-rules": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-design-system-rules",
-    "hash": "6221097642d9bee32d5a21002a907529f33cd8832a31be54804f4a38d3405d8d"
+    "hash": "6221097642d9bee32d5a21002a907529f33cd8832a31be54804f4a38d3405d8d",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-design-system-rules"
   },
   "figma-create-new-file": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-new-file",
-    "hash": "dab98e9b2d252695870629caeb4aa66e664080add1d4a1ad73ddadcd08ee14d4"
+    "hash": "dab98e9b2d252695870629caeb4aa66e664080add1d4a1ad73ddadcd08ee14d4",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-create-new-file"
   },
   "figma-generate-design": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-design",
-    "hash": "2f2e1b8f174c5a3e714aa4d3861c2c2cf0456ee65148084acd79c8d0b1124560"
+    "hash": "2f2e1b8f174c5a3e714aa4d3861c2c2cf0456ee65148084acd79c8d0b1124560",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-design"
   },
   "figma-generate-diagram": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-diagram",
-    "hash": "8ea568b0485da21b6ee4f3a47d46a59b4545b2c5f76a152b04c48914a16e4c95"
+    "hash": "8ea568b0485da21b6ee4f3a47d46a59b4545b2c5f76a152b04c48914a16e4c95",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-diagram"
   },
   "figma-generate-library": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-library",
-    "hash": "7be1bb70dd2e4a5b5d65a486390f1437ea67bdd83847335f47b53475bf144c9a"
+    "hash": "7be1bb70dd2e4a5b5d65a486390f1437ea67bdd83847335f47b53475bf144c9a",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-generate-library"
   },
   "figma-implement-design": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-implement-design",
-    "hash": "de43b2df73d541a1f44ca2799fa93ab465311255637e8fb6232dad408d04f9d9"
+    "hash": "de43b2df73d541a1f44ca2799fa93ab465311255637e8fb6232dad408d04f9d9",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-implement-design"
   },
   "figma-use": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use",
-    "hash": "2638718570a194215bd82782720639635b488c6b7f502d0df2f6f789ebec47e7"
+    "hash": "2638718570a194215bd82782720639635b488c6b7f502d0df2f6f789ebec47e7",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use"
   },
   "figma-use-figjam": {
-    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use-figjam",
-    "hash": "df2fd98b03120c8c0637f9ca456d0f7a66f2a1fadd1b97a1ed6bd2153558667d"
+    "hash": "df2fd98b03120c8c0637f9ca456d0f7a66f2a1fadd1b97a1ed6bd2153558667d",
+    "vendor_path": "vendor/figma-mcp-server-guide/skills/figma-use-figjam"
+  },
+  "figure-it-out": {
+    "hash": "cc198f6fdf28cc072865dc71e3cf21030e6d3ae4136de5ef12ac80d2da0a1e06",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/figure-it-out"
+  },
+  "find-animation-opportunities": {
+    "hash": "83a8d4767cad74886eca6f621793a777ae8079018482e25aea1be9254650a961",
+    "vendor_path": "vendor/emilkowalski-skills/skills/find-animation-opportunities"
   },
   "frontend-design": {
-    "vendor_path": "vendor/anthropics-skills/skills/frontend-design",
-    "hash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b"
+    "hash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b",
+    "vendor_path": "vendor/anthropics-skills/skills/frontend-design"
   },
   "grill-me": {
-    "vendor_path": "vendor/mattpocock-skills/skills/productivity/grill-me",
-    "hash": "0fe30e2291a6f990a5414f85205535bc06519622bf604980511d7c11dad327e0"
+    "hash": "0fe30e2291a6f990a5414f85205535bc06519622bf604980511d7c11dad327e0",
+    "vendor_path": "vendor/mattpocock-skills/skills/productivity/grill-me"
   },
   "grill-with-docs": {
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/grill-with-docs",
-    "hash": "b8aa6019536607a59ed665e75108a0b04a295365997036a3f5ebc55ed9b07e06"
+    "hash": "b8aa6019536607a59ed665e75108a0b04a295365997036a3f5ebc55ed9b07e06",
+    "vendor_path": "vendor/mattpocock-skills/skills/engineering/grill-with-docs"
   },
   "handoff": {
-    "vendor_path": "vendor/mattpocock-skills/skills/in-progress/handoff",
-    "hash": "dd07215fc3994f8c4ca06fd7e47d5f0ff50f6e624e6b45458745aec93f722c1c"
+    "hash": "dd07215fc3994f8c4ca06fd7e47d5f0ff50f6e624e6b45458745aec93f722c1c",
+    "vendor_path": "vendor/mattpocock-skills/skills/in-progress/handoff"
   },
   "how": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/how",
-    "hash": "fe4c55e99cda04de565f6d9cab561dea9b1d3ca40bfdbbfa80ea4a8693563310"
+    "hash": "fe4c55e99cda04de565f6d9cab561dea9b1d3ca40bfdbbfa80ea4a8693563310",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/how"
   },
   "improve-animations": {
-    "vendor_path": "vendor/emilkowalski-skills/skills/improve-animations",
-    "hash": "2a371396644801d45c708e95cbff02cf1b0f2dca238abbdbb0abb09d5a42974e"
+    "hash": "2a371396644801d45c708e95cbff02cf1b0f2dca238abbdbb0abb09d5a42974e",
+    "vendor_path": "vendor/emilkowalski-skills/skills/improve-animations"
   },
   "improve-codebase-architecture": {
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/improve-codebase-architecture",
-    "hash": "849153657250a0ec92717b7b07180d088b623a135687d0c02654c670f42f4e52"
+    "hash": "849153657250a0ec92717b7b07180d088b623a135687d0c02654c670f42f4e52",
+    "vendor_path": "vendor/mattpocock-skills/skills/engineering/improve-codebase-architecture"
   },
   "interrogate": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/interrogate",
-    "hash": "95f5a662881c7d4702f61d9abc43e8fd68810d97beceeccb1bddaac0d04e3005"
+    "hash": "95f5a662881c7d4702f61d9abc43e8fd68810d97beceeccb1bddaac0d04e3005",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/interrogate"
   },
   "next-best-practices": {
-    "vendor_path": "vendor/vercel-labs-next-skills/skills/next-best-practices",
-    "hash": "75787b2b6bd385579d47d02666da363c6e84a76f79a81178ea9874142e6892a5"
+    "hash": "75787b2b6bd385579d47d02666da363c6e84a76f79a81178ea9874142e6892a5",
+    "vendor_path": "vendor/vercel-labs-next-skills/skills/next-best-practices"
   },
   "poteto-mode": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/poteto-mode",
-    "hash": "faebef1a371b2ae6477ff33dd0b112277d94bc66741af818a72c5d724b5f717c"
+    "hash": "faebef1a371b2ae6477ff33dd0b112277d94bc66741af818a72c5d724b5f717c",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/poteto-mode"
   },
   "prototype": {
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/prototype",
-    "hash": "1da13c7038b67b03ccac329fc75980fe82c92601c95671607abf79bd8d0dc61b"
+    "hash": "1da13c7038b67b03ccac329fc75980fe82c92601c95671607abf79bd8d0dc61b",
+    "vendor_path": "vendor/mattpocock-skills/skills/engineering/prototype"
   },
   "recall": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/recall",
-    "hash": "9474770c30404bb4fb01dd9424dfffbae9e559be9228028b6fe1f2764998a647"
+    "hash": "9474770c30404bb4fb01dd9424dfffbae9e559be9228028b6fe1f2764998a647",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/recall"
   },
   "reflect": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/reflect",
-    "hash": "c151203d4225fb71b967b132d6cb4e32463d79a2a0b3cf470cd5a4800ee5d8b4"
+    "hash": "c151203d4225fb71b967b132d6cb4e32463d79a2a0b3cf470cd5a4800ee5d8b4",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/reflect"
   },
   "review-animations": {
-    "vendor_path": "vendor/emilkowalski-skills/skills/review-animations",
-    "hash": "abe6b4b12653e48de5669c73b46b007855e872458d0ae232e24753c2eca909f2"
+    "hash": "abe6b4b12653e48de5669c73b46b007855e872458d0ae232e24753c2eca909f2",
+    "vendor_path": "vendor/emilkowalski-skills/skills/review-animations"
   },
   "shadcn": {
-    "vendor_path": "vendor/shadcn-ui/skills/shadcn",
-    "hash": "b87be74fe12b6def2cd5e7ba8014431b9815c72cc1988d574e762d15914158cd"
+    "hash": "b87be74fe12b6def2cd5e7ba8014431b9815c72cc1988d574e762d15914158cd",
+    "vendor_path": "vendor/shadcn-ui/skills/shadcn"
   },
   "show-me-your-work": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/show-me-your-work",
-    "hash": "3131b5a60e2e12c0ce6c8bada5de0f26b708126f74c5ab4f196ec6bdd12031c1"
+    "hash": "3131b5a60e2e12c0ce6c8bada5de0f26b708126f74c5ab4f196ec6bdd12031c1",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/show-me-your-work"
   },
   "tdd": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/tdd",
-    "hash": "9e1767e1b85949eb1289f2a7ecb19379ababa76eed33bfad0b790495dee2db4c"
+    "hash": "9e1767e1b85949eb1289f2a7ecb19379ababa76eed33bfad0b790495dee2db4c",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/tdd"
   },
   "to-prd": {
-    "vendor_path": "vendor/mattpocock-skills/skills/engineering/to-prd",
-    "hash": "a9a42e82d98fc26a289ee525b29af933b81a5b937f58284bda69128c88e49b3d"
-  },
-  "transitions-dev": {
-    "vendor_path": "vendor/Jakubantalik-transitions.dev/skills/transitions-dev",
-    "hash": "4b53f0bc6cbb2b655f76ebd0a1a2dbf885302a693a46e0361c87d44a2ba6bd88"
+    "hash": "a9a42e82d98fc26a289ee525b29af933b81a5b937f58284bda69128c88e49b3d",
+    "vendor_path": "vendor/mattpocock-skills/skills/engineering/to-prd"
   },
   "typescript-best-practices": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/typescript-best-practices",
-    "hash": "2847d9dd3a8432dba1f20ba2427d3866aa78c8151c715821afb63d46594d6185"
+    "hash": "2847d9dd3a8432dba1f20ba2427d3866aa78c8151c715821afb63d46594d6185",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/typescript-best-practices"
   },
   "vercel-composition-patterns": {
-    "vendor_path": "vendor/vercel-labs-agent-skills/skills/composition-patterns",
-    "hash": "646f870906914c3787efa7403ec4716dfddf78fc17a12ec1f0556caf2143ac66"
+    "hash": "646f870906914c3787efa7403ec4716dfddf78fc17a12ec1f0556caf2143ac66",
+    "vendor_path": "vendor/vercel-labs-agent-skills/skills/composition-patterns"
   },
   "vercel-react-best-practices": {
-    "vendor_path": "vendor/vercel-labs-agent-skills/skills/react-best-practices",
-    "hash": "e3f2294574b469c7c198373a443a86571012769d0bbeed68854bd55642ec0d7b"
+    "hash": "e3f2294574b469c7c198373a443a86571012769d0bbeed68854bd55642ec0d7b",
+    "vendor_path": "vendor/vercel-labs-agent-skills/skills/react-best-practices"
   },
   "web-design-guidelines": {
-    "vendor_path": "vendor/vercel-labs-agent-skills/skills/web-design-guidelines",
-    "hash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    "hash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474",
+    "vendor_path": "vendor/vercel-labs-agent-skills/skills/web-design-guidelines"
   },
   "why": {
-    "vendor_path": "vendor/cursor-plugins/pstack/skills/why",
-    "hash": "cf28a3998c04862ba5b9dc9b20f69bca1e3e9d4e1fdd0e6d01b41f56fad14a60"
+    "hash": "cf28a3998c04862ba5b9dc9b20f69bca1e3e9d4e1fdd0e6d01b41f56fad14a60",
+    "vendor_path": "vendor/cursor-plugins/pstack/skills/why"
   },
   "write-a-skill": {
-    "vendor_path": "vendor/mattpocock-skills/skills/productivity/write-a-skill",
-    "hash": "03840258378476cbefa13fd3f7bf70db93ec1c3cdd7d0dc4edb9431e71a2a24d"
+    "hash": "03840258378476cbefa13fd3f7bf70db93ec1c3cdd7d0dc4edb9431e71a2a24d",
+    "vendor_path": "vendor/mattpocock-skills/skills/productivity/write-a-skill"
   }
 }

@@ -101,7 +101,6 @@ This pulls the config repo, updates the shallow vendor submodules, syncs patched
 |---|---|---|
 | `vercel-agent-skills` | vercel-labs/agent-skills | react-best-practices, web-design-guidelines, composition-patterns |
 | `vercel-agent-browser` | vercel-labs/agent-browser | agent-browser |
-| `vercel-skills` | vercel-labs/skills | find-skills |
 | `vercel-next-skills` | vercel-labs/next-skills | next-best-practices |
 | `anthropic-skills` | anthropics/skills | frontend-design |
 | `remotion-skills` | remotion-dev/skills | remotion-best-practices |
