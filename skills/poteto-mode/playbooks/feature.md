@@ -2,7 +2,7 @@
 
 1. Trace the affected subsystem and state the user-visible outcome.
 2. Name the input, output, and persistent data shapes. If state or branching is
-   spread across files, read `references/principles/model-the-domain.md` and
+   spread across files, read `../references/principles/model-the-domain.md` and
    choose the smallest structure that removes duplicated rules.
 3. Sketch types, signatures, and ownership before implementation when several
    shapes are plausible. Use `architect` for a consequential design decision,

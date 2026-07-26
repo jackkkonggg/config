@@ -1,7 +1,6 @@
 ---
 name: arena
 description: Use to compare parallel candidates, choose a base, and synthesize the strongest result.
-disable-model-invocation: true
 ---
 
 # Arena

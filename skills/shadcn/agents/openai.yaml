@@ -1,0 +1,4 @@
+interface:
+  display_name: "shadcn"
+  short_description: "Build and maintain shadcn interfaces"
+  default_prompt: "Use $shadcn to complete this shadcn component or registry task."

@@ -6,11 +6,13 @@ Read-only requests: "how does X work?", "why was Y built this way?", "are we sur
 
 1. Route through `explain-codebase`: How mode for runtime questions, Why mode
    for motivation, and Teach mode when both must form one walkthrough.
-2. Throughput checkpoint stays one line: `throughput checkpoint: n/a, read-only investigation`. The four-item version is for code-shaped work.
-3. Produce a scoped evidence-backed explanation, or a recommendation with a
+2. Produce a scoped evidence-backed explanation, or a recommendation with a
    tradeoffs table when the request compares alternatives.
-4. Apply the **unslop** skill to the reply.
+3. Keep the reply concrete and concise; retain only evidence that changes the
+   conclusion.
 
-No PR, no babysit, no `architect` unless the investigation precedes a code change. If it does, hand back to the user and re-route to Bug fix or Feature.
+Do not open a PR or invoke `architect` unless the user separately requests a
+design or code change. Hand a diagnosed issue back with the matching next
+workflow.
 
 **Reply:** the investigation output. For "are we sure?" answers, include your real judgment with reasons. Push back if the premise is wrong (see Autonomy).

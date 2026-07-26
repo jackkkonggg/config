@@ -1,0 +1,4 @@
+interface:
+  display_name: "Interrogate"
+  short_description: "Stress-test work with adversarial review"
+  default_prompt: "Use $interrogate to challenge this proposal and surface material blind spots."

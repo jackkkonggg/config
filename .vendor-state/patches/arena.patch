@@ -1,17 +1,17 @@
-diff --git a/new_pristine/SKILL.md b/candidate/SKILL.md
-index 88ec51b..73f6433 100644
---- a/new_pristine/SKILL.md
-+++ b/candidate/SKILL.md
-@@ -1,71 +1,26 @@
+diff --git a/pristine/SKILL.md b/current/SKILL.md
+index 88ec51b..b5ac35a 100644
+--- a/pristine/SKILL.md
++++ b/current/SKILL.md
+@@ -1,71 +1,25 @@
  ---
  name: arena
 -description: "Spawn N parallel candidates at the same task, pick a base, graft the strongest parts of the losers into it. Use for /arena, 'arena this', 'throw it in the arena', or when one attempt at a non-trivial artifact would lock in the wrong shape."
+-disable-model-invocation: true
 +description: Use to compare parallel candidates, choose a base, and synthesize the strongest result.
- disable-model-invocation: true
  ---
-
+ 
  # Arena
-
+ 
 -Fan out N parallel attempts at the same task. Read every candidate end to end. Pick the strongest as the base. Graft the best ideas from the others into it. Verify the synthesized result.
 -
 -## Start
@@ -93,3 +93,13 @@ index 88ec51b..73f6433 100644
 +   base, useful grafts, rejected ideas, and evidence.
 +
 +Parallel candidates must never write to shared mutable state.
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..5826a3b
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Arena"
++  short_description: "Compare independent candidates and synthesize"
++  default_prompt: "Use $arena to compare independent approaches and synthesize the strongest result."

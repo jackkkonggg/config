@@ -30,9 +30,9 @@ project’s React version, and verify with the narrowest relevant checks.
 
 For composition refactors, keep state implementation inside the provider and
 prefer static child composition over render-prop or callback-shaped APIs. Load
-`composition-state-decouple-implementation.md` and
-`composition-patterns-children-over-render-props.md` when either choice is in
-play.
+`references/composition-state-decouple-implementation.md` and
+`references/composition-patterns-children-over-render-props.md` when either
+choice is in play.
 
 Behavior preservation outranks a performance rule. Preserve callback timing and
 repeat-selection semantics; do not move an effect into an event handler when

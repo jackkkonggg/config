@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blast Radius"
+  short_description: "Trace downstream risks and prove safety facts"
+  default_prompt: "Use $blast-radius to assess this change read-only and prove its key safety facts."

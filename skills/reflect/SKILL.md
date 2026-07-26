@@ -1,7 +1,6 @@
 ---
 name: reflect
 description: Use to review the active transcript, extract lessons, and route them into concrete skill improvements.
-disable-model-invocation: true
 ---
 
 # Reflect

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architect"
+  short_description: "Design types, interfaces, and module boundaries"
+  default_prompt: "Use $architect to produce a design artifact for this change without implementing it."

@@ -1,5 +1,5 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index ceae92a..d620e5c 100644
+index ceae92a..6781924 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
 @@ -1,6 +1,6 @@
@@ -10,3 +10,24 @@ index ceae92a..d620e5c 100644
  metadata:
    author: vercel
    version: "1.0.0"
+@@ -26,7 +26,9 @@ Fetch fresh guidelines before each review:
+ https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
+ ```
+ 
+-Use WebFetch to retrieve the latest rules. The fetched content contains all the rules and output format instructions.
++Use the current environment's authorized web or documentation capability to
++retrieve the latest rules. The fetched content contains the rules and output
++format.
+ 
+ ## Usage
+ 
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..c973f3d
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Web Design Guidelines"
++  short_description: "Review web UI against current guidelines"
++  default_prompt: "Use $web-design-guidelines to review these UI files against the latest guidelines."

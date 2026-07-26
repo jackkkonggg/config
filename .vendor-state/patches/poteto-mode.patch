@@ -14,23 +14,23 @@ index 304f2b0..7512206 100644
 +name: poteto-mode
 +description: Use for Poteto-style scoped autonomy, simple code, concise prose, deliberate delegation, and verified work.
  ---
-
+ 
 -# Poteto mode
 +# Poteto Mode
-
+ 
 -## Non-negotiables
 +Deliver the requested outcome with the smallest coherent change.
-
+ 
 -**Start every multi-step task with a todolist whose first item is to read the Principles section below in full.** The principles ground every trigger here. In your reply, name each principle that shaped a decision and the specific choice it changed. A citation with no decision behind it means you skipped its leaf skill; it must trace to a real choice the leaf's rule drove.
 +## Scope and autonomy
-
+ 
 -Remaining triggers:
 +Distinguish inspection from implementation. Answer, explain, diagnose, review,
 +and plan without changing the artifact unless the request also asks for a
 +change. For requested local changes, proceed through reversible work and
 +relevant validation. Pause before destructive actions, external writes, or a
 +material expansion of scope.
-
+ 
 -- Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 -- About to `AskQuestion` on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the Prototype playbook (`playbooks/prototype.md`) and let the result decide. If the task is a read-only Investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. The ask is the slow path. A throwaway probe usually answers faster, and it hands the human a result to react to instead of a decision to make.
 -- Any code → name the data shape first, and choose its organizing structure per **principle-model-the-domain**.
@@ -46,10 +46,10 @@ index 304f2b0..7512206 100644
 -- Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **show-me-your-work** skill. Commit it when stakes need an auditable record; keep it local otherwise.
 +Preserve user changes. Match local conventions. Do not add features,
 +abstractions, compatibility paths, or cleanup unrelated to the request.
-
+ 
 -## Principles
 +## Route
-
+ 
 -Read the leaf skill in full for any principle you apply. Each entry names when it applies.
 +For multi-step work, load the single matching file under `playbooks/`.
 +Investigation, bug fix, performance, refactoring, feature, prototype,
@@ -57,14 +57,14 @@ index 304f2b0..7512206 100644
 +session pickup, and PR opening have dedicated playbooks. Use
 +`figure-it-out` only for a large migration or cross-cutting effort with no
 +narrower workflow.
-
+ 
 -**Core**
 +Load a principle reference only when it changes a decision. For stateful logic,
 +repeated branching, or shape assumptions spread across files, consider
 +`references/principles/model-the-domain.md`. Keep clear local code when a new
 +structure would add indirection without removing invalid states or duplicated
 +rules.
-
+ 
 -- **Laziness Protocol** (**principle-laziness-protocol**). Refactoring, sizing a diff, or tempted to add abstractions, layers, or signal threading. Bias to deletion and the smallest change that solves the problem.
 -- **Foundational Thinking** (**principle-foundational-thinking**). Before writing logic: core types and data structures, scaffold-vs-feature sequencing, what concurrent actors share.
 -- **Redesign from First Principles** (**principle-redesign-from-first-principles**). Integrating a new requirement into an existing design. Redesign as if it had been foundational from day one.
@@ -76,10 +76,10 @@ index 304f2b0..7512206 100644
 -- **Build the Lever** (**principle-build-the-lever**). Any non-trivial work. Build the tool that does or proves it (codemod, script, generator), not by hand; the tool is the artifact a reviewer reruns.
 +Use parallel work only across independent seams. Keep each worker isolated and
 +review its artifact before accepting it.
-
+ 
 -**Architecture**
 +## Completion
-
+ 
 -- **Model the Domain** (**principle-model-the-domain**). Writing stateful logic, or code that branches a lot or repeats a shape assumption across files. Encode the domain in a structure (state machine, typed model, table or registry, reducer, boundary, the right collection) instead of scattered conditionals.
 -- **Boundary Discipline** (**principle-boundary-discipline**). Wiring validation, error handling, or framework adapters. Guards at system boundaries, trust internal types, keep business logic pure.
 -- **Type System Discipline** (**principle-type-system-discipline**). Designing types or a signature in any typed language. Make illegal states unrepresentable, brand primitives, parse external data at boundaries.
@@ -164,51 +164,70 @@ index 304f2b0..7512206 100644
 +behavior. Report the result, material tradeoffs, validation run, and remaining
 +gaps. Do not claim completion from a self-report or compilation alone when a
 +more direct check is available.
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..a7098d4
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Poteto Mode"
++  short_description: "Deliver scoped, autonomous, verified work"
++  default_prompt: "Use $poteto-mode to complete this request with exact scope and direct verification."
 diff --git a/pristine/playbooks/authoring-a-skill.md b/current/playbooks/authoring-a-skill.md
 index 0fc0138..ac4d2a8 100644
 --- a/pristine/playbooks/authoring-a-skill.md
 +++ b/current/playbooks/authoring-a-skill.md
 @@ -2,11 +2,13 @@
-
+ 
  **You own the skill's voice.** Agent-facing prose has a higher bar than human prose; unhelpful sentences become instructions.
-
+ 
 -1. Use the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).
 +1. Use the environment's skill-authoring skill.
  2. Validate the skill: frontmatter has `name` and `description`, referenced files exist, cross-skill links resolve.
  3. Test cases if structural; skip if subjective.
  4. Run **Opening a PR**.
-
+ 
 -When in doubt, delete; prose earns its keep by changing a decision. Tell it to do the thing and skip the reason. Explain only when the rule is confusing without one. Match tone to scope. Point at structural sources (types, READMEs, config); hardcoded details go stale (the **encode-lessons-in-structure** principle skill). Delegate to other skills by path; don't restate. A workflow you keep hitting but isn't captured → propose a new skill.
 +When in doubt, delete. Prose earns its keep by changing a decision. Keep the
 +entrypoint focused on routing and put detailed guidance in selectively loaded
 +references. Prefer checks, metadata, and configuration over repeated prose.
-
+ 
  **Reply:** summary of the skill, key design decisions, validation notes.
 diff --git a/pristine/playbooks/autonomous-run.md b/current/playbooks/autonomous-run.md
-index 6bac6a0..0816acc 100644
+index 6bac6a0..1217c2f 100644
 --- a/pristine/playbooks/autonomous-run.md
 +++ b/current/playbooks/autonomous-run.md
-@@ -3,7 +3,9 @@
- **You own the exit condition. Define done, then drive to it without stopping.** For "going to bed" / "run until done" / "/loop until X".
-
+@@ -1,11 +1,16 @@
+ ### Autonomous run
+ 
+-**You own the exit condition. Define done, then drive to it without stopping.** For "going to bed" / "run until done" / "/loop until X".
++**You own the exit condition. Define done, then drive to it without stopping.**
++Use when the user asks for an unattended run or persistence until a stated
++condition.
+ 
  1. State the exit condition as a checkable predicate before the first iteration (tests green, repro fixed, all N PRs merged, pixel-diff zero). A vague goal stalls; a predicate lets you stop.
 -2. Pick the wake mechanism using Cursor's `/loop` command (a built-in, not a pstack skill). An event to watch (CI, a merge, a ref advancing) gets a watcher subagent that wakes you on the event, with a long time-based heartbeat as fallback. No event gets a fixed-interval heartbeat sized to when the result is worth re-checking.
 +2. Pick the environment's event watcher or recurring wake mechanism. Watch CI,
 +   merges, or reference changes directly when possible; otherwise choose a
 +   useful fixed interval.
  3. Each iteration makes the smallest change the evidence justifies, verifies it against the predicate, commits if it advanced, discards changes that didn't help. Belt-and-suspenders that "might help" gets reverted, not left to ride.
-    Sequence the work via the **sequence-verifiable-units** principle skill, verifying each unit before the next instead of batching checks at the end.
+-   Sequence the work via the **sequence-verifiable-units** principle skill, verifying each unit before the next instead of batching checks at the end.
++   Load [Sequence Work into Verifiable Units](../references/principles/sequence-verifiable-units.md)
++   and verify each unit before the next.
  4. Checkpoint every iteration via the **show-me-your-work** skill, a row for what changed and whether the predicate moved. A run with no trail can't be audited or resumed.
+ 5. Stop when the predicate is met. A plateau is not a stop, so keep going and pivot your approach to push past it. Surface a genuine dead end rather than spinning, and never relax the predicate to declare victory.
+ 
 diff --git a/pristine/playbooks/bug-fix.md b/current/playbooks/bug-fix.md
 index 3db48fb..ac472b2 100644
 --- a/pristine/playbooks/bug-fix.md
 +++ b/current/playbooks/bug-fix.md
 @@ -1,17 +1,20 @@
  ### Bug fix
-
+ 
 -**You own this task. Plan, review, verify.** Delegate investigation and the fix to subagents, stay in the lead.
 +Ship only the smallest change supported by runtime evidence.
-
+ 
 -Be scientific. Every shipped line traces to runtime evidence. Belt-and-suspenders that "might help" is a hypothesis, not a fix; it does not ship. When evidence refutes a hypothesis, revert what it motivated. The smallest change the evidence justifies ships, nothing more. Same discipline for Perf, where the evidence is the trace.
 +1. Reproduce the failure on the matching surface. Drive the available control
 +   surface yourself; ask the user only when access is genuinely unavailable.
@@ -224,7 +243,7 @@ index 3db48fb..ac472b2 100644
 +   rejected hypotheses.
 +6. Run the regression test and the original repro on the same surface. A unit
 +   test alone does not prove an integration failure is gone.
-
+ 
 -1. Reproduce it yourself on the matching surface via the control skill (Non-negotiables). Don't hand the repro to the user. A debug or instrumentation protocol that says to ask the user does not override this; you drive the instrumented runtime. Ask the user only with a stated, specific reason the control surface cannot reach the target, and only after driving it as far as it goes. Won't reproduce directly, force it: synthesize the trigger, tighten conditions, or instrument until it fires. A bug you can't reproduce, you can't prove fixed.
 -2. Binary-search the cause. Form the candidate hypotheses, then rule them out until one survives. Seed them with `how` over the affected subsystem and the **why** skill for regression history. Each pass, take the split that cuts the most remaining problem space, get runtime evidence, eliminate. When program state is unclear, add instrumentation or logging and read it as the code runs. Don't guess. Drive a long or stubborn hunt with Cursor's `/loop` command. Confirm the surviving *mechanism* with runtime evidence before the step-3 architect/interrogate fan-out; a design grounded on a plausible-but-unconfirmed cause can be unanimously wrong while the real cause sits one subsystem over.
 -3. Plan the fix. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent using your configured bug-fix model (default `gpt-5.6-sol-max`) with a specific scope; review the diff.
@@ -250,19 +269,19 @@ index fe18dd5..f6afff9 100644
 +   available tool trail or transcript. Do not search unrelated task histories.
 +   Grade from files actually read and the resulting artifact.
  7. **Read every candidate output yourself** end to end. Compare to the judge's verdict. Disagreement means a model is biased or the rubric is ambiguous. Synthesize.
-
+ 
  **Reply:** variant under test, rubric, per-candidate notes, judge's verdict, your synthesis, and a recommendation for whether to promote the variant.
 diff --git a/pristine/playbooks/feature.md b/current/playbooks/feature.md
-index 3ed7baf..15909cc 100644
+index 3ed7baf..775f57f 100644
 --- a/pristine/playbooks/feature.md
 +++ b/current/playbooks/feature.md
 @@ -1,21 +1,20 @@
  ### Feature
-
+ 
 -**You own the design. Plan, review, verify.** Delegate implementation; stay in the lead.
 +1. Trace the affected subsystem and state the user-visible outcome.
 +2. Name the input, output, and persistent data shapes. If state or branching is
-+   spread across files, read `references/principles/model-the-domain.md` and
++   spread across files, read `../references/principles/model-the-domain.md` and
 +   choose the smallest structure that removes duplicated rules.
 +3. Sketch types, signatures, and ownership before implementation when several
 +   shapes are plausible. Use `architect` for a consequential design decision,
@@ -275,7 +294,7 @@ index 3ed7baf..15909cc 100644
 +   the cheapest relevant type, lint, build, or smoke checks.
 +7. Use `interrogate` when the design remains contested or high-risk.
 +8. Run the Opening a PR playbook when publishing.
-
+ 
 -1. `how` over the affected subsystem.
 -2. `architect` for parallel design exploration. Skipping stays as `architect skipped: <reason>`; do not fold the design decision silently into implementation.
 -3. Write the throughput checkpoint as four todo items. A dimension that genuinely does not apply (single file, no fan-out) keeps its item with `n/a: <reason>` rather than being dropped:
@@ -301,10 +320,10 @@ index 6ae44bb..d2f47bd 100644
 +++ b/current/playbooks/hillclimb.md
 @@ -1,21 +1,23 @@
  ### Hillclimb
-
+ 
 -**You own the metric and the experiment's integrity. Supervise and review; delegate the attempts.** For sustained, iterative improvement of one measurable thing against a target ("hillclimb on X", "make startup 50% faster", "systematically drive down <metric>", "keep trying until <metric> improves by N%"). A one-off fix is Bug fix or Perf issue; this is the loop.
 +Improve one measured outcome through controlled iterations.
-
+ 
 -Core discipline: one change, one measurement, keep or revert. Never stack untested changes, and never claim a win from code inspection. The data decides (the **prove-it-works** principle skill).
 +1. Choose a realistic workload, one metric, its direction, a regression gate,
 +   and a checkable stop predicate.
@@ -319,7 +338,7 @@ index 6ae44bb..d2f47bd 100644
 +6. At a plateau, change strategy rather than relaxing the target. Independent
 +   attempts may run in isolated worktrees.
 +7. Stop at the predicate or when remaining ideas are demonstrably marginal.
-
+ 
 -1. Ground the workload and architecture before choosing the ruler. Run the **how** skill over the target, name the realistic workload dimensions that can move the result (data size, history, state, concurrency), and select a case that reproduces the user's complaint. If no case reproduces it, fix the repro instead of hillclimbing. Then fix one metric, the direction that counts as better, and a checkable stop predicate that pairs a target with a floor on attempts so a lucky early win can't end the run (the example "at least 50% better than baseline and at least 10 iterations" is this shape). Use the user's numbers when given, otherwise agree them.
 -2. Build the measurement harness, prove its sensitivity, then freeze it (the **build-the-lever** principle skill). Run contrasting realistic workloads and confirm the target case reproduces the symptom while easier cases separate as expected. If the ruler cannot distinguish them, revise the workload or metric. Once frozen, one repeatable command emits the metric, sampled enough to clear the noise (median of N, not a single run); changing it invalidates every earlier number. Record the baseline metric and a green run of the regression gate (the tests that must keep passing) before any change.
 -3. Open the decision log via the **show-me-your-work** skill. A `decision.tsv`, one row per attempt: id, hypothesis, change, before, after, delta, tests, verdict (kept or reverted), note. This is the run's memory. Read it before each attempt so the search accumulates instead of circling. Keep it out of the tree (gitignored) so it survives reverts.
@@ -335,37 +354,83 @@ index 6ae44bb..d2f47bd 100644
 -8. Run **Opening a PR** with the accepted commits stacked in the order they landed, so the metric's climb reads top to bottom.
 +Changing the workload, metric, sampling method, or harness invalidates earlier
 +comparisons and requires a new baseline.
-
+ 
 -**Reply:** the metric and target, baseline to final with the percent delta, iterations run (kept vs reverted), each accepted fix on one line, the `decision.tsv` path, and the best idea you would try next if pushed further.
 +**Reply:** metric and target, baseline and final result, attempts kept/reverted,
 +accepted changes, and the strongest remaining hypothesis.
+diff --git a/pristine/playbooks/investigation.md b/current/playbooks/investigation.md
+index 2f1e9ec..4361186 100644
+--- a/pristine/playbooks/investigation.md
++++ b/current/playbooks/investigation.md
+@@ -4,11 +4,15 @@
+ 
+ Read-only requests: "how does X work?", "why was Y built this way?", "are we sure about Z?", "should we do X or Y?". They produce a cited explanation or a recommendation, not a code change.
+ 
+-1. Route through the **how** skill (Explain mode for narrow questions, Critique mode for "are we sure?"). For motivation questions, also route through the **why** skill.
+-2. Throughput checkpoint stays one line: `throughput checkpoint: n/a, read-only investigation`. The four-item version is for code-shaped work.
+-3. Produce the `how`-shaped output (Overview / Key Concepts / How It Works / Where Things Live / Gotchas), or a recommendation with a tradeoffs table if the request is a decision between alternatives.
+-4. Apply the **unslop** skill to the reply.
++1. Route through `explain-codebase`: How mode for runtime questions, Why mode
++   for motivation, and Teach mode when both must form one walkthrough.
++2. Produce a scoped evidence-backed explanation, or a recommendation with a
++   tradeoffs table when the request compares alternatives.
++3. Keep the reply concrete and concise; retain only evidence that changes the
++   conclusion.
+ 
+-No PR, no babysit, no `architect` unless the investigation precedes a code change. If it does, hand back to the user and re-route to Bug fix or Feature.
++Do not open a PR or invoke `architect` unless the user separately requests a
++design or code change. Hand a diagnosed issue back with the matching next
++workflow.
+ 
+ **Reply:** the investigation output. For "are we sure?" answers, include your real judgment with reasons. Push back if the premise is wrong (see Autonomy).
 diff --git a/pristine/playbooks/opening-a-pr.md b/current/playbooks/opening-a-pr.md
-index d7579bc..0cda35c 100644
+index d7579bc..1893944 100644
 --- a/pristine/playbooks/opening-a-pr.md
 +++ b/current/playbooks/opening-a-pr.md
-@@ -6,6 +6,9 @@ Invoked at the end of every other playbook.
-
- **Commits.** Commit liberally; rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit; new commit when separable.
-
+@@ -1,11 +1,26 @@
+ ### Opening a PR
+ 
+-Invoked at the end of every other playbook.
++Use only when the user explicitly requests a PR or an authorized implementation
++workflow includes one. If the user asks how to prepare a PR, explain the steps
++without acting.
+ 
+-**Worktree.** Work from a git worktree off main; subagents inherit it. Multiple `Task` calls on the same branch each get their own worktree, or `git fetch && git reset --hard origin/<branch>` between them. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
++This playbook packages an existing scoped change. It does not authorize fixing,
++committing, or mentioning adjacent issues merely because they are visible.
+ 
+-**Commits.** Commit liberally; rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit; new commit when separable.
++**Worktree.** Inspect repository instructions and current status first. Use a
++dedicated worktree or branch when the repository requires isolation. Never
++discard unrelated changes. If the current branch is dirty or diverged, create a
++clean worktree from the intended base and carry over only the scoped changes
++through a reviewable commit or patch.
+ 
 -**PRs.** `/deslop` the diff before commit; apply the **unslop** skill to the PR description and commit bodies. Small PRs, 5 narrow over 1 fat; stack follow-ups, branch off main only for genuinely independent work. For stacked PRs, use whatever stacking tool your team uses; the principle is small, ordered slices with the stack visible to reviewers. `gh pr view <number>` before referencing PR status. Rebase on `main` before substantial stack work. No `## Summary` / `## Test plan` boilerplate on small PRs; commit bodies don't restate the subject. After opening, run Cursor's built-in **babysit** skill; push back when feedback drifts from intent.
++**Commits.** Commit only the authorized change. Rebase it into small, ordered,
++landable commits before opening the PR. Amend when a correction belongs in a
++just-made commit; use a new commit when it is independently reviewable.
+ 
+-A subagent that opens a PR runs `interrogate` and `/deslop`, returns the URL, and does NOT babysit. Return to the parent.
 +**PRs.** Review the diff before committing. Prefer narrow, ordered changes with
 +stack relationships visible to reviewers. Check live PR state before describing
 +it. Follow repository conventions for rebasing, descriptions, and review
 +monitoring; push back when feedback drifts from the requested outcome.
-
- A subagent that opens a PR runs `interrogate` and `/deslop`, returns the URL, and does NOT babysit. Return to the parent.
++
++Before opening the PR, run relevant validation and use `interrogate` only when
++the change warrants adversarial review. Return the PR URL and unresolved checks.
 diff --git a/pristine/playbooks/pause-safely.md b/current/playbooks/pause-safely.md
 index b125efb..cbe0323 100644
 --- a/pristine/playbooks/pause-safely.md
 +++ b/current/playbooks/pause-safely.md
 @@ -1,6 +1,8 @@
  ### Pause safely
-
+ 
 -**You own a clean stop. Leave a checkpoint a cold-start agent can resume from.** For "pause safely", "I need to go offline", "restart Cursor", or "board my flight", and when context is about to compact or summarize. This is explicit only. On "keep going", "going to bed, keep going", or "don't stop", do not pause. Those mean continue, and Autonomous run already checkpoints per iteration.
 +**You own a clean stop. Leave a checkpoint a cold-start agent can resume from.**
 +Use only when the user explicitly asks to pause safely or when the environment
 +must restart. Requests to keep going are not pause requests.
-
+ 
  1. Stop at a safe boundary. Finish the current atomic step or back out of it. Never stop mid-edit in a known-broken state. Start nothing new, and cancel any nested subagents.
  2. Don't cross an irreversible line to pause. No PR and no push unless you already had one out.
 diff --git a/pristine/playbooks/perf-issue.md b/current/playbooks/perf-issue.md
@@ -375,7 +440,7 @@ index e791de3..02c756e 100644
 @@ -1,24 +1,17 @@
 -### Perf issue
 +### Performance Issue
-
+ 
 -**You own the measurement story. Plan, review, verify the numbers.** Tie every fix to a measurement, don't read source instead of measuring.
 +1. Capture a baseline trace on the reported surface and workload.
 +2. Trace the architecture around the dominant cost. Do not infer a performance
@@ -387,7 +452,7 @@ index e791de3..02c756e 100644
 +5. Capture a post-change trace with the same workload and compare the
 +   artifacts. An inconclusive or wrong-surface result is not a pass.
 +6. Run regression checks and cite the measurement in the PR.
-
+ 
 -1. Capture a baseline trace via the matching control skill.
 -2. `how` to ground hypotheses; don't claim a perf ceiling without running it first.
 -   Most fixes come from eight strategy families. Use them as hypothesis generators, not a checklist. A family earns an attempt only when the trace shows the signal it names, and a focused fix for the dominant cost beats applying all eight.
@@ -405,27 +470,48 @@ index e791de3..02c756e 100644
 -5. Cite the measurement in the PR.
 -6. Run **Opening a PR**.
 +Use the Hillclimb playbook for sustained iteration against one metric.
-
+ 
 -For sustained improvement against a metric rather than a one-off fix, use the Hillclimb playbook (`playbooks/hillclimb.md`).
 -
 -**Reply:** baseline number, post-fix number, delta, artifact path.
 +**Reply:** baseline, post-change result, delta, trace paths, and regression
 +checks.
+diff --git a/pristine/playbooks/prototype.md b/current/playbooks/prototype.md
+index 0f0a888..b13d464 100644
+--- a/pristine/playbooks/prototype.md
++++ b/current/playbooks/prototype.md
+@@ -7,8 +7,14 @@ The one playbook where the Laziness Protocol's "smallest change" and the verific
+ 1. Scope the decision the prototype exists to make: which layout, which interaction, which density, or for an empirical fork which behavior, timing, or approach. No decision means no prototype; route to Feature.
+ 2. Gather references when the design space is open. Search for prior art, summarize a moodboard of themes, palettes, and layouts, let the user pick directions before building. Skip when the direction is set.
+ 3. Build throwaway in an isolated scratch dir, separate from production source. For a visual decision, vanilla HTML/CSS/JS or the lightest stack that renders the idea, CDN deps, a dev server with hot reload. For a behavioral or timing decision, the smallest script that exercises the question. No production framework, no tests, no abstractions.
+-4. When comparing alternatives, build them behind one switcher (buttons or a keypress), each variant labeled so the user can name it. This is the **exhaust-the-design-space** principle skill made cheap.
+-5. Verify on the matching surface. For a visual decision, screenshot each variant via the control skill and drive the interaction; the eye is the test. For a behavioral or timing decision, observe the thing you are deciding by logging the timing, printing the output, or watching the render. The observation is the test here, not an assertion.
++4. When comparing alternatives, build them behind one switcher (buttons or a
++   keypress), each variant labeled so the user can name it. Load
++   [Exhaust the Design Space](../references/principles/exhaust-the-design-space.md)
++   when broader comparison would change the choice.
++5. Verify on the matching surface. For a visual decision, use an authorized
++   browser or desktop capability to screenshot and drive each variant. For a
++   behavioral or timing decision, observe the relevant output, timing, or
++   render. The observation is the test here, not an assertion.
+ 6. Present alternatives, tradeoffs, and a recommendation. The output is the decision plus the throwaway artifact, not shippable code. Hand the chosen direction to **Feature** (or `architect` for the shape) for the real build.
+ 
+ **Reply:** the variants explored, the evidence (screenshots for a visual decision, the observed output or timing for a behavioral one), tradeoffs, your recommendation, and the scratch path. Say plainly that the prototype is throwaway.
 diff --git a/pristine/playbooks/refactoring.md b/current/playbooks/refactoring.md
-index 7a6e8b6..09f6b2d 100644
+index 7a6e8b6..befe1df 100644
 --- a/pristine/playbooks/refactoring.md
 +++ b/current/playbooks/refactoring.md
 @@ -1,16 +1,25 @@
  ### Refactoring
-
+ 
 -**You own the contract. The structure changes; the behavior does not.** For "refactor", "rename", "extract", "inline", "dedupe", "restructure", "move this module", "tidy up this area". Distinct from Feature, which adds behavior, and Bug fix, which corrects it.
 +The structure changes; observable behavior does not.
-
+ 
 -A refactor that smuggles in a behavior change loses its safety net. If the cleanup reveals a missing feature or a real bug, split it out and ship the structural change first against the pinned contract. A redesign is allowed, but name it and route to Feature. Large or cross-cutting structural work (a migration across many call sites, a coordinated reshape of many subsystems) belongs to the **figure-it-out** skill; this playbook is the focused-to-medium change.
 +1. Pin current behavior with a characterization test, snapshot, replay, or
 +   equivalence harness. Type checking alone is not a behavior contract.
 +2. Name the target module layout, types, and call graph. Read
-+   `references/principles/model-the-domain.md` when the change replaces
++   `../references/principles/model-the-domain.md` when the change replaces
 +   scattered state or branching. Keep local code when a new structure would
 +   only add indirection.
 +3. Remove dead weight and redundant paths before introducing the new shape.
@@ -438,7 +524,7 @@ index 7a6e8b6..09f6b2d 100644
 +   not help.
 +7. Order commits so each behavior-preserving step is independently reviewable.
 +8. Run the Opening a PR playbook when publishing.
-
+ 
 -1. Pin the behavior contract first. Run the **how** skill over the affected subsystem to learn the contract, then write a characterization test, snapshot, or equivalence harness that captures current behavior before any structure moves. The harness makes "refactor" a checkable claim (**principle-prove-it-works**). If the area has no coverage, write the pin before touching structure. Type check and lint are not a pin.
 -2. Name the structure the code is missing per **principle-model-the-domain**: a state machine over scattered booleans, a table or registry over spread-out branching, a typed model over repeated shape assumptions, a reducer over ad hoc mutations. Boring code stays when the shape is already clear and local; the reshape must delete branches or invalid states, not add indirection.
 -3. Name the target shape. State what the module layout, types, and call graph should be if built today (**principle-foundational-thinking**, **principle-redesign-from-first-principles**). If the target crosses a function boundary, run the **architect** skill for parallel design exploration of the shape before the move.
@@ -448,18 +534,38 @@ index 7a6e8b6..09f6b2d 100644
 -7. Confirm the change earns its place. The success measure is reduced reader load (**principle-minimize-reader-load**): fewer layers between question and answer, less hidden state, fewer indirections without a second consumer. If the diff does not lower reader load somewhere, revert it.
 -8. Rebase into small ordered commits that tell the story. A subtraction commit, then the reshape, then any follow-on cleanup, so a single revert undoes one slice. Shape them with the **sequence-verifiable-units** principle skill, so each behavior-preserving slice stays green before the next. Run **Opening a PR**.
 +Split any discovered bug or missing feature into its own change.
-
+ 
 -**Reply:** the structure that changed, the pin you held it against, the equivalence proof, the reader-load delta, what shipped and what got reverted. No new behavior.
 +**Reply:** the structure changed, behavior pin, equivalence proof, and
 +reader-load improvement.
+diff --git a/pristine/playbooks/runtime-forensics.md b/current/playbooks/runtime-forensics.md
+index 76ebfb3..b60d114 100644
+--- a/pristine/playbooks/runtime-forensics.md
++++ b/current/playbooks/runtime-forensics.md
+@@ -2,10 +2,12 @@
+ 
+ **You own the diagnosis. Instrument the live process, don't theorize from source.** For "why is X leaking / spinning / slow at runtime", heap snapshots, idle-but-busy processes, intermittent glitches. The deliverable is a cited diagnosis, not a fix.
+ 
+-1. Capture the live signal on the matching surface via the control skill: a CPU profile for a spinning process, a heap snapshot for a leak, a CDP trace for a visual glitch. A real artifact, not a guess.
+-2. Reduce the artifact to the smoking gun: the function on the hot path, the retainer chain from the leaked object to a GC root, the loop firing without input. Parse large artifacts in a subagent (the **guard-the-context-window** principle skill), keep the reduced finding in the main thread.
++1. Capture the live signal on the matching surface with the authorized runtime
++   or browser tooling: a CPU profile for a spinning process, a heap snapshot
++   for a leak, or a trace for a visual glitch. Use a real artifact, not a guess.
++2. Reduce the artifact to the smoking gun: the function on the hot path, the retainer chain from the leaked object to a GC root, the loop firing without input. For a large artifact, load the [Guard the Context Window](../references/principles/guard-the-context-window.md) reference and retain only the reduced finding.
+ 3. Prove the mechanism before believing it. Inject instrumentation via CDP eval on the running process, or hotfix the live code without reloading, to confirm the hypothesis cheaply. A plausible-but-unconfirmed cause can be wrong while the real one sits one layer over.
+ 4. Map the finding back to source: file, symbol, the line that allocates or schedules.
+-5. Throughput checkpoint stays one line: `throughput checkpoint: n/a, read-only forensics`.
++5. Return the cited mechanism and the cheapest next verification.
+ 
+ **Reply:** the signal captured, the reduced finding, how you proved the mechanism, the source location, artifact paths. No fix unless asked; hand back to Bug fix or Perf once the cause is known.
 diff --git a/pristine/playbooks/session-pickup.md b/current/playbooks/session-pickup.md
 index b75ce11..4b1bb06 100644
 --- a/pristine/playbooks/session-pickup.md
 +++ b/current/playbooks/session-pickup.md
 @@ -4,10 +4,13 @@
-
+ 
  A pickup is inheritance. The prior agent already paid the cost of reading the code, running the repros, making the design choices. Redoing loses the bias check and burns context. Resist the urge to re-derive; read.
-
+ 
 -1. Locate the prior trail. A local transcript under the active workspace's `agent-transcripts/` directory (the system prompt names the path; do not glob across `~/.cursor/projects/*/`, that crosses workspace boundaries and reads private chats from unrelated projects), a cloud-agent URL, or a pushed branch. Read the metadata overview and last messages first, then scan back for the decision points. Parse a long transcript in a subagent and keep the reduced timeline in the main thread (the **principle-guard-the-context-window** skill).
 +1. Locate the authoritative prior trail exposed by the current environment: the
 +   active task transcript, handoff, branch, decision log, or review. Read its
@@ -470,8 +576,47 @@ index b75ce11..4b1bb06 100644
 -5. Verify the inherited claims against the original goal on the real artifact (the **principle-prove-it-works** skill). A passing prior self-report is not the proof.
 +5. Verify the inherited claims against the original goal on the real artifact.
 +   A prior self-report is evidence, not proof.
-
+ 
  **Reply:** where the prior agent stopped, what you inherited vs redid (ideally nothing redone), the resume point, and the outcome.
+diff --git a/pristine/playbooks/trace-forensics.md b/current/playbooks/trace-forensics.md
+index 10f8209..30c2c15 100644
+--- a/pristine/playbooks/trace-forensics.md
++++ b/current/playbooks/trace-forensics.md
+@@ -4,11 +4,13 @@
+ 
+ Distinct from **Runtime forensics**, which instruments the live process. Here the capture already exists; the artifact is a fixed dataset, read it, don't re-run it. Keep tooling generic so the playbook stays portable: a DevTools or trace parser for cpuprofile and `.json.gz`, a text editor for a spindump, your heap tooling for a heapsnapshot.
+ 
+-1. Identify the format and load it with the right tool. Parse large artifacts in a subagent (the **principle-guard-the-context-window** skill) and keep the reduced finding in the main thread.
++1. Identify the format and load it with the right tool. For a large artifact,
++   load the [Guard the Context Window](../references/principles/guard-the-context-window.md)
++   reference and retain only the reduced finding.
+ 2. Transform the raw artifact into a form you can query. Dump the trace or heap snapshot into sqlite, one row per sample, frame, or node. Reach the queryable shape before you read.
+ 3. Narrow to the cause. Query for the frames that hold the most time and walk the call tree to the hot path. For a leak, follow the retainer chain from the leaked object to a GC root. For a spindump, find the thread stuck on-CPU or blocked and its wait reason.
+ 4. Attribute to source. Map the hot frame to file, symbol, and line via the artifact's own symbols. A frame with no source mapping is not yet a diagnosis; resolve the symbols, or say plainly the artifact does not carry them.
+ 5. Confirm against a paired capture when you have one. Diff a before and after artifact so the attribution is the real regression, not background noise. Without one, mark the finding as the strongest hypothesis the artifact supports, not a confirmed cause.
+-6. Hand back a cited diagnosis, no fix unless asked. Route to Bug fix or Perf issue once the cause is known. Throughput checkpoint stays one line: `throughput checkpoint: n/a, read-only forensics`.
++6. Hand back a cited diagnosis, no fix unless asked. Route to Bug fix or Perf issue once the cause is known.
+ 
+ **Reply:** the artifact and format, the reduced finding, the source location, the artifact paths, and whether a paired capture confirmed it.
+diff --git a/pristine/playbooks/visual-parity.md b/current/playbooks/visual-parity.md
+index ec4a449..52f1591 100644
+--- a/pristine/playbooks/visual-parity.md
++++ b/current/playbooks/visual-parity.md
+@@ -4,8 +4,12 @@
+ 
+ 1. Establish the baseline first, before any migration: a visual regression harness that screenshots the current component across its states, plus the target when matching two implementations. No baseline, no parity claim. A blocking prerequisite, not a follow-up.
+ 2. Anti-shortcut clauses, stated and held: no harness modifications, no baseline tampering, no component restructuring to make a diff pass. If the baseline looks wrong, stop and ask, don't edit it.
+-3. Migrate one component at a time. Each is an independent artifact, so parallelize across worktrees, one owner per component (the **separate-before-serializing-shared-state** principle skill). Shared primitives migrate first as a blocking phase.
+-4. Verify each component against its baseline via image diff on the matching surface via the control skill. A nonzero diff is a fail; investigate the pixel delta, don't wave it through. `/loop` per component until the diff is zero.
++3. Migrate one component at a time. When components are independent, load
++   [Separate Before Serializing Shared State](../references/principles/separate-before-serializing-shared-state.md)
++   and isolate each writer. Shared primitives migrate first as a blocking phase.
++4. Verify each component against its baseline through an authorized browser or
++   image-comparison capability. Investigate every nonzero delta and iterate
++   until the agreed parity threshold is met.
+ 5. Run **Opening a PR** per component or per safe batch.
+ 
+ **Reply:** components migrated, the diff result for each, the baseline harness location, what's left.
 diff --git a/current/references/performance-strategies.md b/current/references/performance-strategies.md
 new file mode 100644
 index 0000000..ff63476
@@ -497,37 +642,135 @@ index 0000000..ff63476
 +Name invalidation for caching and capacity cost for redundancy. Add an
 +indirection only when it removes more critical-path work than it adds.
 diff --git a/pristine/references/plan.md b/current/references/plan.md
-index 49ab89a..ea53a70 100644
+index 49ab89a..4b2e8b1 100644
 --- a/pristine/references/plan.md
 +++ b/current/references/plan.md
-@@ -25,7 +25,7 @@ Resolve what is in scope vs explicitly out, technical or platform constraints, p
- Delegate codebase exploration (the **guard-the-context-window** principle skill).
-
- - Prefer `subagent_type: "poteto-agent"`. `generalPurpose` is the fallback. Never use the built-in `plan` subagent_type; it ignores this skill.
+@@ -1,6 +1,7 @@
+ # Plan
+ 
+-Produce a phased implementation plan grounded in the **Principles** section of the `poteto-mode` skill. The plan is the deliverable. Do not implement.
++Produce a phased implementation plan grounded in selectively loaded Poteto
++principle references. The plan is the deliverable. Do not implement.
+ 
+ Open a todolist with one item per step below.
+ 
+@@ -10,22 +11,27 @@ Skip the plan when the change is one or two files with an obvious approach. Say
+ 
+ Plan when the change spans three or more files, introduces architecture, has competing approaches or unclear scope, or the user asked for one.
+ 
+-## 1. Re-read principles
++## 1. Select relevant principles
+ 
+-Read the **Principles** section of the `poteto-mode` skill end to end, and the leaf `principle-*` skills it indexes. The principles govern every plan decision; cross-link them.
++Read only the files under `principles/` that could change a decision. Link the
++ones that materially constrain the plan.
+ 
+ ## 2. Scope and constraints
+ 
+-State your read of scope and constraints in one paragraph. Use `AskQuestion` only for genuinely ambiguous intent (the **never-block-on-the-human** principle skill); give concrete options with each open question.
++State your read of scope and constraints in one paragraph. Ask the user only
++for genuinely ambiguous intent; load
++[Never Block on the Human](principles/never-block-on-the-human.md) when deciding
++whether a question is necessary.
+ 
+ Resolve what is in scope vs explicitly out, technical or platform constraints, patterns to preserve, and the definition of done.
+ 
+ ## 3. Explore in subagents
+ 
+-Delegate codebase exploration (the **guard-the-context-window** principle skill).
++For large exploration, load
++[Guard the Context Window](principles/guard-the-context-window.md) and delegate
++only independent searches.
+ 
+-- Prefer `subagent_type: "poteto-agent"`. `generalPurpose` is the fallback. Never use the built-in `plan` subagent_type; it ignores this skill.
 -- Pass `model:` explicitly per the configured roles (defaults `grok-4.5-fast-xhigh` for code, `claude-fable-5-thinking-max` for judgment).
-+- Let agent configuration select available models for each role.
-
++- Let agent configuration select available runners and models.
+ 
  Each explorer returns file pointers, conventions, dependencies, test infrastructure, and entry points. No inlined dumps.
-
-@@ -73,7 +73,8 @@ Order phases so infrastructure and shared types land first (the **foundational-t
-
- For changes touching existing code, apply the **redesign-from-first-principles** principle skill: if we'd built this with the new requirement on day one, what would it look like? Redesign holistically; deliver incrementally.
-
+ 
+@@ -47,7 +53,9 @@ NN-slug/
+ 
+ - One function or type plus tests, or one bug fix. Not "one file".
+ - Two to three files touched, max.
+-- Prefer eight to ten small phases over three to four large ones to preserve option value (the **foundational-thinking** principle skill).
++- Prefer independently verifiable phases over a few large batches. Load
++  [Foundational Thinking](principles/foundational-thinking.md) when sequencing
++  foundations changes the plan.
+ - Split if a phase has more than five test cases or three functions.
+ 
+ ### Overview file
+@@ -55,7 +63,9 @@ NN-slug/
+ - **Context.** Problem and why now.
+ - **Scope.** Included; explicitly excluded.
+ - **Constraints.** Technical, platform, dependency, pattern.
+-- **Alternatives.** Two or three approaches sketched, choice and rationale (the **exhaust-the-design-space** principle skill). Skip when constraints dictate one.
++- **Alternatives.** Two or three credible approaches, choice, and rationale.
++  Load [Exhaust the Design Space](principles/exhaust-the-design-space.md) only
++  for consequential choices.
+ - **Applicable skills.** Domain skills the implementer should invoke, by name.
+ - **Phases.** Ordered standard-markdown links to phase files.
+ - **Verification.** Project-level commands.
+@@ -66,14 +76,19 @@ NN-slug/
+ - Back-link to overview.
+ - **Goal.** What the phase accomplishes.
+ - **Changes.** Files affected and the change at a high level. What and why, not how. No code snippets.
+-- **Data structures.** Name the key types or schemas. One-line sketch only (the **foundational-thinking** principle skill).
++- **Data structures.** Name the key types or schemas. One-line sketch only.
+ - **Verification.** Per section 6.
+ 
+-Order phases so infrastructure and shared types land first (the **foundational-thinking** principle skill). Each phase should be independently shippable.
++Order phases so dependencies land before consumers. Each phase should be
++independently shippable and verifiable.
+ 
+-For changes touching existing code, apply the **redesign-from-first-principles** principle skill: if we'd built this with the new requirement on day one, what would it look like? Redesign holistically; deliver incrementally.
++For changes touching existing code, load
++[Redesign from First Principles](principles/redesign-from-first-principles.md)
++when the new requirement invalidates the existing shape. Redesign holistically;
++deliver incrementally.
+ 
 -If a phase creates or edits a skill, the phase instructs the implementer to use the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).
 +If a phase creates or edits a skill, use the environment's skill-authoring
 +workflow.
-
+ 
  ## 5. Verification per phase
-
-@@ -98,7 +99,7 @@ In the overview, name which poteto-mode non-negotiables the implementer must app
+ 
+@@ -81,24 +96,28 @@ Each phase needs both:
+ 
+ **Static.** Type check, lint, project tests pass.
+ 
+-**Runtime.** Exercise the feature on the matching surface via the relevant control skill:
++**Runtime.** Exercise the feature on the matching surface with the authorized
++capability available in the current environment:
+ 
+-- Browser / Electron / Web UIs: the `control-ui` skill from the `cursor-team-kit` plugin.
+-- CLIs and TUIs: the `control-cli` skill from the `cursor-team-kit` plugin.
++- Browser, Electron, or web UIs: use the authorized browser or desktop-control
++  capability available in the current environment.
++- CLIs and TUIs: run the real command through the current shell capability.
+ - Native mobile: whatever simulator-driving skill your team has.
+-- No control skill for the touched surface: flag it in the plan.
++- No capability for the touched surface: flag it in the plan.
+ 
+-For bug fixes, the loop is reproduce on the surface, fix, verify on the same surface. Unit tests show a branch behaves a certain way; they do not prove the bug is gone (the **prove-it-works** principle skill).
++For bug fixes, reproduce on the surface, fix, and verify on that surface. Load
++[Prove It Works](principles/prove-it-works.md) when selecting evidence.
+ 
+ ## 6. Implementation guidance
+ 
+ In the overview, name which poteto-mode non-negotiables the implementer must apply, by name:
+ 
+-- the **how** skill over each unfamiliar subsystem before changing it.
++- `explain-codebase` in How mode over each unfamiliar subsystem before changing it.
  - the **interrogate** skill for adversarial review on contested designs before shipping.
- - `/deslop` over each diff before commit. the **unslop** skill over any prose surface.
+-- `/deslop` over each diff before commit. the **unslop** skill over any prose surface.
++- Review each diff for unrelated churn and each prose surface for concrete,
++  concise language before commit.
  - the **show-me-your-work** skill to keep a decision trail when the plan is large enough to need an auditable record.
 -- Cursor's built-in **babysit** skill after opening the PR.
 +- The environment's review-monitoring workflow after opening the PR.
-
+ 
  ## 7. Hand back
-
+ 
 diff --git a/current/references/principles/boundary-discipline.md b/current/references/principles/boundary-discipline.md
 new file mode 100644
 index 0000000..bd4f6e2

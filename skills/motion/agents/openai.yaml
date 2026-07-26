@@ -1,0 +1,4 @@
+interface:
+  display_name: "Motion"
+  short_description: "Implement and audit Motion or CSS animation"
+  default_prompt: "Use $motion to handle this animation task with the matching focused route."

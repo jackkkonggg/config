@@ -7,12 +7,16 @@ import { join, resolve } from "node:path";
 
 const root = resolve(".");
 const temp = mkdtempSync(join(tmpdir(), "skill-update-eval-"));
-const harnessVersion = 2;
+const configIndex = process.argv.indexOf("--config");
+const scenario = configIndex === -1
+  ? null
+  : JSON.parse(readFileSync(resolve(process.argv[configIndex + 1]), "utf8"));
+const harnessVersion = scenario?.harness_version ?? 2;
 const outputPath = resolve(
   process.argv[2] ?? "reports/skill-update-evaluation-results-2026-07-26.json",
 );
 
-const artifact = `
+const defaultArtifact = `
 Project Finch is a small TypeScript web app.
 - Dashboard.tsx renders a filter toolbar, results table, and empty state.
 - loadRows reads JSON, filters rows, then sorts them.
@@ -23,7 +27,7 @@ Project Finch is a small TypeScript web app.
 - Git history says workspace deletion became immediate after a 2025 support request, but no product decision is linked.
 `;
 
-const tasks = [
+const defaultTasks = [
   {
     id: "ui-implementation",
     prompt: "Propose the smallest implementation plan for a distinctive, accessible dashboard header.",
@@ -130,6 +134,8 @@ const tasks = [
     proposal: ["skills/poteto-mode/SKILL.md"],
   },
 ];
+const artifact = scenario?.artifact ?? defaultArtifact;
+const tasks = scenario?.tasks ?? defaultTasks;
 
 function baseline(path) {
   return execFileSync("git", ["show", `main:${path}`], {

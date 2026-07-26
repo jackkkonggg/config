@@ -1,7 +1,6 @@
 ---
 name: interrogate
 description: Use for adversarial multi-model review, stress testing, challenges, and finding blind spots.
-disable-model-invocation: true
 ---
 
 # Interrogate

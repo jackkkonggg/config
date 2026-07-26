@@ -135,10 +135,6 @@
           "source_root": "skills/better-ui",
           "imports": [
             {
-              "from": "animations.md",
-              "to": "references/polish-interactions.md"
-            },
-            {
               "from": "performance.md",
               "to": "references/polish-performance.md"
             },
@@ -155,6 +151,10 @@
             {
               "from": "SKILL.md",
               "adapter": "SKILL.md"
+            },
+            {
+              "from": "animations.md",
+              "adapter": "references/polish-interactions.md"
             }
           ],
           "ignores": [

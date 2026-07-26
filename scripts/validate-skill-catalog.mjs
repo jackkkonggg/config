@@ -4,6 +4,7 @@ import { existsSync, lstatSync, readFileSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
 
 function parseArgs(argv) {
   const options = {
@@ -115,6 +116,82 @@ function validateLinks(path, label, errors) {
   }
 }
 
+function validateRoutedCodePaths(path, label, errors) {
+  const raw = readFileSync(path, "utf8").replace(/```[\s\S]*?```/g, "");
+  const candidates = raw.matchAll(
+    /`((?:\.\.?\/|references\/|resources\/|playbooks\/|scripts\/)[^`\n]*\.(?:md|tsv))`/g,
+  );
+
+  for (const match of candidates) {
+    const target = match[1].split("#")[0];
+    if (/[{}[\]*<>]/.test(target)) continue;
+    if (!existsSync(resolve(dirname(path), target))) {
+      errors.push(`${label}: missing routed path ${target}`);
+    }
+  }
+}
+
+function yamlInterfaceField(raw, field) {
+  return raw.match(new RegExp(`^  ${field}:\\s*"([^"]*)"$`, "m"))?.[1] ?? null;
+}
+
+function validateAgentMetadata(skill, errors) {
+  const path = join(dirname(skill.path), "agents/openai.yaml");
+  if (!existsSync(path)) {
+    errors.push(`${skill.name}: missing agents/openai.yaml`);
+    return;
+  }
+
+  const raw = readFileSync(path, "utf8");
+  const displayName = yamlInterfaceField(raw, "display_name");
+  const shortDescription = yamlInterfaceField(raw, "short_description");
+  const defaultPrompt = yamlInterfaceField(raw, "default_prompt");
+
+  if (!displayName) errors.push(`${skill.name}: openai.yaml missing quoted display_name`);
+  if (!shortDescription) {
+    errors.push(`${skill.name}: openai.yaml missing quoted short_description`);
+  } else if (shortDescription.length < 25 || shortDescription.length > 64) {
+    errors.push(
+      `${skill.name}: openai.yaml short_description must be 25-64 characters`,
+    );
+  }
+  if (!defaultPrompt) {
+    errors.push(`${skill.name}: openai.yaml missing quoted default_prompt`);
+  } else if (!defaultPrompt.includes(`$${skill.name}`)) {
+    errors.push(`${skill.name}: openai.yaml default_prompt must invoke $${skill.name}`);
+  }
+}
+
+function validatePromptIntegrity(root, catalog, groups, errors) {
+  const knownSkills = new Set([
+    ...catalog.map((skill) => skill.name),
+    ...(groups.external_skill_references ?? []),
+  ]);
+
+  for (const path of collectMarkdown(root)) {
+    const label = relative(root, path);
+    const raw = readFileSync(path, "utf8");
+    const lower = raw.toLowerCase();
+
+    for (const term of groups.forbidden_prompt_terms ?? []) {
+      if (lower.includes(term.toLowerCase())) {
+        errors.push(`${label}: forbidden shared prompt term ${term}`);
+      }
+    }
+
+    const references = [
+      ...raw.matchAll(/(?:\*\*|`)([a-z0-9][a-z0-9-]*)(?:\*\*|`)\s+skill\b/gi),
+      ...raw.matchAll(/\bskill\s+`([a-z0-9][a-z0-9-]*)`/gi),
+    ];
+    for (const match of references) {
+      const name = match[1].toLowerCase();
+      if (!knownSkills.has(name)) {
+        errors.push(`${label}: unresolved skill reference ${name}`);
+      }
+    }
+  }
+}
+
 function validateGroups(catalog, groups, repoRoot, errors, skipGlobalLinks) {
   const known = new Set(catalog.map((skill) => skill.name));
   const memberships = new Map();
@@ -191,6 +268,16 @@ function validateGroups(catalog, groups, repoRoot, errors, skipGlobalLinks) {
       errors.push(
         `${skill.name}: description has ${skill.descriptionChars} characters, maximum is ${groups.max_skill_description_characters}`,
       );
+    }
+  }
+
+  if (Number.isInteger(groups.max_entrypoint_words)) {
+    for (const skill of catalog) {
+      if (skill.entryWords > groups.max_entrypoint_words) {
+        errors.push(
+          `${skill.name}: entrypoint has ${skill.entryWords} words, maximum is ${groups.max_entrypoint_words}`,
+        );
+      }
     }
   }
 
@@ -357,6 +444,7 @@ function main() {
       errors.push(`${skill.name}: folder is ${skill.folder}`);
     }
     validateLinks(skill.path, skill.name, errors);
+    validateRoutedCodePaths(skill.path, skill.name, errors);
   }
 
   if (!options.baseline) {
@@ -366,9 +454,12 @@ function main() {
       const groups = readJson(options.groups);
       validateGroups(catalog, groups, repoRoot, errors, options.skipGlobalLinks);
       validateRetiredReferences(options.root, groups.retired_skills ?? [], errors);
+      validatePromptIntegrity(options.root, catalog, groups, errors);
+      for (const skill of catalog) validateAgentMetadata(skill, errors);
       for (const path of collectMarkdown(options.root)) {
         if (!path.endsWith("/SKILL.md")) {
           validateLinks(path, relative(options.root, path), errors);
+          validateRoutedCodePaths(path, relative(options.root, path), errors);
         }
       }
     }
@@ -402,4 +493,10 @@ function main() {
   if (errors.length > 0) process.exitCode = 1;
 }
 
-main();
+export {
+  validateAgentMetadata,
+  validatePromptIntegrity,
+  validateRoutedCodePaths,
+};
+
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
