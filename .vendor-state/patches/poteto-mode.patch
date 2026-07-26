@@ -1,8 +1,8 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 304f2b0..7512206 100644
+index 304f2b0..24c2045 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,130 +1,44 @@
+@@ -1,130 +1,43 @@
  ---
 -name: Poteto Mode
 -description: poteto's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style.
@@ -12,24 +12,25 @@ index 304f2b0..7512206 100644
 -color: yellow
 -reminder: New task? Playbook match or rigor needed -> apply /poteto-mode. Casual turn or user opts out -> don't.
 +name: poteto-mode
-+description: Use for Poteto-style scoped autonomy, simple code, concise prose, deliberate delegation, and verified work.
++description: Use for nontrivial implementation, multi-step fixes, refactors, features, scoped autonomy, deliberate delegation, and verification.
  ---
  
 -# Poteto mode
 +# Poteto Mode
  
 -## Non-negotiables
-+Deliver the requested outcome with the smallest coherent change.
++Use alongside narrower domain skills for nontrivial implementation. Deliver the
++smallest coherent change. Skip one-step edits, simple answers, and read-only
++inspection.
  
 -**Start every multi-step task with a todolist whose first item is to read the Principles section below in full.** The principles ground every trigger here. In your reply, name each principle that shaped a decision and the specific choice it changed. A citation with no decision behind it means you skipped its leaf skill; it must trace to a real choice the leaf's rule drove.
 +## Scope and autonomy
  
 -Remaining triggers:
-+Distinguish inspection from implementation. Answer, explain, diagnose, review,
-+and plan without changing the artifact unless the request also asks for a
-+change. For requested local changes, proceed through reversible work and
-+relevant validation. Pause before destructive actions, external writes, or a
-+material expansion of scope.
++Do not change the artifact for answers, explanations, diagnoses, reviews, or
++plans unless implementation is also requested. Proceed through reversible
++local work and relevant validation. Pause before destructive actions, external
++writes, or material scope expansion.
  
 -- Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 -- About to `AskQuestion` on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the Prototype playbook (`playbooks/prototype.md`) and let the result decide. If the task is a read-only Investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. The ask is the slow path. A throwaway probe usually answers faster, and it hands the human a result to react to instead of a decision to make.
@@ -51,19 +52,15 @@ index 304f2b0..7512206 100644
 +## Route
  
 -Read the leaf skill in full for any principle you apply. Each entry names when it applies.
-+For multi-step work, load the single matching file under `playbooks/`.
-+Investigation, bug fix, performance, refactoring, feature, prototype,
-+forensics, evaluation, visual parity, skill authoring, autonomous runs,
-+session pickup, and PR opening have dedicated playbooks. Use
-+`figure-it-out` only for a large migration or cross-cutting effort with no
++For multi-step work, load one matching file under `playbooks/`. Use
++`figure-it-out` only for a large migration or cross-cutting effort without a
 +narrower workflow.
  
 -**Core**
-+Load a principle reference only when it changes a decision. For stateful logic,
-+repeated branching, or shape assumptions spread across files, consider
-+`references/principles/model-the-domain.md`. Keep clear local code when a new
-+structure would add indirection without removing invalid states or duplicated
-+rules.
++Load a principle only when it changes a decision. For stateful logic, repeated
++branching, or shape assumptions across files, consider
++`references/principles/model-the-domain.md`. Keep local code when structure
++would add indirection without removing invalid states or duplicated rules.
  
 -- **Laziness Protocol** (**principle-laziness-protocol**). Refactoring, sizing a diff, or tempted to add abstractions, layers, or signal threading. Bias to deletion and the smallest change that solves the problem.
 -- **Foundational Thinking** (**principle-foundational-thinking**). Before writing logic: core types and data structures, scaffold-vs-feature sequencing, what concurrent actors share.
@@ -74,8 +71,10 @@ index 304f2b0..7512206 100644
 -- **Experience First** (**principle-experience-first**). Product, UX, or feature-scope tradeoffs. Choose user delight over implementation convenience.
 -- **Exhaust the Design Space** (**principle-exhaust-the-design-space**). A novel interaction or architectural decision with no precedent. Build 2-3 competing prototypes and compare before committing.
 -- **Build the Lever** (**principle-build-the-lever**). Any non-trivial work. Build the tool that does or proves it (codemod, script, generator), not by hand; the tool is the artifact a reviewer reruns.
-+Use parallel work only across independent seams. Keep each worker isolated and
-+review its artifact before accepting it.
++For substantial implementation, load
++`references/orchestration-gates.md`. Re-evaluate the gate at planning
++checkpoints and after 30 minutes. Use parallel work only across independent
++seams; keep each worker isolated and review its artifact before accepting it.
  
 -**Architecture**
 +## Completion
@@ -166,14 +165,14 @@ index 304f2b0..7512206 100644
 +more direct check is available.
 diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
 new file mode 100644
-index 0000000..a7098d4
+index 0000000..ce65f0f
 --- /dev/null
 +++ b/current/agents/openai.yaml
 @@ -0,0 +1,4 @@
 +interface:
 +  display_name: "Poteto Mode"
-+  short_description: "Deliver scoped, autonomous, verified work"
-+  default_prompt: "Use $poteto-mode to complete this request with exact scope and direct verification."
++  short_description: "Orchestrate substantial, scoped, verified work"
++  default_prompt: "Use $poteto-mode to complete this nontrivial implementation with exact scope, orchestration gates, and direct verification."
 diff --git a/pristine/playbooks/authoring-a-skill.md b/current/playbooks/authoring-a-skill.md
 index 0fc0138..ac4d2a8 100644
 --- a/pristine/playbooks/authoring-a-skill.md
@@ -617,6 +616,37 @@ index ec4a449..52f1591 100644
  5. Run **Opening a PR** per component or per safe batch.
  
  **Reply:** components migrated, the diff result for each, the baseline harness location, what's left.
+diff --git a/current/references/orchestration-gates.md b/current/references/orchestration-gates.md
+new file mode 100644
+index 0000000..c1eaa82
+--- /dev/null
++++ b/current/references/orchestration-gates.md
+@@ -0,0 +1,25 @@
++# Orchestration Gates
++
++Treat implementation as substantial when any condition matches:
++
++- the plan has three or more phases;
++- the change spans two or more subsystems;
++- it makes a consequential API, ownership, persistence, concurrency, or
++  data-model decision;
++- it is unattended or has run for 30 minutes.
++
++Before implementation, use `arena` when two materially different designs are
++viable. Spawn two or three isolated candidates with the same artifact,
++grounding, and gradeable criteria. Do not run Arena when there is no real
++design fork.
++
++Before completing any substantial implementation, spawn one independent,
++read-only judge. Give it the request, scoped diff, verification evidence, and
++material risks without the intended verdict. Inspect the artifact yourself,
++resolve the judge's findings by evidence, and rerun review only after a material
++change. An earlier design judge does not replace review of the implemented
++artifact.
++
++Fan implementation out only across independent seams with separate worktrees or
++output paths. Keep integration decisions and final verification in the parent.
++Do not delegate mechanical work merely for throughput.
 diff --git a/current/references/performance-strategies.md b/current/references/performance-strategies.md
 new file mode 100644
 index 0000000..ff63476

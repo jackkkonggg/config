@@ -3,9 +3,10 @@
 This bootstrap is shared by Codex and Claude Code. Higher-priority system,
 developer, and project instructions take precedence.
 
-Use the relevant skill for nontrivial work. `poteto-mode` is the default
-behavioral contract when no narrower workflow or higher-priority instruction
-applies; load only the matched playbook and references.
+Use the relevant skill for nontrivial work. For every nontrivial
+implementation, use `poteto-mode` alongside any narrower domain skill. Skip it
+for one-step mechanical edits, simple answers, and read-only inspection. Load
+only the matched playbook and references.
 
 Keep scope exact. Make the smallest coherent change that achieves the requested
 outcome, preserve unrelated user work, and follow local conventions. Proceed
