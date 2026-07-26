@@ -81,7 +81,10 @@ test("explain-codebase exposes How, Why, and Teach without separate selectors", 
 test("Poteto keeps selective domain modeling and evidence-based playbooks", () => {
   const router = read("skills/poteto-mode/SKILL.md");
   assert.match(router, /model-the-domain\.md/);
-  assert.match(router, /nontrivial implementation/i);
+  assert.match(
+    router.split("---", 3)[1],
+    /Implement, fix, refactor, build, migrate, or optimize repository artifacts/i,
+  );
   assert.match(router, /references\/orchestration-gates\.md/);
   assert.match(read("skills/poteto-mode/playbooks/feature.md"), /smallest structure/i);
   assert.match(read("skills/poteto-mode/playbooks/refactoring.md"), /Keep local code/i);
@@ -97,20 +100,34 @@ test("Poteto substantial-work gates restore Arena and judge without mechanical f
   const gates = read("skills/poteto-mode/references/orchestration-gates.md");
   const arena = read("skills/arena/SKILL.md");
 
-  assert.match(bootstrap, /every nontrivial\s+implementation/i);
-  assert.match(bootstrap, /alongside any narrower domain skill/i);
-  assert.match(bootstrap, /one-step mechanical edits, simple answers, and read-only inspection/i);
+  assert.match(bootstrap, /Before the first implementation\s+tool call, load `poteto-mode`/i);
+  assert.match(bootstrap, /implement, fix, refactor, build,\s+migrate, optimize/i);
+  assert.match(bootstrap, /modify a repository artifact/i);
+  assert.match(bootstrap, /except one-step\s+mechanical edits/i);
+  assert.match(bootstrap, /alongside narrower domain skills/i);
+  assert.match(bootstrap, /Skip\s+it for simple answers and read-only inspection/i);
 
-  assert.match(router, /Re-evaluate the gate at planning\s+checkpoints and after 30 minutes/i);
+  assert.match(router, /Poteto: <playbook>; subagents: <none\|judge\|arena\+judge>/i);
+  assert.match(router, /whenever classification changes/i);
+  assert.match(router, /three or more phases/i);
+  assert.match(router, /spans two\s+subsystems/i);
+  assert.match(router, /consequential API, ownership, persistence, concurrency,\s+or data-model decision/i);
+  assert.match(router, /runs unattended, or reaches 30 minutes/i);
+  assert.match(router, /immediately load `references\/orchestration-gates\.md`/i);
+  assert.match(router, /Re-evaluate before completion/i);
   assert.match(gates, /three or more phases/i);
   assert.match(gates, /two or more subsystems/i);
   assert.match(gates, /consequential API, ownership, persistence, concurrency, or\s+data-model decision/i);
   assert.match(gates, /spawn one independent,\s+read-only judge/i);
   assert.match(gates, /Do not run Arena when there is no real\s+design fork/i);
   assert.match(gates, /Do not delegate mechanical work merely for throughput/i);
+  assert.match(gates, /If the runtime lacks subagents/i);
+  assert.match(gates, /do not claim independent review occurred/i);
 
   assert.match(arena, /spawn one blind,\s+read-only cross-judge/i);
-  assert.match(arena, /Record your scores before reading its\s+verdict/i);
+  assert.match(arena, /Record your\s+scores before reading its verdict/i);
+  assert.doesNotMatch(arena, /cross-judge when available/i);
+  assert.match(arena, /report that gap instead of silently skipping review/i);
 });
 
 test("negative routes do not add unrelated unconditional dependencies", () => {

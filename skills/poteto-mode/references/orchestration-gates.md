@@ -20,6 +20,9 @@ resolve the judge's findings by evidence, and rerun review only after a material
 change. An earlier design judge does not replace review of the implemented
 artifact.
 
+If the runtime lacks subagents, perform a structured self-review and report the
+gap; do not claim independent review occurred.
+
 Fan implementation out only across independent seams with separate worktrees or
 output paths. Keep integration decisions and final verification in the parent.
 Do not delegate mechanical work merely for throughput.
