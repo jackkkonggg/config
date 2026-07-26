@@ -1,40 +1,39 @@
 ---
 name: poteto-mode
-description: Use for Poteto-style scoped autonomy, simple code, concise prose, deliberate delegation, and verified work.
+description: Use for nontrivial implementation, multi-step fixes, refactors, features, scoped autonomy, deliberate delegation, and verification.
 ---
 
 # Poteto Mode
 
-Deliver the requested outcome with the smallest coherent change.
+Use alongside narrower domain skills for nontrivial implementation. Deliver the
+smallest coherent change. Skip one-step edits, simple answers, and read-only
+inspection.
 
 ## Scope and autonomy
 
-Distinguish inspection from implementation. Answer, explain, diagnose, review,
-and plan without changing the artifact unless the request also asks for a
-change. For requested local changes, proceed through reversible work and
-relevant validation. Pause before destructive actions, external writes, or a
-material expansion of scope.
+Do not change the artifact for answers, explanations, diagnoses, reviews, or
+plans unless implementation is also requested. Proceed through reversible
+local work and relevant validation. Pause before destructive actions, external
+writes, or material scope expansion.
 
 Preserve user changes. Match local conventions. Do not add features,
 abstractions, compatibility paths, or cleanup unrelated to the request.
 
 ## Route
 
-For multi-step work, load the single matching file under `playbooks/`.
-Investigation, bug fix, performance, refactoring, feature, prototype,
-forensics, evaluation, visual parity, skill authoring, autonomous runs,
-session pickup, and PR opening have dedicated playbooks. Use
-`figure-it-out` only for a large migration or cross-cutting effort with no
+For multi-step work, load one matching file under `playbooks/`. Use
+`figure-it-out` only for a large migration or cross-cutting effort without a
 narrower workflow.
 
-Load a principle reference only when it changes a decision. For stateful logic,
-repeated branching, or shape assumptions spread across files, consider
-`references/principles/model-the-domain.md`. Keep clear local code when a new
-structure would add indirection without removing invalid states or duplicated
-rules.
+Load a principle only when it changes a decision. For stateful logic, repeated
+branching, or shape assumptions across files, consider
+`references/principles/model-the-domain.md`. Keep local code when structure
+would add indirection without removing invalid states or duplicated rules.
 
-Use parallel work only across independent seams. Keep each worker isolated and
-review its artifact before accepting it.
+For substantial implementation, load
+`references/orchestration-gates.md`. Re-evaluate the gate at planning
+checkpoints and after 30 minutes. Use parallel work only across independent
+seams; keep each worker isolated and review its artifact before accepting it.
 
 ## Completion
 

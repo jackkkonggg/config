@@ -1,8 +1,8 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 88ec51b..b5ac35a 100644
+index 88ec51b..cf94654 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,71 +1,25 @@
+@@ -1,71 +1,26 @@
  ---
  name: arena
 -description: "Spawn N parallel candidates at the same task, pick a base, graft the strongest parts of the losers into it. Use for /arena, 'arena this', 'throw it in the arena', or when one attempt at a non-trivial artifact would lock in the wrong shape."
@@ -84,9 +84,10 @@ index 88ec51b..b5ac35a 100644
 +   location or worktree. Ask for the artifact and a short rationale.
 +4. Wait for all candidates before judging. A failed candidate may be recorded
 +   as a dropout rather than retried automatically.
-+5. Read every result end to end and score it criterion by criterion. When a
-+   configured cross-judge is available, compare its blind assessment with your
-+   own.
++5. Read every result end to end and score it criterion by criterion. For
++   substantial implementation or consequential design, spawn one blind,
++   read-only cross-judge when available. Record your scores before reading its
++   verdict, then compare the two assessments.
 +6. Choose the most maintainable base. Graft only improvements that preserve its
 +   coherence; do not average incompatible designs.
 +7. Verify the synthesized artifact against the original task and record the
@@ -95,11 +96,11 @@ index 88ec51b..b5ac35a 100644
 +Parallel candidates must never write to shared mutable state.
 diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
 new file mode 100644
-index 0000000..5826a3b
+index 0000000..bd3482d
 --- /dev/null
 +++ b/current/agents/openai.yaml
 @@ -0,0 +1,4 @@
 +interface:
 +  display_name: "Arena"
 +  short_description: "Compare independent candidates and synthesize"
-+  default_prompt: "Use $arena to compare independent approaches and synthesize the strongest result."
++  default_prompt: "Use $arena to compare isolated candidates, consult a blind judge when required, and synthesize the strongest result."

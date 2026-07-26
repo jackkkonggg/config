@@ -81,6 +81,8 @@ test("explain-codebase exposes How, Why, and Teach without separate selectors", 
 test("Poteto keeps selective domain modeling and evidence-based playbooks", () => {
   const router = read("skills/poteto-mode/SKILL.md");
   assert.match(router, /model-the-domain\.md/);
+  assert.match(router, /nontrivial implementation/i);
+  assert.match(router, /references\/orchestration-gates\.md/);
   assert.match(read("skills/poteto-mode/playbooks/feature.md"), /smallest structure/i);
   assert.match(read("skills/poteto-mode/playbooks/refactoring.md"), /Keep local code/i);
   assert.match(read("skills/poteto-mode/playbooks/bug-fix.md"), /proven mechanism/i);
@@ -89,11 +91,33 @@ test("Poteto keeps selective domain modeling and evidence-based playbooks", () =
   assert.match(read("skills/poteto-mode/playbooks/session-pickup.md"), /authoritative prior trail/i);
 });
 
+test("Poteto substantial-work gates restore Arena and judge without mechanical fan-out", () => {
+  const bootstrap = read("codex/AGENTS.md");
+  const router = read("skills/poteto-mode/SKILL.md");
+  const gates = read("skills/poteto-mode/references/orchestration-gates.md");
+  const arena = read("skills/arena/SKILL.md");
+
+  assert.match(bootstrap, /every nontrivial\s+implementation/i);
+  assert.match(bootstrap, /alongside any narrower domain skill/i);
+  assert.match(bootstrap, /one-step mechanical edits, simple answers, and read-only inspection/i);
+
+  assert.match(router, /Re-evaluate the gate at planning\s+checkpoints and after 30 minutes/i);
+  assert.match(gates, /three or more phases/i);
+  assert.match(gates, /two or more subsystems/i);
+  assert.match(gates, /consequential API, ownership, persistence, concurrency, or\s+data-model decision/i);
+  assert.match(gates, /spawn one independent,\s+read-only judge/i);
+  assert.match(gates, /Do not run Arena when there is no real\s+design fork/i);
+  assert.match(gates, /Do not delegate mechanical work merely for throughput/i);
+
+  assert.match(arena, /spawn one blind,\s+read-only cross-judge/i);
+  assert.match(arena, /Record your scores before reading its\s+verdict/i);
+});
+
 test("negative routes do not add unrelated unconditional dependencies", () => {
   assert.doesNotMatch(read("skills/visual-design/SKILL.md"), /shadcn|codebase-architecture/);
   assert.doesNotMatch(read("skills/shadcn/SKILL.md"), /accessibility-\*|typography-\*/);
   assert.doesNotMatch(read("skills/codebase-architecture/SKILL.md"), /frontend-design|visual-design/);
-  assert.doesNotMatch(read("skills/poteto-mode/SKILL.md"), /always.*architect|always.*delegate/i);
+  assert.doesNotMatch(read("skills/poteto-mode/SKILL.md"), /always.*architect/i);
 });
 
 test("every repo skill has a lean entrypoint and valid OpenAI metadata", () => {

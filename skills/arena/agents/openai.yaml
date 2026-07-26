@@ -1,4 +1,4 @@
 interface:
   display_name: "Arena"
   short_description: "Compare independent candidates and synthesize"
-  default_prompt: "Use $arena to compare independent approaches and synthesize the strongest result."
+  default_prompt: "Use $arena to compare isolated candidates, consult a blind judge when required, and synthesize the strongest result."

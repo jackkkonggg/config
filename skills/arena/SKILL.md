@@ -14,9 +14,10 @@ Use parallel candidates when one early shape would unduly constrain the result.
    location or worktree. Ask for the artifact and a short rationale.
 4. Wait for all candidates before judging. A failed candidate may be recorded
    as a dropout rather than retried automatically.
-5. Read every result end to end and score it criterion by criterion. When a
-   configured cross-judge is available, compare its blind assessment with your
-   own.
+5. Read every result end to end and score it criterion by criterion. For
+   substantial implementation or consequential design, spawn one blind,
+   read-only cross-judge when available. Record your scores before reading its
+   verdict, then compare the two assessments.
 6. Choose the most maintainable base. Graft only improvements that preserve its
    coherence; do not average incompatible designs.
 7. Verify the synthesized artifact against the original task and record the
