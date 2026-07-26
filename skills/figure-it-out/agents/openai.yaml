@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figure It Out"
+  short_description: "Design an auditable execution playbook"
+  default_prompt: "Use $figure-it-out to design an auditable playbook for this cross-cutting change."

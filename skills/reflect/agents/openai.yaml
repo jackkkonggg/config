@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reflect"
+  short_description: "Extract durable lessons from the active task"
+  default_prompt: "Use $reflect to review this task and propose durable skill improvements."

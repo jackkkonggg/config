@@ -1,0 +1,12 @@
+{
+  "harness_version": 6,
+  "artifact": "\nProject Finch is a TypeScript web app.\n- The requested artifact is a browser screenshot.\n- The agent-browser CLI is not installed in the fixture.\n- Another browser capability may exist, but the user has not selected it or authorized installation.\n",
+  "tasks": [
+    {
+      "id": "browser-prerequisite",
+      "prompt": "Take a browser screenshot with agent-browser, but its CLI is missing. Explain what you do now.",
+      "baseline": ["skills/agent-browser/SKILL.md"],
+      "proposal": ["skills/agent-browser/SKILL.md"]
+    }
+  ]
+}

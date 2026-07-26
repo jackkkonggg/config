@@ -1,17 +1,17 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 9bd9104..f6cd7ba 100644
+index 9bd9104..3ffc862 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,112 +1,27 @@
+@@ -1,112 +1,26 @@
  ---
  name: interrogate
 -description: "Use for \"interrogate\", \"adversarial review\", \"multi-model review\", \"challenge this\", \"stress test this code\", \"find blind spots\", or \"tear this apart\". Multiple LLM reviewers challenge changes from independent angles."
+-disable-model-invocation: true
 +description: Use for adversarial multi-model review, stress testing, challenges, and finding blind spots.
- disable-model-invocation: true
  ---
-
+ 
  # Interrogate
-
+ 
 -Spawn one reviewer per configured model to adversarially review code changes. Each model gets the same prompt and rubric. The adversarial signal comes from model diversity, not assigned personas. Models differ in blind spots, priors, and reasoning patterns. Agreement across models is high-confidence signal; lone-model findings are worth reading but lower confidence.
 -
 -The deliverable is a synthesized verdict. Do NOT auto-apply changes.
@@ -135,3 +135,13 @@ index 9bd9104..f6cd7ba 100644
 +
 +**Reply:** accepted challenges, rejected challenges with reasons, remaining
 +uncertainty, and the resulting decision.
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..26a6d33
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Interrogate"
++  short_description: "Stress-test work with adversarial review"
++  default_prompt: "Use $interrogate to challenge this proposal and surface material blind spots."

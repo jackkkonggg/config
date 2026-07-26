@@ -1,0 +1,4 @@
+interface:
+  display_name: "Recall"
+  short_description: "Reconstruct recent work from available evidence"
+  default_prompt: "Use $recall to reconstruct the recent state of this work from available evidence."

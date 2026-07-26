@@ -1,17 +1,17 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index a0e50f7..4d9e125 100644
+index a0e50f7..ba0b7cc 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,77 +1,27 @@
+@@ -1,77 +1,26 @@
  ---
  name: reflect
 -description: Spawn three parallel review subagents over the active transcript, surface learnings, and route each to a concrete edit on an existing skill. Use when the user says reflect.
+-disable-model-invocation: true
 +description: Use to review the active transcript, extract lessons, and route them into concrete skill improvements.
- disable-model-invocation: true
  ---
-
+ 
  # Reflect
-
+ 
 -Mine the current conversation for durable learnings, then route them into skill edits.
 -
 -## When to invoke
@@ -100,42 +100,80 @@ index a0e50f7..4d9e125 100644
 +
 +Return applied edits, created skills, backlog items, and rejected findings with
 +their reasons.
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..c1f4264
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Reflect"
++  short_description: "Extract durable lessons from the active task"
++  default_prompt: "Use $reflect to review this task and propose durable skill improvements."
 diff --git a/pristine/references/divergent-reviewer.md b/current/references/divergent-reviewer.md
-index 70cfdff..97523c3 100644
+index 70cfdff..bfb6360 100644
 --- a/pristine/references/divergent-reviewer.md
 +++ b/current/references/divergent-reviewer.md
-@@ -20,7 +20,7 @@ Scan for:
-
+@@ -20,8 +20,8 @@ Scan for:
+ 
  Findings must point to skills, tools, or MCPs invoked in this transcript. Speculative routings to skills the parent never opened do not count. To check whether a skill was used, scan the transcript for:
-
+ 
 -- `Read` tool calls against any `SKILL.md` file (workspace `.cursor/skills/`, user-level `~/.cursor/skills/`, or plugin-installed paths under `~/.cursor/plugins/`)
+-- `Task` prompts that name a skill path
 +- Reads of any `SKILL.md` exposed by the current environment
- - `Task` prompts that name a skill path
++- delegated prompts that name a skill path
  - Tool calls (Shell, Grep, MCP, etc.) that match a skill's documented commands
-
+ 
+ Two valid finding shapes:
 diff --git a/pristine/references/judgment-reviewer.md b/current/references/judgment-reviewer.md
-index 76261f1..c38b094 100644
+index 76261f1..7f0ef72 100644
 --- a/pristine/references/judgment-reviewer.md
 +++ b/current/references/judgment-reviewer.md
-@@ -19,7 +19,7 @@ Scan for:
-
+@@ -19,8 +19,8 @@ Scan for:
+ 
  Findings must point to skills, tools, or MCPs invoked in this transcript. Speculative routings to skills the parent never opened do not count. To check whether a skill was used, scan the transcript for:
-
+ 
 -- `Read` tool calls against any `SKILL.md` file (workspace `.cursor/skills/`, user-level `~/.cursor/skills/`, or plugin-installed paths under `~/.cursor/plugins/`)
+-- `Task` prompts that name a skill path
 +- Reads of any `SKILL.md` exposed by the current environment
- - `Task` prompts that name a skill path
++- delegated prompts that name a skill path
  - Tool calls (Shell, Grep, MCP, etc.) that match a skill's documented commands
-
+ 
+ Two valid finding shapes:
+diff --git a/pristine/references/synthesizer.md b/current/references/synthesizer.md
+index 11040b0..6f12778 100644
+--- a/pristine/references/synthesizer.md
++++ b/current/references/synthesizer.md
+@@ -14,7 +14,7 @@ Apply each criterion to every finding:
+ 
+ - Durability: still true in 6 months once paths, SHAs, tool versions, and code shapes have changed.
+ - Specificity: broad enough to apply across tasks, precise enough that a future agent recognizes when to use it. Reject vague platitudes ("write good code") and hyper-specific facts ("`<specific-skill-name>` has 175 tokens at limit 80").
+-- Existing-skill-first: propose `new skill via create-skill:` only when no existing skill is a real home, the pattern recurs, and the topic deserves its own skill.
++- Existing-skill-first: propose `new skill via skill-creator:` only when no existing skill is a real home, the pattern recurs, and the topic deserves its own skill.
+ - Convergence: findings echoed by 2+ reviewers carry higher confidence. Singletons must clear a higher bar on the other criteria.
+ - Decision-changing: a future agent does something different because of the edit, not just reads more text.
+ - Structural-mechanism check: route to Backlog when a lint rule, script, metadata flag, or runtime check already enforces the rule or could enforce it cheaply. Skill prose is for things mechanisms cannot enforce.
+@@ -41,7 +41,7 @@ Output exactly the format below. No preamble, no narration. One sentence per cel
+ |---|---|---|
+ | <failure mode in a skill the parent used> | <change to that skill's body> | <skill path + section> |
+ | <skill existed but didn't trigger> | <tune the skill's description so it fires next time> | <tune description: <skill path>> |
+-| <new pattern, no existing skill is a real home> | <draft a new skill via create-skill> | <new skill via create-skill: <kebab-name>> |
++| <new pattern, no existing skill is a real home> | <draft a new skill via skill-creator> | <new skill via skill-creator: <kebab-name>> |
+ 
+ One row per finding. The user approves row by row.
+ 
 diff --git a/pristine/references/tooling-reviewer.md b/current/references/tooling-reviewer.md
-index 19f4aa4..583bd89 100644
+index 19f4aa4..dee016d 100644
 --- a/pristine/references/tooling-reviewer.md
 +++ b/current/references/tooling-reviewer.md
-@@ -34,7 +34,7 @@ Scan for:
-
+@@ -34,8 +34,8 @@ Scan for:
+ 
  Findings must point to skills, tools, or MCPs invoked in this transcript. Speculative routings to skills the parent never opened do not count. To check whether a skill was used, scan the transcript for:
-
+ 
 -- `Read` tool calls against any `SKILL.md` file (workspace `.cursor/skills/`, user-level `~/.cursor/skills/`, or plugin-installed paths under `~/.cursor/plugins/`)
+-- `Task` prompts that name a skill path
 +- Reads of any `SKILL.md` exposed by the current environment
- - `Task` prompts that name a skill path
++- delegated prompts that name a skill path
  - Tool calls (Shell, Grep, MCP, etc.) that match a skill's documented commands
-
+ 
+ Two valid finding shapes:

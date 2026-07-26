@@ -35,7 +35,7 @@ Scan for:
 Findings must point to skills, tools, or MCPs invoked in this transcript. Speculative routings to skills the parent never opened do not count. To check whether a skill was used, scan the transcript for:
 
 - Reads of any `SKILL.md` exposed by the current environment
-- `Task` prompts that name a skill path
+- delegated prompts that name a skill path
 - Tool calls (Shell, Grep, MCP, etc.) that match a skill's documented commands
 
 Two valid finding shapes:

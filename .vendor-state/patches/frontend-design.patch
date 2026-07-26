@@ -1,7 +1,7 @@
-diff --git a/new_pristine/SKILL.md b/candidate/SKILL.md
+diff --git a/pristine/SKILL.md b/current/SKILL.md
 index decdff4..69bbffd 100644
---- a/new_pristine/SKILL.md
-+++ b/candidate/SKILL.md
+--- a/pristine/SKILL.md
++++ b/current/SKILL.md
 @@ -1,55 +1,27 @@
  ---
  name: frontend-design
@@ -9,29 +9,29 @@ index decdff4..69bbffd 100644
 -license: Complete terms in LICENSE.txt
 +description: Use to create or reshape distinctive web interfaces with a deliberate visual direction.
  ---
-
+ 
  # Frontend Design
-
+ 
 -Approach this as the design lead at a small studio known for giving every client a visual identity that could not be mistaken for anyone else's. This client has already rejected proposals that felt templated, and is paying for a distinctive point of view: make deliberate, opinionated choices about palette, typography, and layout that are specific to this brief, and take one real aesthetic risk you can justify.
 +Ground the design in the product, audience, content, and existing design
 +system. Preserve established components and tokens unless the user asks for a
 +new direction.
-
+ 
 -## Ground it in the subject
 +Load only the guidance needed:
-
+ 
 -If the brief does not pin down what the product or subject is, pin it yourself before designing: name one concrete subject, its audience, and the page's single job, and state your choice. If there's any information in your memory about the human's preferences, context about what they're building, or designs you've made before – use that as a hint. The subject's own world, its materials, instruments, artifacts, and vernacular, is where distinctive choices come from. Build with the brief's real content and subject matter throughout.
 +| Need | Load |
 +| --- | --- |
 +| Establish the visual direction, hierarchy, typography, layout, or signature element | `references/direction.md` |
 +| Plan and critique an open-ended design before building | `references/process.md` |
 +| Write or revise interface copy | `references/writing.md` |
-
+ 
 -## Design principles
 +Choose a coherent direction and spend visual emphasis deliberately. Structure
 +must communicate real content rather than decorate it. Match implementation
 +complexity to the chosen direction.
-
+ 
 -For web designs, the hero is a thesis. Open with the most characteristic thing in the subject's world, in whatever form makes sense for it: a headline, an image, an animation, a live demo, an interactive moment. Be deliberate with your choice: a big number with a small label, supporting stats, and a gradient accent is the template answer, only use if that's truly the best option.
 -
 -Typography carries the personality of the page. Pair the display and body faces deliberately, not the same families you would reach for on any other project, and set a clear type scale with intentional weights, widths, and spacing. Make the type treatment itself a memorable part of the design, not a neutral delivery vehicle for the content.
@@ -75,11 +75,21 @@ index decdff4..69bbffd 100644
 +reduced-motion behavior. Render the result, inspect it at representative
 +viewports, and revise clipping, hierarchy, spacing, and inconsistency before
 +finishing.
-diff --git a/candidate/references/direction.md b/candidate/references/direction.md
+diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
+new file mode 100644
+index 0000000..7b9f1f2
+--- /dev/null
++++ b/current/agents/openai.yaml
+@@ -0,0 +1,4 @@
++interface:
++  display_name: "Frontend Design"
++  short_description: "Create distinctive production web interfaces"
++  default_prompt: "Use $frontend-design to create a deliberate, distinctive interface for this request."
+diff --git a/current/references/direction.md b/current/references/direction.md
 new file mode 100644
 index 0000000..a279553
 --- /dev/null
-+++ b/candidate/references/direction.md
++++ b/current/references/direction.md
 @@ -0,0 +1,22 @@
 +# Design Direction
 +
@@ -103,11 +113,11 @@ index 0000000..a279553
 +
 +When the project already has a design system, make distinctive choices within
 +its vocabulary before inventing a second one.
-diff --git a/candidate/references/process.md b/candidate/references/process.md
+diff --git a/current/references/process.md b/current/references/process.md
 new file mode 100644
 index 0000000..f6429d3
 --- /dev/null
-+++ b/candidate/references/process.md
++++ b/current/references/process.md
 @@ -0,0 +1,14 @@
 +# Design Process
 +
@@ -123,11 +133,11 @@ index 0000000..f6429d3
 +
 +Keep planning proportional to the task. A scoped component change does not need
 +a page-level design exercise.
-diff --git a/candidate/references/writing.md b/candidate/references/writing.md
+diff --git a/current/references/writing.md b/current/references/writing.md
 new file mode 100644
 index 0000000..6f9034d
 --- /dev/null
-+++ b/candidate/references/writing.md
++++ b/current/references/writing.md
 @@ -0,0 +1,16 @@
 +# Interface Writing
 +

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Browser"
+  short_description: "Automate browsers and desktop web surfaces"
+  default_prompt: "Use $agent-browser to automate this browser task and verify the result."

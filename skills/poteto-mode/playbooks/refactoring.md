@@ -5,7 +5,7 @@ The structure changes; observable behavior does not.
 1. Pin current behavior with a characterization test, snapshot, replay, or
    equivalence harness. Type checking alone is not a behavior contract.
 2. Name the target module layout, types, and call graph. Read
-   `references/principles/model-the-domain.md` when the change replaces
+   `../references/principles/model-the-domain.md` when the change replaces
    scattered state or branching. Keep local code when a new structure would
    only add indirection.
 3. Remove dead weight and redundant paths before introducing the new shape.

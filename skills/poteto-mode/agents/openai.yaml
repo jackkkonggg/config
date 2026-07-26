@@ -1,0 +1,4 @@
+interface:
+  display_name: "Poteto Mode"
+  short_description: "Deliver scoped, autonomous, verified work"
+  default_prompt: "Use $poteto-mode to complete this request with exact scope and direct verification."

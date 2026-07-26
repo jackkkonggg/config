@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join, resolve } from "node:path";
 import test from "node:test";
 
 const root = resolve(".");
@@ -94,4 +94,113 @@ test("negative routes do not add unrelated unconditional dependencies", () => {
   assert.doesNotMatch(read("skills/shadcn/SKILL.md"), /accessibility-\*|typography-\*/);
   assert.doesNotMatch(read("skills/codebase-architecture/SKILL.md"), /frontend-design|visual-design/);
   assert.doesNotMatch(read("skills/poteto-mode/SKILL.md"), /always.*architect|always.*delegate/i);
+});
+
+test("every repo skill has a lean entrypoint and valid OpenAI metadata", () => {
+  const skillsRoot = resolve(root, "skills");
+  const skillNames = readdirSync(skillsRoot).filter((name) =>
+    existsSync(join(skillsRoot, name, "SKILL.md")),
+  );
+  assert.equal(skillNames.length, 23);
+
+  for (const name of skillNames) {
+    const entrypoint = read(`skills/${name}/SKILL.md`);
+    assert.ok(entrypoint.trim().split(/\s+/).length <= 250, `${name} exceeds 250 words`);
+
+    const metadata = read(`skills/${name}/agents/openai.yaml`);
+    assert.match(metadata, /^  display_name: "[^"]+"$/m);
+    assert.match(metadata, /^  short_description: ".{25,64}"$/m);
+    assert.match(
+      metadata,
+      new RegExp(`^  default_prompt: ".*\\$${name.replaceAll("-", "\\-")}.*"$`, "m"),
+    );
+  }
+});
+
+test("design and review workflows do not acquire implementation authority", () => {
+  const architect = read("skills/architect/SKILL.md");
+  assert.match(architect, /design artifact, not implementation/i);
+  assert.match(architect, /Do not edit production code/i);
+
+  const figureItOut = read("skills/figure-it-out/SKILL.md");
+  assert.match(figureItOut, /do not execute it/i);
+  assert.match(figureItOut, /Do not create implementation commits/i);
+
+  const blastRadius = read("skills/blast-radius/SKILL.md");
+  assert.match(blastRadius, /read-only risk investigation/i);
+  assert.match(blastRadius, /mark it unproven/i);
+});
+
+test("portable routes replace stale platform-only dependencies", () => {
+  const groups = JSON.parse(read("skills/.groups.json"));
+  const sharedPrompt = readdirSync(resolve(root, "skills/poteto-mode/playbooks"))
+    .filter((name) => name.endsWith(".md"))
+    .map((name) => read(`skills/poteto-mode/playbooks/${name}`))
+    .join("\n")
+    .concat(read("skills/poteto-mode/references/plan.md"));
+
+  for (const term of groups.forbidden_prompt_terms) {
+    assert.doesNotMatch(sharedPrompt.toLowerCase(), new RegExp(term.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+
+  assert.match(
+    read("skills/react-engineering/SKILL.md"),
+    /references\/composition-state-decouple-implementation\.md/,
+  );
+  assert.match(
+    read("skills/motion/performance-audit/index.md"),
+    /resources\/property-tiers\.json/,
+  );
+});
+
+test("TypeScript guidance triggers on type safety rather than every TS file", () => {
+  const skill = read("skills/typescript-best-practices/SKILL.md");
+  assert.doesNotMatch(skill, /any \.ts or \.tsx/i);
+  assert.match(skill, /project conventions/i);
+  assert.match(skill, /justified local cast/i);
+  assert.match(skill, /avoid brands for clear local values/i);
+});
+
+test("every selector advertises a focused positive route", () => {
+  const routesBySkill = {
+    "agent-browser": /browser automation/i,
+    architect: /types, signatures, module boundaries/i,
+    arena: /parallel candidates/i,
+    "blast-radius": /could break beyond its diff/i,
+    "codebase-architecture": /architecture improvements/i,
+    commit: /git commits/i,
+    "explain-codebase": /runtime flow/i,
+    "figure-it-out": /auditable execution playbook/i,
+    "frontend-design": /distinctive web interfaces/i,
+    "gsap-best-practices": /GSAP/i,
+    interrogate: /adversarial multi-model review/i,
+    motion: /Motion or CSS animation/i,
+    "motion-design": /interface motion/i,
+    "poteto-mode": /scoped autonomy/i,
+    "react-engineering": /React component composition/i,
+    recall: /recent work/i,
+    reflect: /active transcript/i,
+    shadcn: /shadcn components/i,
+    "show-me-your-work": /TSV decision trail/i,
+    tdd: /regression tests/i,
+    "typescript-best-practices": /TypeScript type design/i,
+    "visual-design": /interface color/i,
+    "web-design-guidelines": /review UI code/i,
+  };
+
+  for (const [name, trigger] of Object.entries(routesBySkill)) {
+    assert.match(read(`skills/${name}/SKILL.md`).split("---", 3)[1], trigger, name);
+  }
+});
+
+test("PR and browser workflows preserve authorization boundaries", () => {
+  const openingPr = read("skills/poteto-mode/playbooks/opening-a-pr.md");
+  assert.match(openingPr, /explicitly requests a PR/i);
+  assert.match(openingPr, /explain the steps\s+without acting/i);
+  assert.match(openingPr, /does not authorize fixing/i);
+  assert.doesNotMatch(openingPr, /reset --hard|invoked at the end of every/i);
+
+  const browser = read("skills/agent-browser/SKILL.md");
+  assert.match(browser, /stop this workflow/i);
+  assert.match(browser, /Do not substitute tools silently/i);
 });

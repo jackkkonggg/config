@@ -1,23 +1,28 @@
 ---
 name: motion
-description: Use for Motion or CSS animation, springs, examples, documentation, transition previews, and performance audits.
-argument-hint: "[subcommand or question, e.g. 'audit src/Modal.tsx', 'spring bounce 0.3', 'see easeOut', 'how do I animate a list']"
+description: Use for Motion or CSS animation implementation, springs, examples, transition previews, and performance audits.
 ---
 
 # Motion
 
-Improve the animation capabilities of the agent.
+Load only the route matching the request:
 
--   [Animation best practices](best-practices/index.md): "Animate this button", "Fade this layer in", "Animate this Vue component". This includes platform-specific best practices for vanilla JS, React, Vue, Base UI and Radix. Contains advice for both Motion and CSS animation.
--   [Documentation, examples and Motion UI search](codex/index.md): "What options does X have", "How does X work", "Use X (specific Motion API) to do Y", "Show me an example of X", "Make a X (i.e. carousel, ticker, modal etc)", "Add a Motion UI accordion / pricing section / hero"
--   [CSS spring generation](css-spring/index.md): "Generate a CSS spring for a bounce of 0.5 and duration of 0.3s", "Make a bouncy spring [in a CSS context]"
--   [MotionScore performance audit](performance-audit/index.md): "Audit src/Modal.tsx for jank", "Runtime audit of homepage", "Is this code janky: [code snippet]", "Grade the performance of this site: [URL]" - or if you, the agent, wish to profile a site or codebase without a user prompt, you can proactively run audits and report findings.
--   [Transition visualisation](transition-preview/index.md): "Show me the curve for easeOut", "Visualise a spring with bounce 0.5 and duration 0.3s"
+- Implementation and framework guidance:
+  [best-practices/index.md](best-practices/index.md).
+- Motion APIs, examples, and UI patterns:
+  [codex/index.md](codex/index.md).
+- CSS spring generation:
+  [css-spring/index.md](css-spring/index.md).
+- Static or runtime performance audits:
+  [performance-audit/index.md](performance-audit/index.md).
+- Spring and easing visualization:
+  [transition-preview/index.md](transition-preview/index.md).
 
-## If a required Motion MCP tool is unavailable
+Do not load multiple routes unless the task crosses them. Match the project’s
+framework and Motion version, preserve behavior unless the request changes it,
+and verify the real animation or audit artifact.
 
-This skill ships with an MCP server. Some tools expect this server to be running. If you attempt to use a tool that requires the MCP server and it is not found, tell the user:
-
-> This capability requires the Motion AI Kit. Install it from **https://motion.dev/docs/ai-kit**.
-
-Then fall back to the guidance in the relevant capability directory where possible (e.g. `best-practices/` and `performance-audit/` work without any MCP tool).
+Some routes use Motion AI Kit tools. If a required tool is unavailable, explain
+that the capability requires the kit from
+`https://motion.dev/docs/ai-kit`, then continue with local guidance when
+possible. Do not install it without permission.

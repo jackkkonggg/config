@@ -1,52 +1,31 @@
 ---
 name: blast-radius
-description: Use to trace what a change could break beyond its diff and prove the key safety fact.
-disable-model-invocation: true
+description: Use to trace what a proposed or existing change could break beyond its diff and prove key safety facts.
 ---
 
-# Blast radius
+# Blast Radius
 
-Find what a change breaks somewhere else, before it ships. Use for "blast radius of X", "what could this break", or reviewing a small diff you don't trust yet.
+Perform a read-only risk investigation. Do not modify tracked files unless the
+user separately authorized implementation.
 
-Companion to `explain-codebase`. Its How mode tells you what the code does and
-Rationale mode tells you why it is shaped that way. Blast radius tells you what
-it breaks somewhere else.
+1. Read the change and identify the behavior it alters.
+2. Use `explain-codebase` How mode for runtime flow and Why mode for historical
+   constraints.
+3. Trace beyond direct callers: lifecycle timing, wire formats, persisted data,
+   generated artifacts, feature flags, local patches, and consumers in other
+   modules or languages.
+4. Enumerate every ingress and egress before reducing the assessment. Do not
+   call one boundary unique until sibling sources such as URLs, storage,
+   persisted legacy data, and network input have been checked.
+5. Reduce the assessment to the one or two facts on which safety depends.
+6. Prove each fact as cheaply as possible with existing tests, read-only
+   commands, or temporary artifacts outside tracked state. If proof would
+   require a repository change, mark it unproven and propose the check.
 
-Listing the callers is not the job. The agent can grep those in a second. The job is the breakage grep won't show you.
+Load [references/method.md](references/method.md) when the change is wide or the
+proof level is unclear.
 
-## Don't trust your own writeup
-
-A blast-radius writeup that sounds right is worthless. It reads as convincing whether or not it's true, and that is the trap you are walking into. So don't hand back the writeup. Find the one or two facts the whole thing depends on and prove them by running code. Words are where you start, not what you ship.
-
-### How sure are you
-
-For each fact the change's safety depends on, get it as far down this list as is cheap, and say where it stopped.
-
-1. You said so. Worthless on its own.
-2. You pointed at the line. A real `file:line`, or the library's own source.
-3. You showed the bad case can't happen. You walked the failure step by step and it doesn't reach.
-4. You ran it. A script or test that calls the real code and fails loud if you're wrong.
-5. You reproduced it in the running app.
-
-Any safety fact you can't get to step 4, say so out loud. Don't write it up as settled. Step 4 is usually one small script that imports the same library the app ships and calls the exact function you're worried about.
-
-## Steps
-
-1. Read the change. The diff, the symbols it adds, changes, and deletes, and what it now does differently, including the part the diff doesn't spell out. Use `explain-codebase` Rationale mode to pull the PR and commits.
-2. Find the one fact it's safe because of. Most changes that look scary are safe because of a single fact, like "this call only drops already-dead cache entries and does nothing else". Find that fact. If it holds, most of the scary cases die at once. Spend your time here, not on a long list of maybes.
-3. Look where grep stops. Read the source of the library you call, and check its pinned version and any local patch. Work out when things run: microtasks, unmount and teardown, Solid versus React. Follow what a symbol search misses: the JSON an API returns, a DB column, a wire format, another language reading the same bytes, a feature flag, code three hops downstream.
-4. Be honest about each risk. Give it a real chance of happening and a real cost if it does. Keep the risks you confirmed; list the ones you checked and cleared separately. Follow `explain-codebase` Rationale mode's evidence rules. Cite a real `file:line`, a search that finds nothing is still an answer, and never make up a caller or an API.
-5. Prove the one fact. Write a script or test that runs the real code, run it, and paste what happened. If you can't prove it cheaply, mark it unproven. Don't round up.
-6. For a big or wide change, run it as an `arena`. Ask several models the same question and merge the answers. Different models catch different real bugs.
-
-## What to hand back
-
-- **What it does.** What changed, including the part that isn't obvious.
-- **The one fact it's safe because of.** State it, say which step you got it to, and show the proof. If you couldn't prove it, write unproven.
-- **Risks.** Only the real ones. Each names how it breaks, the `file:line`, how likely and how bad, and how to check. Paste the proof for the ones that matter.
-- **Cleared.** What you checked and why it's fine.
-- **Before you merge.** The cheapest test or repro that catches the real bug, including the script you wrote.
-
-Write it in plain, concrete prose, cite real code, and strip anything private before it goes anywhere public.
-
-**Reply:** the writeup above, with the one safety fact either proven or marked unproven.
+Hand back what changed, the key safety facts and proof level, confirmed risks,
+cleared risks, and the cheapest pre-merge verification. Cite real evidence and
+label uncertainty; do not invent callers or round an inconclusive result up to
+safe.

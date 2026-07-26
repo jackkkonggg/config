@@ -1,0 +1,107 @@
+{
+  "harness_version": 5,
+  "artifact": "\nProject Finch is a TypeScript web app.\n- FilterStore parses URL and localStorage filters, then exposes a FilterState union to Dashboard.tsx.\n- saveFilter currently writes unvalidated JSON to localStorage.\n- removeWorkspace issues DELETE immediately from a menu item.\n- A browser trace attributes 72% of input delay to sorting 20,000 rows after every keystroke.\n- The browser automation CLI is not installed in the fixture.\n- Source control records an earlier filter migration but no linked product decision.\n",
+  "tasks": [
+    {
+      "id": "architecture-design",
+      "prompt": "Design two credible type and module shapes for filter persistence, choose one, and stop before implementation.",
+      "baseline": [
+        "skills/architect/SKILL.md",
+        "skills/architect/references/runner-prompt.md",
+        "skills/architect/references/rationale-template.md"
+      ],
+      "proposal": [
+        "skills/architect/SKILL.md",
+        "skills/architect/references/runner-prompt.md",
+        "skills/architect/references/rationale-template.md"
+      ]
+    },
+    {
+      "id": "migration-playbook",
+      "prompt": "Design an auditable playbook for migrating filter persistence across twelve callers. Do not execute it.",
+      "baseline": ["skills/figure-it-out/SKILL.md"],
+      "proposal": [
+        "skills/figure-it-out/SKILL.md",
+        "skills/figure-it-out/references/playbook-design.md"
+      ]
+    },
+    {
+      "id": "blast-radius",
+      "prompt": "Assess the blast radius of changing FilterState. Do not edit tracked files.",
+      "baseline": ["skills/blast-radius/SKILL.md"],
+      "proposal": [
+        "skills/blast-radius/SKILL.md",
+        "skills/blast-radius/references/method.md"
+      ]
+    },
+    {
+      "id": "recall",
+      "prompt": "Reconstruct the recent filter-migration work when no product-specific transcript path is available.",
+      "baseline": ["skills/recall/SKILL.md"],
+      "proposal": [
+        "skills/recall/SKILL.md",
+        "skills/recall/references/workflow.md"
+      ]
+    },
+    {
+      "id": "decision-trail",
+      "prompt": "Specify the decision trail for a long filter migration and how you will audit it.",
+      "baseline": ["skills/show-me-your-work/SKILL.md"],
+      "proposal": [
+        "skills/show-me-your-work/SKILL.md",
+        "skills/show-me-your-work/references/decision-trail.md"
+      ]
+    },
+    {
+      "id": "tdd-bug-fix",
+      "prompt": "Plan a fix for invalid filters being saved, including failing-before and passing-after evidence.",
+      "baseline": ["skills/tdd/SKILL.md"],
+      "proposal": [
+        "skills/tdd/SKILL.md",
+        "skills/tdd/references/workflow.md"
+      ]
+    },
+    {
+      "id": "browser-prerequisite",
+      "prompt": "Take a browser screenshot, but the agent-browser CLI is missing. Explain what you do now.",
+      "baseline": ["skills/agent-browser/SKILL.md"],
+      "proposal": ["skills/agent-browser/SKILL.md"]
+    },
+    {
+      "id": "motion-route",
+      "prompt": "Route a request to audit animation performance without loading unrelated Motion documentation.",
+      "baseline": ["skills/motion/SKILL.md"],
+      "proposal": ["skills/motion/SKILL.md"]
+    },
+    {
+      "id": "typescript-api",
+      "prompt": "Review the FilterState boundary types without imposing unrelated TypeScript doctrine.",
+      "baseline": ["skills/typescript-best-practices/SKILL.md"],
+      "proposal": ["skills/typescript-best-practices/SKILL.md"]
+    },
+    {
+      "id": "pr-opening-boundary",
+      "prompt": "The branch is dirty with unrelated work. Explain how you would prepare a PR without discarding it.",
+      "baseline": [
+        "skills/poteto-mode/SKILL.md",
+        "skills/poteto-mode/playbooks/opening-a-pr.md"
+      ],
+      "proposal": [
+        "skills/poteto-mode/SKILL.md",
+        "skills/poteto-mode/playbooks/opening-a-pr.md"
+      ]
+    },
+    {
+      "id": "read-only-investigation",
+      "prompt": "Investigate the input delay and report the mechanism. Do not implement a fix.",
+      "baseline": [
+        "skills/poteto-mode/SKILL.md",
+        "skills/poteto-mode/playbooks/investigation.md"
+      ],
+      "proposal": [
+        "skills/poteto-mode/SKILL.md",
+        "skills/poteto-mode/playbooks/investigation.md"
+      ]
+    }
+  ]
+}

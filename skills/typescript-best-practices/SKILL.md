@@ -1,24 +1,28 @@
 ---
 name: typescript-best-practices
-description: TypeScript best practices. Use when reading or editing any .ts or .tsx file.
+description: Use for TypeScript type design, boundary parsing, public APIs, unsafe narrowing, or type-safety review.
 ---
 
-# TypeScript best practices
+# TypeScript Best Practices
 
-Apply the [Type System Discipline](../poteto-mode/references/principles/type-system-discipline.md) principle reference first; this skill grounds it in TypeScript syntax.
+Follow project conventions. Load
+[Type System Discipline](../poteto-mode/references/principles/type-system-discipline.md)
+when invalid states or unsafe boundaries drive the task.
 
-| Rule | Summary |
-|------|---------|
-| Discriminated unions | Model variants with a `kind` literal discriminant so impossible states can't be represented. No optional-field bags. |
-| Branded types | Brand primitives with `& { readonly __brand: "X" }` so they can't be mixed up. Validate once at creation. |
-| `unknown` over `any` | External data is `unknown`. `any` disables type checking everywhere it touches. |
-| No `as` casts | Every `as` is a runtime crash waiting. Cast only after validation. |
-| Narrowing hierarchy | Discriminant switch > `in` operator > `typeof`/`instanceof` > user-defined type guard > `as`. |
-| Type guards | Must verify the claim. A lying guard is worse than `as` because the bug hides behind a name that says it's safe. Name them `isX` or `hasX`. |
-| Exhaustiveness | Inline `const _exhaustive: never = x;` in default arms so the compiler errors when a new variant is added. |
-| `satisfies` over `as` | Validates the value without widening literal types. |
-| Boundary validation | Validate where data crosses in; trust types inside. See the [Boundary Discipline](../poteto-mode/references/principles/boundary-discipline.md) principle reference. |
-| Schema-derived types | Reach for `Pick`/`Omit`/`Parameters`/`ReturnType`/`Awaited`/`typeof` before declaring a new interface. |
-| Object args | Pass objects, not positional, so argument order is self-documenting. Skip on hot paths (per-frame render, tokenizers, parsers). |
+- Model meaningful variants with discriminated unions and exhaustiveness checks.
+- Treat external data as `unknown`; validate it once at the boundary.
+- Prefer narrowing, `satisfies`, and schema-derived types over unchecked casts.
+  A justified local cast is acceptable when the runtime invariant is already
+  established.
+- Consider branded primitives when otherwise identical values are easy to mix
+  up at an important boundary. Avoid brands for clear local values.
+- Make type guards verify the claim they advertise.
+- Derive related shapes with `Pick`, `Omit`, `Parameters`, `ReturnType`,
+  `Awaited`, or `typeof` when that prevents drift.
+- Prefer object parameters when several same-shaped positional arguments are
+  confusing; keep simple positional APIs when clearer.
 
-Examples: `references/patterns.md`.
+Use [references/patterns.md](references/patterns.md) for examples. Do not apply
+these patterns mechanically when they add ceremony without removing an invalid
+state or unsafe boundary. Verify with the project’s type checker and relevant
+tests.

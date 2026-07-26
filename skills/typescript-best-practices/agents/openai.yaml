@@ -1,0 +1,4 @@
+interface:
+  display_name: "TypeScript Best Practices"
+  short_description: "Design safer TypeScript types and boundaries"
+  default_prompt: "Use $typescript-best-practices to review this TypeScript API and its boundary safety."

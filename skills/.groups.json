@@ -3,6 +3,7 @@
   "expected_repo_selectors": 23,
   "max_description_characters": 4000,
   "max_skill_description_characters": 140,
+  "max_entrypoint_words": 250,
   "max_router_words": 250,
   "router_skills": [
     "visual-design",
@@ -115,5 +116,23 @@
     "vercel-composition-patterns",
     "vercel-react-best-practices",
     "why"
+  ],
+  "external_skill_references": ["skill-creator"],
+  "forbidden_prompt_terms": [
+    "unslop",
+    "/deslop",
+    "control-ui",
+    "control-cli",
+    "poteto-agent",
+    "generalPurpose",
+    "WebFetch",
+    "agent-transcripts/",
+    "~/.cursor/",
+    "/loop",
+    "babysit",
+    "git reset --hard",
+    "Rationale mode",
+    "Principles section",
+    "principle skill"
   ]
 }

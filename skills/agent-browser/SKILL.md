@@ -1,51 +1,32 @@
 ---
 name: agent-browser
-description: Use for browser automation, web interaction, screenshots, scraping, QA, or Electron app control.
-allowed-tools: Bash(agent-browser:*), Bash(npx agent-browser:*)
-hidden: true
+description: Use for browser automation, screenshots, scraping, web QA, or Electron app control through agent-browser.
 ---
 
-# agent-browser
+# Agent Browser
 
-Fast browser automation CLI for AI agents. Chrome/Chromium via CDP with accessibility-tree snapshots and compact `@eN` element refs.
+Use the installed `agent-browser` CLI. If it is unavailable, report the missing
+prerequisite; do not install global packages without explicit permission.
 
-Install: `npm i -g agent-browser && agent-browser install`
-
-## Start here
-
-This file is a discovery stub, not the usage guide. Before running any `agent-browser` command, load the actual workflow content from the CLI:
+Load version-matched instructions before acting:
 
 ```bash
-agent-browser skills get core             # start here — workflows, common patterns, troubleshooting
-agent-browser skills get core --full      # include full command reference and templates
+agent-browser skills get core
 ```
 
-The CLI serves skill content that always matches the installed version, so instructions never go stale. The content in this stub cannot change between releases, which is why it just points at `skills get core`.
+Use `--full` only when the compact guide lacks a needed command. Load one
+specialized guide when required:
 
-## Specialized skills
+- `electron` for desktop apps;
+- `slack` for Slack automation;
+- `dogfood` for exploratory QA;
+- `derive-client` for HAR-based API clients;
+- `vercel-sandbox` or `agentcore` for those hosted environments.
 
-Load a specialized skill when the task falls outside browser web pages:
+Discover other installed guides with `agent-browser skills list`. Follow the
+loaded guide, preserve session and authentication boundaries, and verify the
+requested result on the visible or returned artifact.
 
-```bash
-agent-browser skills get electron          # Electron desktop apps (VS Code, Slack, Discord, Figma, ...)
-agent-browser skills get slack             # Slack workspace automation
-agent-browser skills get dogfood           # Exploratory testing / QA / bug hunts
-agent-browser skills get derive-client     # Record a HAR, derive a standalone API client for a site
-agent-browser skills get vercel-sandbox    # agent-browser inside Vercel Sandbox microVMs
-agent-browser skills get agentcore         # AWS Bedrock AgentCore cloud browsers
-```
-
-Run `agent-browser skills list` to see everything available on the installed version.
-
-## Why agent-browser
-
-- Fast native Rust CLI, not a Node.js wrapper
-- Works with any AI agent (Cursor, Claude Code, Codex, Continue, Windsurf, etc.)
-- Chrome/Chromium via CDP with no Playwright or Puppeteer dependency
-- Accessibility-tree snapshots with element refs for reliable interaction
-- Sessions, authentication vault, state persistence, video recording
-- Specialized skills for Electron apps, Slack, exploratory testing, cloud providers
-
-## Observability Dashboard
-
-The dashboard runs independently of browser sessions on port 4848 and can also be opened through a proxied or forwarded URL such as `https://dashboard.agent-browser.localhost`. Agents should stay on the dashboard origin: session tabs, status, and stream traffic are proxied internally, so session ports do not need to be exposed.
+If the CLI is absent, stop this workflow, name the missing prerequisite, and
+ask whether the user wants to authorize installation or choose another
+available browser workflow. Do not substitute tools silently.
