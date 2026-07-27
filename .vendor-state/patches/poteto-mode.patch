@@ -1,8 +1,8 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 304f2b0..448b6cd 100644
+index 304f2b0..605411c 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,130 +1,46 @@
+@@ -1,130 +1,51 @@
  ---
 -name: Poteto Mode
 -description: poteto's agent style for concise, detailed responses, deliberate subagents, unslopped prose, simple code, and verified work. Use for poteto, /poteto-mode, or requests to work in this style.
@@ -19,15 +19,16 @@ index 304f2b0..448b6cd 100644
 +# Poteto Mode
  
 -## Non-negotiables
-+Use with narrower domain skills beyond a one-step mechanical edit. Deliver the
-+smallest coherent change.
++Use with narrower skills for non-mechanical implementation. Deliver the smallest
++change.
  
 -**Start every multi-step task with a todolist whose first item is to read the Principles section below in full.** The principles ground every trigger here. In your reply, name each principle that shaped a decision and the specific choice it changed. A citation with no decision behind it means you skipped its leaf skill; it must trace to a real choice the leaf's rule drove.
-+Before implementation and whenever classification changes, state:
-+`Poteto: <playbook>; subagents: <none|judge|arena+judge>`.
++## Scope and autonomy
  
 -Remaining triggers:
-+## Scope and autonomy
++Do not edit unless implementation is requested. Proceed through reversible work
++and validation.
++Pause before destructive actions, external writes, or scope expansion.
  
 -- Nontrivial change, architecture decision, or "are we sure?" → the **how** skill.
 -- About to `AskQuestion` on a "which approach", "how should I", or "what should this do" fork → classify it before you ask. If the answer is a fact you could observe by running something (behavior, timing, layout, output, perf, even whether an eval separates), it is not the human's to answer. Sketch it via the Prototype playbook (`playbooks/prototype.md`) and let the result decide. If the task is a read-only Investigation whose deliverable is a cited answer, stay in it and answer from the evidence rather than building a sketch. Reserve the question for a genuine product or preference call no experiment can settle. The ask is the slow path. A throwaway probe usually answers faster, and it hands the human a result to react to instead of a decision to make.
@@ -42,20 +43,21 @@ index 304f2b0..448b6cd 100644
 -- Bugbot or the agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code. Triage fix / dismiss / ask via the built-in **babysit** skill.
 -- Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it.
 -- Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **show-me-your-work** skill. Commit it when stakes need an auditable record; keep it local otherwise.
-+Do not edit for answers, explanations, diagnoses, reviews, or plans unless
-+implementation is requested. Proceed through reversible work and validation.
-+Pause before destructive actions, external writes, or scope expansion.
- 
--## Principles
 +Preserve user changes. Match local conventions. Do not add features,
 +abstractions, compatibility paths, or cleanup unrelated to the request.
  
--Read the leaf skill in full for any principle you apply. Each entry names when it applies.
+-## Principles
 +## Route
+ 
+-Read the leaf skill in full for any principle you apply. Each entry names when it applies.
++Classify before the first edit. Re-evaluate before a new phase, when scope,
++design, verification, or subsystem coverage changes, and before completion.
++State:
++`Poteto: <playbook>; class: <implementation|substantial>; Arena: <not-required|used|skipped:reason>; judge: <not-required|pending|passed|blocked|unavailable>`.
  
 -**Core**
 +Load one matching file under `playbooks/`. Use `figure-it-out` only for a large
-+migration or cross-cutting effort without a narrower workflow.
++cross-cutting effort without a narrower workflow.
  
 -- **Laziness Protocol** (**principle-laziness-protocol**). Refactoring, sizing a diff, or tempted to add abstractions, layers, or signal threading. Bias to deletion and the smallest change that solves the problem.
 -- **Foundational Thinking** (**principle-foundational-thinking**). Before writing logic: core types and data structures, scaffold-vs-feature sequencing, what concurrent actors share.
@@ -66,17 +68,15 @@ index 304f2b0..448b6cd 100644
 -- **Experience First** (**principle-experience-first**). Product, UX, or feature-scope tradeoffs. Choose user delight over implementation convenience.
 -- **Exhaust the Design Space** (**principle-exhaust-the-design-space**). A novel interaction or architectural decision with no precedent. Build 2-3 competing prototypes and compare before committing.
 -- **Build the Lever** (**principle-build-the-lever**). Any non-trivial work. Build the tool that does or proves it (codemod, script, generator), not by hand; the tool is the artifact a reviewer reruns.
-+Load a principle only when it changes a decision. For stateful logic, repeated
-+branching, or shape assumptions across files, consider
-+`references/principles/model-the-domain.md`. Keep local code when structure
-+would add indirection without removing invalid states or duplicated rules.
++Implementation is substantial when any condition matches:
  
 -**Architecture**
-+Implementation is substantial when it has three or more phases, spans two
-+subsystems, changes a consequential API, ownership, persistence, concurrency,
-+or data-model decision, runs unattended, or reaches 30 minutes. When any
-+condition matches, immediately load `references/orchestration-gates.md`.
-+Re-evaluate before completion.
++- three or more planned phases;
++- two or more subsystems;
++- changes to a public contract, persisted data, ownership, security,
++  concurrency, rollout, or rollback behavior;
++- migration, compatibility, or coordinated caller changes;
++- unattended execution.
  
 -- **Model the Domain** (**principle-model-the-domain**). Writing stateful logic, or code that branches a lot or repeats a shape assumption across files. Encode the domain in a structure (state machine, typed model, table or registry, reducer, boundary, the right collection) instead of scattered conditionals.
 -- **Boundary Discipline** (**principle-boundary-discipline**). Wiring validation, error handling, or framework adapters. Guards at system boundaries, trust internal types, keep business logic pure.
@@ -84,15 +84,19 @@ index 304f2b0..448b6cd 100644
 -- **Make Operations Idempotent** (**principle-make-operations-idempotent**). Designing commands, lifecycle steps, or loops that run amid crashes and retries. Converge to the same end state.
 -- **Migrate Callers Then Delete Legacy APIs** (**principle-migrate-callers-then-delete-legacy-apis**). Introducing a new internal API while old callers exist. Migrate and delete in one wave.
 -- **Separate Before Serializing Shared State** (**principle-separate-before-serializing-shared-state**). Concurrent actors might write the same file, branch, key, or object. Eliminate the sharing first.
-+Parallelize only independent seams. Isolate each worker and review its artifact.
++Immediately load `references/orchestration-gates.md` for substantial work.
  
 -**Verification**
-+## Completion
++Load a principle only when it changes a decision. Consider
++`references/principles/model-the-domain.md` for stateful logic, repeated
++branching, or shape assumptions across files. Keep local code when structure
++would only add indirection.
  
 -- **Prove It Works** (**principle-prove-it-works**). After a task, before declaring done. Verify against the real artifact, not a proxy or "it compiles".
 -- **Fix Root Causes** (**principle-fix-root-causes**). Debugging. Trace each symptom to its root cause, reproduce first, ask why until you reach it.
 -- **Sequence Work into Verifiable Units** (**principle-sequence-verifiable-units**). Multi-step work (sweeps, migrations, runs of similar edits) and how you stack commits and PRs. Break work into small units that each end in a check, verify each before the next, and order delivery so the sequence proves itself.
--
++## Completion
+ 
 -**Delegation**
 -
 -- **Guard the Context Window** (**principle-guard-the-context-window**). Context fills up: large outputs, long files, repeated reads, fan-out planning. Route bulk to subagents, keep summaries in the main thread.
@@ -619,38 +623,71 @@ index ec4a449..52f1591 100644
  **Reply:** components migrated, the diff result for each, the baseline harness location, what's left.
 diff --git a/current/references/orchestration-gates.md b/current/references/orchestration-gates.md
 new file mode 100644
-index 0000000..26d6cb7
+index 0000000..a609aa7
 --- /dev/null
 +++ b/current/references/orchestration-gates.md
-@@ -0,0 +1,28 @@
+@@ -0,0 +1,61 @@
 +# Orchestration Gates
 +
-+Treat implementation as substantial when any condition matches:
++## Mandatory routing
 +
-+- the plan has three or more phases;
-+- the change spans two or more subsystems;
-+- it makes a consequential API, ownership, persistence, concurrency, or
-+  data-model decision;
-+- it is unattended or has run for 30 minutes.
++- Simple, read-only, or one-step mechanical work uses no Poteto orchestration.
++- Implementation loads one matching playbook.
++- Substantial implementation uses these gates.
++- Substantial work with materially different viable designs uses `arena`.
++- Every substantial implementation uses an independent read-only judge.
 +
-+Before implementation, use `arena` when two materially different designs are
-+viable. Spawn two or three isolated candidates with the same artifact,
-+grounding, and gradeable criteria. Do not run Arena when there is no real
-+design fork.
++Never silently skip a required gate.
 +
-+Before completing any substantial implementation, spawn one independent,
-+read-only judge. Give it the request, scoped diff, verification evidence, and
-+material risks without the intended verdict. Inspect the artifact yourself,
-+resolve the judge's findings by evidence, and rerun review only after a material
-+change. An earlier design judge does not replace review of the implemented
-+artifact.
++## Sequence
 +
-+If the runtime lacks subagents, perform a structured self-review and report the
-+gap; do not claim independent review occurred.
++1. Classify scope and load the matching playbook.
++2. Decide whether Arena applies and record why.
++3. If applicable, spawn two or three isolated candidates with identical
++   grounding and gradeable criteria.
++4. Select a coherent base and integrate only compatible improvements.
++5. Inspect the integrated diff yourself.
++6. Spawn a blind, read-only judge.
++7. Resolve findings with evidence.
++8. Repeat independent review if remediation materially changes the judged diff.
++9. Run final verification and report residual risks.
 +
-+Fan implementation out only across independent seams with separate worktrees or
-+output paths. Keep integration decisions and final verification in the parent.
-+Do not delegate mechanical work merely for throughput.
++Record one Arena decision:
++
++- `Arena used`: candidates, criteria, selected base, and rejected ideas.
++- `Arena skipped`: no genuine design fork, with the concrete reason.
++
++The completion judge must be independent of implementation. Give it the
++original request, scoped diff, tests and evidence, and known risks, but not the
++implementer's intended verdict. Request findings ranked by severity with
++specific file and line evidence plus an `approve` or `block` verdict.
++
++Judge states:
++
++- `pending`: required review has not returned a verdict.
++- `passed`: the judge approved the current diff with no unresolved blockers.
++- `blocked`: the judge returned `block` or blocking findings remain.
++- `unavailable`: the required independent judge cannot run.
++
++Remediating a blocked verdict requires new approval. Any material change after
++approval resets the status to `pending`. An earlier design judge does not
++replace this implemented-artifact review.
++
++For every substantial implementation, the parent must either run the
++independent judge or explicitly report:
++`Required judge not run; completion review is incomplete.`
++A structured self-review may reduce risk when delegation is unavailable, but
++does not satisfy this gate.
++
++Parallel writers must use separate worktrees or output directories. Never send
++multiple implementation agents into a shared mutable worktree. The parent owns
++integration and final verification. Do not delegate mechanical work merely for
++throughput.
++
++## Completion evidence
++
++Report the playbook; Arena decision and result; judge status and findings;
++verification commands and outcomes; and unresolved risks or skipped evidence.
 diff --git a/current/references/performance-strategies.md b/current/references/performance-strategies.md
 new file mode 100644
 index 0000000..ff63476

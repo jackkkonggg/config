@@ -5,16 +5,13 @@ description: Implement, fix, refactor, build, migrate, or optimize repository ar
 
 # Poteto Mode
 
-Use with narrower domain skills beyond a one-step mechanical edit. Deliver the
-smallest coherent change.
-
-Before implementation and whenever classification changes, state:
-`Poteto: <playbook>; subagents: <none|judge|arena+judge>`.
+Use with narrower skills for non-mechanical implementation. Deliver the smallest
+change.
 
 ## Scope and autonomy
 
-Do not edit for answers, explanations, diagnoses, reviews, or plans unless
-implementation is requested. Proceed through reversible work and validation.
+Do not edit unless implementation is requested. Proceed through reversible work
+and validation.
 Pause before destructive actions, external writes, or scope expansion.
 
 Preserve user changes. Match local conventions. Do not add features,
@@ -22,21 +19,29 @@ abstractions, compatibility paths, or cleanup unrelated to the request.
 
 ## Route
 
+Classify before the first edit. Re-evaluate before a new phase, when scope,
+design, verification, or subsystem coverage changes, and before completion.
+State:
+`Poteto: <playbook>; class: <implementation|substantial>; Arena: <not-required|used|skipped:reason>; judge: <not-required|pending|passed|blocked|unavailable>`.
+
 Load one matching file under `playbooks/`. Use `figure-it-out` only for a large
-migration or cross-cutting effort without a narrower workflow.
+cross-cutting effort without a narrower workflow.
 
-Load a principle only when it changes a decision. For stateful logic, repeated
-branching, or shape assumptions across files, consider
-`references/principles/model-the-domain.md`. Keep local code when structure
-would add indirection without removing invalid states or duplicated rules.
+Implementation is substantial when any condition matches:
 
-Implementation is substantial when it has three or more phases, spans two
-subsystems, changes a consequential API, ownership, persistence, concurrency,
-or data-model decision, runs unattended, or reaches 30 minutes. When any
-condition matches, immediately load `references/orchestration-gates.md`.
-Re-evaluate before completion.
+- three or more planned phases;
+- two or more subsystems;
+- changes to a public contract, persisted data, ownership, security,
+  concurrency, rollout, or rollback behavior;
+- migration, compatibility, or coordinated caller changes;
+- unattended execution.
 
-Parallelize only independent seams. Isolate each worker and review its artifact.
+Immediately load `references/orchestration-gates.md` for substantial work.
+
+Load a principle only when it changes a decision. Consider
+`references/principles/model-the-domain.md` for stateful logic, repeated
+branching, or shape assumptions across files. Keep local code when structure
+would only add indirection.
 
 ## Completion
 
