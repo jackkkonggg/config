@@ -1,4 +1,4 @@
 interface:
   display_name: "Poteto Mode"
   short_description: "Orchestrate substantial, scoped, verified work"
-  default_prompt: "Use $poteto-mode to complete this nontrivial implementation with exact scope, orchestration gates, and direct verification."
+  default_prompt: "Use $poteto-mode to implement this change with exact scope, selective orchestration, and direct verification."

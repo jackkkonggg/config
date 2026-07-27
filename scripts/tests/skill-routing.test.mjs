@@ -81,7 +81,10 @@ test("explain-codebase exposes How, Why, and Teach without separate selectors", 
 test("Poteto keeps selective domain modeling and evidence-based playbooks", () => {
   const router = read("skills/poteto-mode/SKILL.md");
   assert.match(router, /model-the-domain\.md/);
-  assert.match(router, /nontrivial implementation/i);
+  assert.match(
+    router.split("---", 3)[1],
+    /Implement, fix, refactor, build, migrate, or optimize repository artifacts/i,
+  );
   assert.match(router, /references\/orchestration-gates\.md/);
   assert.match(read("skills/poteto-mode/playbooks/feature.md"), /smallest structure/i);
   assert.match(read("skills/poteto-mode/playbooks/refactoring.md"), /Keep local code/i);
@@ -97,20 +100,51 @@ test("Poteto substantial-work gates restore Arena and judge without mechanical f
   const gates = read("skills/poteto-mode/references/orchestration-gates.md");
   const arena = read("skills/arena/SKILL.md");
 
-  assert.match(bootstrap, /every nontrivial\s+implementation/i);
-  assert.match(bootstrap, /alongside any narrower domain skill/i);
-  assert.match(bootstrap, /one-step mechanical edits, simple answers, and read-only inspection/i);
+  assert.match(bootstrap, /Before the first implementation\s+tool call, load `poteto-mode`/i);
+  assert.match(bootstrap, /implement, fix, refactor, build,\s+migrate, optimize/i);
+  assert.match(bootstrap, /modify a repository artifact/i);
+  assert.match(bootstrap, /except one-step\s+mechanical edits/i);
+  assert.match(bootstrap, /alongside narrower domain skills/i);
+  assert.match(bootstrap, /Skip\s+it for simple answers and read-only inspection/i);
 
-  assert.match(router, /Re-evaluate the gate at planning\s+checkpoints and after 30 minutes/i);
-  assert.match(gates, /three or more phases/i);
-  assert.match(gates, /two or more subsystems/i);
-  assert.match(gates, /consequential API, ownership, persistence, concurrency, or\s+data-model decision/i);
-  assert.match(gates, /spawn one independent,\s+read-only judge/i);
-  assert.match(gates, /Do not run Arena when there is no real\s+design fork/i);
-  assert.match(gates, /Do not delegate mechanical work merely for throughput/i);
+  assert.match(router, /classify before the first edit/i);
+  assert.match(router, /Re-evaluate before a new phase/i);
+  assert.match(router, /Poteto: <playbook>; class: <implementation\|substantial>/i);
+  assert.match(router, /Arena: <not-required\|used\|skipped:reason>/i);
+  assert.match(router, /judge: <not-required\|pending\|passed\|blocked\|unavailable>/i);
+  assert.match(router, /three or more planned phases/i);
+  assert.match(router, /two or more subsystems/i);
+  assert.match(router, /public contract, persisted data, ownership, security/i);
+  assert.match(router, /migration, compatibility, or coordinated caller changes/i);
+  assert.match(router, /unattended execution/i);
+  assert.match(router, /immediately load `references\/orchestration-gates\.md`/i);
+  assert.doesNotMatch(router, /minutes?|elapsed|clock|timestamp/i);
+  assert.match(gates, /Every substantial implementation uses an independent read-only judge/i);
+  assert.match(gates, /Never silently skip a required gate/i);
+  assert.match(gates, /Arena used.*candidates, criteria, selected base, and rejected ideas/is);
+  assert.match(gates, /Arena skipped.*no genuine design fork/is);
+  assert.match(gates, /original request, scoped diff, tests and evidence, and known risks/i);
+  assert.match(gates, /findings ranked by severity with\s+specific file and line evidence/i);
+  assert.match(gates, /plus an `approve` or `block` verdict/i);
+  assert.match(gates, /`pending`: required review has not returned a verdict/i);
+  assert.match(gates, /`passed`: the judge approved the current diff with no unresolved blockers/i);
+  assert.match(gates, /`blocked`: the judge returned `block` or blocking findings remain/i);
+  assert.match(gates, /`unavailable`: the required independent judge cannot run/i);
+  assert.match(gates, /Remediating a blocked verdict requires new approval/i);
+  assert.match(gates, /Any material change after\s+approval resets the status to `pending`/i);
+  assert.match(gates, /Repeat independent review if remediation materially changes the judged diff/i);
+  assert.match(gates, /Required judge not run; completion review is incomplete/i);
+  assert.match(gates, /does not satisfy this gate/i);
+  assert.match(gates, /separate worktrees or output directories/i);
+  assert.match(gates, /Never send\s+multiple implementation agents into a shared mutable worktree/i);
+  assert.match(gates, /parent owns\s+integration and final verification/i);
+  assert.match(gates, /Do not delegate mechanical work merely for\s+throughput/i);
+  assert.match(gates, /Report the playbook; Arena decision and result; judge status and findings/i);
 
   assert.match(arena, /spawn one blind,\s+read-only cross-judge/i);
-  assert.match(arena, /Record your scores before reading its\s+verdict/i);
+  assert.match(arena, /Record your\s+scores before reading its verdict/i);
+  assert.doesNotMatch(arena, /cross-judge when available/i);
+  assert.match(arena, /report that gap instead of silently skipping review/i);
 });
 
 test("negative routes do not add unrelated unconditional dependencies", () => {

@@ -1,43 +1,51 @@
 ---
 name: poteto-mode
-description: Use for nontrivial implementation, multi-step fixes, refactors, features, scoped autonomy, deliberate delegation, and verification.
+description: Implement, fix, refactor, build, migrate, or optimize repository artifacts with scoped autonomy, delegation, and verification.
 ---
 
 # Poteto Mode
 
-Use alongside narrower domain skills for nontrivial implementation. Deliver the
-smallest coherent change. Skip one-step edits, simple answers, and read-only
-inspection.
+Use with narrower skills for non-mechanical implementation. Deliver the smallest
+change.
 
 ## Scope and autonomy
 
-Do not change the artifact for answers, explanations, diagnoses, reviews, or
-plans unless implementation is also requested. Proceed through reversible
-local work and relevant validation. Pause before destructive actions, external
-writes, or material scope expansion.
+Do not edit unless implementation is requested. Proceed through reversible work
+and validation.
+Pause before destructive actions, external writes, or scope expansion.
 
 Preserve user changes. Match local conventions. Do not add features,
 abstractions, compatibility paths, or cleanup unrelated to the request.
 
 ## Route
 
-For multi-step work, load one matching file under `playbooks/`. Use
-`figure-it-out` only for a large migration or cross-cutting effort without a
-narrower workflow.
+Classify before the first edit. Re-evaluate before a new phase, when scope,
+design, verification, or subsystem coverage changes, and before completion.
+State:
+`Poteto: <playbook>; class: <implementation|substantial>; Arena: <not-required|used|skipped:reason>; judge: <not-required|pending|passed|blocked|unavailable>`.
 
-Load a principle only when it changes a decision. For stateful logic, repeated
-branching, or shape assumptions across files, consider
-`references/principles/model-the-domain.md`. Keep local code when structure
-would add indirection without removing invalid states or duplicated rules.
+Load one matching file under `playbooks/`. Use `figure-it-out` only for a large
+cross-cutting effort without a narrower workflow.
 
-For substantial implementation, load
-`references/orchestration-gates.md`. Re-evaluate the gate at planning
-checkpoints and after 30 minutes. Use parallel work only across independent
-seams; keep each worker isolated and review its artifact before accepting it.
+Implementation is substantial when any condition matches:
+
+- three or more planned phases;
+- two or more subsystems;
+- changes to a public contract, persisted data, ownership, security,
+  concurrency, rollout, or rollback behavior;
+- migration, compatibility, or coordinated caller changes;
+- unattended execution.
+
+Immediately load `references/orchestration-gates.md` for substantial work.
+
+Load a principle only when it changes a decision. Consider
+`references/principles/model-the-domain.md` for stateful logic, repeated
+branching, or shape assumptions across files. Keep local code when structure
+would only add indirection.
 
 ## Completion
 
-Verify the real artifact at the cheapest level that proves the requested
+Verify the artifact at the cheapest level that proves the requested
 behavior. Report the result, material tradeoffs, validation run, and remaining
 gaps. Do not claim completion from a self-report or compilation alone when a
 more direct check is available.

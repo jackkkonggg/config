@@ -1,8 +1,8 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 88ec51b..cf94654 100644
+index 88ec51b..fbea7f8 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,71 +1,26 @@
+@@ -1,71 +1,27 @@
  ---
  name: arena
 -description: "Spawn N parallel candidates at the same task, pick a base, graft the strongest parts of the losers into it. Use for /arena, 'arena this', 'throw it in the arena', or when one attempt at a non-trivial artifact would lock in the wrong shape."
@@ -86,8 +86,9 @@ index 88ec51b..cf94654 100644
 +   as a dropout rather than retried automatically.
 +5. Read every result end to end and score it criterion by criterion. For
 +   substantial implementation or consequential design, spawn one blind,
-+   read-only cross-judge when available. Record your scores before reading its
-+   verdict, then compare the two assessments.
++   read-only cross-judge. Agent configuration selects the runner. Record your
++   scores before reading its verdict, then compare the two assessments. If the
++   runtime lacks subagents, report that gap instead of silently skipping review.
 +6. Choose the most maintainable base. Graft only improvements that preserve its
 +   coherence; do not average incompatible designs.
 +7. Verify the synthesized artifact against the original task and record the
@@ -96,11 +97,11 @@ index 88ec51b..cf94654 100644
 +Parallel candidates must never write to shared mutable state.
 diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
 new file mode 100644
-index 0000000..bd3482d
+index 0000000..218d2a7
 --- /dev/null
 +++ b/current/agents/openai.yaml
 @@ -0,0 +1,4 @@
 +interface:
 +  display_name: "Arena"
 +  short_description: "Compare independent candidates and synthesize"
-+  default_prompt: "Use $arena to compare isolated candidates, consult a blind judge when required, and synthesize the strongest result."
++  default_prompt: "Use $arena to compare isolated candidates, run the required blind judge, and synthesize the strongest result."

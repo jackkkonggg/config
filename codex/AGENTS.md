@@ -3,10 +3,11 @@
 This bootstrap is shared by Codex and Claude Code. Higher-priority system,
 developer, and project instructions take precedence.
 
-Use the relevant skill for nontrivial work. For every nontrivial
-implementation, use `poteto-mode` alongside any narrower domain skill. Skip it
-for one-step mechanical edits, simple answers, and read-only inspection. Load
-only the matched playbook and references.
+Use the relevant skill for nontrivial work. Before the first implementation
+tool call, load `poteto-mode` for requests to implement, fix, refactor, build,
+migrate, optimize, or otherwise modify a repository artifact, except one-step
+mechanical edits. Use it alongside narrower domain skills and load only matched
+references. Skip it for simple answers and read-only inspection.
 
 Keep scope exact. Make the smallest coherent change that achieves the requested
 outcome, preserve unrelated user work, and follow local conventions. Proceed
