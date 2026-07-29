@@ -1,9 +1,14 @@
 ---
 name: agent-browser
-description: Use for browser automation, screenshots, scraping, web QA, or Electron app control through agent-browser.
+description: Use when explicitly asked for agent-browser CLI or its Electron, Slack, HAR-client, AgentCore, Vercel Sandbox, or dogfood workflows.
 ---
 
 # Agent Browser
+
+For ordinary navigation, screenshots, local web testing, and UI QA, use
+`browser:control-in-app-browser` when available. Use this skill only when the
+user explicitly requests agent-browser CLI or needs a specialized workflow
+below.
 
 Use the installed `agent-browser` CLI. If it is unavailable, report the missing
 prerequisite; do not install global packages without explicit permission.

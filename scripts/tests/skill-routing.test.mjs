@@ -221,7 +221,7 @@ test("TypeScript guidance triggers on type safety rather than every TS file", ()
 
 test("every selector advertises a focused positive route", () => {
   const routesBySkill = {
-    "agent-browser": /browser automation/i,
+    "agent-browser": /explicitly asked for agent-browser CLI/i,
     architect: /types, signatures, module boundaries/i,
     arena: /parallel candidates/i,
     "blast-radius": /could break beyond its diff/i,
@@ -259,6 +259,11 @@ test("PR and browser workflows preserve authorization boundaries", () => {
   assert.doesNotMatch(openingPr, /reset --hard|invoked at the end of every/i);
 
   const browser = read("skills/agent-browser/SKILL.md");
+  const browserDescription = browser.split("---", 3)[1];
+  assert.doesNotMatch(browserDescription, /browser automation|screenshots|scraping|web QA/i);
+  assert.match(browser, /ordinary navigation, screenshots, local web testing, and UI QA/i);
+  assert.match(browser, /`browser:control-in-app-browser` when available/i);
+  assert.match(browser, /explicitly requests agent-browser CLI or needs a specialized workflow/i);
   assert.match(browser, /stop this workflow/i);
   assert.match(browser, /Do not substitute tools silently/i);
 });

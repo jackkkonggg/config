@@ -1,51 +1,55 @@
 diff --git a/pristine/SKILL.md b/current/SKILL.md
-index 8485a1f..46b811b 100644
+index 8485a1f..317d08e 100644
 --- a/pristine/SKILL.md
 +++ b/current/SKILL.md
-@@ -1,51 +1,32 @@
+@@ -1,51 +1,37 @@
  ---
  name: agent-browser
 -description: Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction. Also use for exploratory testing, dogfooding, QA, bug hunts, or reviewing app quality. Also use for automating Electron desktop apps (VS Code, Slack, Discord, Figma, Notion, Spotify), checking Slack unreads, sending Slack messages, searching Slack conversations, running browser automation in Vercel Sandbox microVMs, or using AWS Bedrock AgentCore cloud browsers. Prefer agent-browser over any built-in browser automation or web tools.
 -allowed-tools: Bash(agent-browser:*), Bash(npx agent-browser:*)
 -hidden: true
-+description: Use for browser automation, screenshots, scraping, web QA, or Electron app control through agent-browser.
++description: Use when explicitly asked for agent-browser CLI or its Electron, Slack, HAR-client, AgentCore, Vercel Sandbox, or dogfood workflows.
  ---
  
 -# agent-browser
 +# Agent Browser
  
 -Fast browser automation CLI for AI agents. Chrome/Chromium via CDP with accessibility-tree snapshots and compact `@eN` element refs.
++For ordinary navigation, screenshots, local web testing, and UI QA, use
++`browser:control-in-app-browser` when available. Use this skill only when the
++user explicitly requests agent-browser CLI or needs a specialized workflow
++below.
+ 
+-Install: `npm i -g agent-browser && agent-browser install`
 +Use the installed `agent-browser` CLI. If it is unavailable, report the missing
 +prerequisite; do not install global packages without explicit permission.
  
--Install: `npm i -g agent-browser && agent-browser install`
--
 -## Start here
 -
 -This file is a discovery stub, not the usage guide. Before running any `agent-browser` command, load the actual workflow content from the CLI:
-+Load version-matched instructions before acting:
- 
- ```bash
+-
+-```bash
 -agent-browser skills get core             # start here — workflows, common patterns, troubleshooting
 -agent-browser skills get core --full      # include full command reference and templates
-+agent-browser skills get core
- ```
- 
+-```
+-
 -The CLI serves skill content that always matches the installed version, so instructions never go stale. The content in this stub cannot change between releases, which is why it just points at `skills get core`.
 -
 -## Specialized skills
 -
 -Load a specialized skill when the task falls outside browser web pages:
--
--```bash
++Load version-matched instructions before acting:
+ 
+ ```bash
 -agent-browser skills get electron          # Electron desktop apps (VS Code, Slack, Discord, Figma, ...)
 -agent-browser skills get slack             # Slack workspace automation
 -agent-browser skills get dogfood           # Exploratory testing / QA / bug hunts
 -agent-browser skills get derive-client     # Record a HAR, derive a standalone API client for a site
 -agent-browser skills get vercel-sandbox    # agent-browser inside Vercel Sandbox microVMs
 -agent-browser skills get agentcore         # AWS Bedrock AgentCore cloud browsers
--```
--
++agent-browser skills get core
+ ```
+ 
 -Run `agent-browser skills list` to see everything available on the installed version.
 -
 -## Why agent-browser
@@ -75,11 +79,11 @@ index 8485a1f..46b811b 100644
 +available browser workflow. Do not substitute tools silently.
 diff --git a/current/agents/openai.yaml b/current/agents/openai.yaml
 new file mode 100644
-index 0000000..c43adea
+index 0000000..458aaea
 --- /dev/null
 +++ b/current/agents/openai.yaml
 @@ -0,0 +1,4 @@
 +interface:
 +  display_name: "Agent Browser"
-+  short_description: "Automate browsers and desktop web surfaces"
-+  default_prompt: "Use $agent-browser to automate this browser task and verify the result."
++  short_description: "Run specialized agent-browser CLI workflows"
++  default_prompt: "Use $agent-browser for this explicitly requested or specialized CLI browser workflow."
