@@ -159,7 +159,8 @@ test("every repo skill has a lean entrypoint and valid OpenAI metadata", () => {
   const skillNames = readdirSync(skillsRoot).filter((name) =>
     existsSync(join(skillsRoot, name, "SKILL.md")),
   );
-  assert.equal(skillNames.length, 23);
+  const groups = JSON.parse(read("skills/.groups.json"));
+  assert.equal(skillNames.length, groups.expected_repo_selectors);
 
   for (const name of skillNames) {
     const entrypoint = read(`skills/${name}/SKILL.md`);
