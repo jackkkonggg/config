@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "expected_repo_selectors": 23,
+  "expected_repo_selectors": 24,
   "max_description_characters": 4000,
   "max_skill_description_characters": 140,
   "max_entrypoint_words": 250,
@@ -56,7 +56,7 @@
     {
       "id": "language",
       "label": "Language",
-      "skills": ["typescript-best-practices"]
+      "skills": ["typescript-best-practices", "rust-engineering"]
     },
     {
       "id": "agent-workflows",

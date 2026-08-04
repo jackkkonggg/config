@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rust Engineering"
+  short_description: "Build and review safe, idiomatic Rust"
+  default_prompt: "Use $rust-engineering to implement this Rust change safely and idiomatically."
